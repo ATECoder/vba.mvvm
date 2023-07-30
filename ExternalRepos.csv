@@ -1,0 +1,2 @@
+RemoteRepoName,LocalRepoName,RemoteRepoURL,TargetDirectory
+vba.mvvm,mvvm,https://github.com/ATECoder/vba.mvvm.git,lib\vba\core
