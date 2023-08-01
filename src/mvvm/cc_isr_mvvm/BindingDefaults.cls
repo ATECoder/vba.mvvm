@@ -64,8 +64,6 @@ Public Property Let MarginDefault(ByVal a_value As Integer)
     This.MarginDefault = a_value
 End Property
 
-
-
 ' Private Const Default TargetControlProperty As String = "Caption"
 
 Public Property Get CaptionDefaultProperty() As String

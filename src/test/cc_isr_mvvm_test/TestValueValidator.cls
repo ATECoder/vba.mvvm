@@ -7,9 +7,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder Tests.Stubs
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Value validator tester. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Implements IValueValidator
+Implements cc_isr_MVVM.IValueValidator
 Implements ITestStub
 
 Private Type TState
@@ -20,7 +22,7 @@ End Type
 
 Private This As TState
 
-'@Description "Gets/sets a value that determines whether this validator evaluates to True or False."
+''' <summary>   Gets/sets a value that determines whether this validator evaluates to True or False. </summary>
 Public Property Get IsValid() As Boolean
 Attribute IsValid.VB_Description = "Gets/sets a value that determines whether this validator evaluates to True or False."
     IsValid = This.IsValid
@@ -30,7 +32,7 @@ Public Property Let IsValid(ByVal a_value As Boolean)
     This.IsValid = a_value
 End Property
 
-'@Description "Gets/sets the validation error message for this validator."
+''' <summary>   Gets/sets the validation error message for this validator. </summary>
 Public Property Get Message() As String
 Attribute Message.VB_Description = "Gets/sets the validation error message for this validator."
     Message = This.Message
@@ -44,7 +46,8 @@ Private Sub Class_Initialize()
     Set This.Stub = New TestStubBase
 End Sub
 
-Private Function IValueValidator_IsValid(ByVal Value As Variant, ByVal Source As IBindingPath, ByVal Target As IBindingPath) As Boolean
+Private Function IValueValidator_IsValid(ByVal a_value As Variant, ByVal a_source As cc_isr_MVVM.IBindingPath, _
+        ByVal a_target As cc_isr_MVVM.IBindingPath) As Boolean
     This.Stub.OnInvoke "IsValid"
     IValueValidator_IsValid = This.IsValid
 End Function
@@ -67,6 +70,6 @@ Private Function ITestStub_Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal
     ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
 End Function
 
-Private Property Get IValueValidator_Trigger() As BindingUpdateSourceTrigger
+Private Property Get IValueValidator_Trigger() As cc_isr_MVVM.BindingUpdateSourceTrigger
     IValueValidator_Trigger = OnExit
 End Property

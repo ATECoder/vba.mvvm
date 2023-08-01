@@ -8,11 +8,12 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "A factory that creates TestPropertyChangeNotifier instances."
-'@Folder Tests.Stubs
-'@ModuleDescription "A factory that creates TestPropertyChangeNotifier instances."
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   A factory that creates TestPropertyChangeNotifier instances. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Implements INotifierFactory
+Implements cc_isr_MVVM.INotifierFactory
 
-Private Function INotifierFactory_Create() As INotifyPropertyChanged
+Private Function INotifierFactory_Create() As cc_isr_MVVM.INotifyPropertyChanged
     Set INotifierFactory_Create = New TestPropertyChangeNotifier
 End Function

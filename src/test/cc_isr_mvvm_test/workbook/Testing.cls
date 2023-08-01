@@ -7,6 +7,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Testing sheet. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 
 ''' <summary>   Executes the <see cref="WorkbookUtilitiesTests"/>. </summary>

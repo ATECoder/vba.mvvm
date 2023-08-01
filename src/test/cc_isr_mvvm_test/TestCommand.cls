@@ -8,10 +8,11 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "An object that can stub an ICommand dependency in a unit test."
-'@Folder Tests.Stubs
-'@ModuleDescription "An object that can stub an ICommand dependency in a unit test."
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   An object that can stub an ICommand dependency in a unit test. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Implements ICommand
+Implements cc_isr_MVVM.ICommand
 Implements ITestStub
 
 Private Const CanExecuteDefaultValue As Boolean = True
@@ -23,7 +24,7 @@ End Type
 
 Private This As TState
 
-'@Description "Controls the return value of ICommand.CanExecute. True by default."
+''' <summary>   Controls the return value of ICommand.CanExecute. True by default. </summary>
 Public Property Get CanExecute() As Boolean
 Attribute CanExecute.VB_Description = "Controls the return value of ICommand.CanExecute. True by default."
     CanExecute = This.CanExecute
@@ -38,7 +39,7 @@ Private Sub Class_Initialize()
     This.CanExecute = CanExecuteDefaultValue
 End Sub
 
-Private Function ICommand_CanExecute(ByVal Context As Object) As Boolean
+Private Function ICommand_CanExecute(ByVal a_context As Object) As Boolean
     This.Stub.OnInvoke "CanExecute"
     ICommand_CanExecute = This.CanExecute
 End Function
@@ -48,7 +49,7 @@ Private Property Get ICommand_Description() As String
     ICommand_Description = "A " & TypeName(Me) & " instance tracks the number of times its members are invoked."
 End Property
 
-Private Sub ICommand_Execute(ByVal Context As Object)
+Private Sub ICommand_Execute(ByVal a_context As Object)
     This.Stub.OnInvoke "Execute"
 End Sub
 

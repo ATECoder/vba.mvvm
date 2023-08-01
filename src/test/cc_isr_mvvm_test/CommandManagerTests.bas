@@ -1,6 +1,7 @@
 Attribute VB_Name = "CommandManagerTests"
-'@Folder Tests.Bindings
-'@TestModule
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Unit tests: Command manager. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 ' Option Private Module
 
@@ -11,7 +12,7 @@ Private Type ThisData
     ExpectedErrorCaught As Boolean
     
     ConcreteSUT As CommandManager
-    AbstractSUT As ICommandManager
+    AbstractSUT As cc_isr_MVVM.ICommandManager
     
     BindingContext As TestBindingObject
     Command As TestCommand
@@ -32,7 +33,7 @@ End Sub
 
 ''' <summary>   Runs before each test. </summary>
 Public Sub BeforeEach()
-    Set This.ConcreteSUT = cc_isr_MVVM.Constructor.CreateCommandManager
+    Set This.ConcreteSUT = cc_isr_MVVM.Factory.NewCommandManager
     Set This.AbstractSUT = This.ConcreteSUT
     Set This.BindingContext = New TestBindingObject
     Set This.Command = New TestCommand
@@ -76,15 +77,15 @@ End Function
 ''' <returns>   <see cref="ICommandBinding"/>. </returns>
 Private Function DefaultTargetCommandBindingFor(ByVal a_progID As String, ByRef a_target As Object) As ICommandBinding
 
-    Dim outcome As cc_isr_Test_Fx.Assert
+    Dim p_outcome As cc_isr_Test_Fx.Assert
 
     Set a_target = VBA.CreateObject(a_progID)
     
-    Set outcome = This.AbstractSUT.BindCommand(This.BindingContext, a_target, This.Command)
+    Set p_outcome = This.AbstractSUT.BindCommand(This.BindingContext, a_target, This.Command)
     
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
     
-    Set DefaultTargetCommandBindingFor = outcome
+    Set DefaultTargetCommandBindingFor = p_outcome
     
     
 End Function
@@ -98,20 +99,20 @@ Private Function AssertBindCommandBindsItem(ByVal a_progID As String) As cc_isr_
     Dim p_commandBinding As ICommandBinding
     p_commandBinding = DefaultTargetCommandBindingFor(a_progID, p_target)
     
-    Dim outcome As cc_isr_Test_Fx.Assert
-    outcome = This.Assert.IsTrue(p_commandBinding.Command Is This.Command, _
+    Dim p_outcome As cc_isr_Test_Fx.Assert
+    p_outcome = This.Assert.IsTrue(p_commandBinding.Command Is This.Command, _
             "The bound command should be the same as the expected command.")
             
-    If outcome.AssertSuccessful Then
+    If p_outcome.AssertSuccessful Then
     
-        outcome = This.Assert.IsTrue(p_commandBinding.Target Is p_target, _
+        p_outcome = This.Assert.IsTrue(p_commandBinding.Target Is p_target, _
                 "The bound object should be the same as the expected object.")
     
     End If
     
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
     
-    Set AssertBindCommandBindsItem = outcome
+    Set AssertBindCommandBindsItem = p_outcome
 
 End Function
 
@@ -119,26 +120,26 @@ End Function
 ''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
 Public Function TestBindCommandBindsCommandButton() As cc_isr_Test_Fx.Assert
     
-    Dim outcome As cc_isr_Test_Fx.Assert
+    Dim p_outcome As cc_isr_Test_Fx.Assert
     
-    Set outcome = AssertBindCommandBindsItem(cc_isr_MVVM.FormsProgID.CommandButtonProgId)
+    Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.CommandButtonProgId)
 
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
 
-    Set TestBindCommandBindsCommandButton = outcome
+    Set TestBindCommandBindsCommandButton = p_outcome
     
 End Function
 
 ''' <summary>   [Unit Test] Tests binding a command to a check box control. </summary>
 Public Function TestBindCommandBindsCheckBox() As cc_isr_Test_Fx.Assert
     
-    Dim outcome As cc_isr_Test_Fx.Assert
+    Dim p_outcome As cc_isr_Test_Fx.Assert
     
-    Set outcome = AssertBindCommandBindsItem(cc_isr_MVVM.FormsProgID.CheckBoxProgId)
+    Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.CheckBoxProgId)
 
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
 
-    Set TestBindCommandBindsCommandButton = outcome
+    Set TestBindCommandBindsCommandButton = p_outcome
     
 End Function
 
@@ -146,13 +147,13 @@ End Function
 ''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
 Public Function TestBindCommandBindsImage() As cc_isr_Test_Fx.Assert
     
-    Dim outcome As cc_isr_Test_Fx.Assert
+    Dim p_outcome As cc_isr_Test_Fx.Assert
     
-    Set outcome = AssertBindCommandBindsItem(cc_isr_MVVM.FormsProgID.ImageProgId)
+    Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.ImageProgId)
 
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
 
-    Set TestBindCommandBindsCommandButton = outcome
+    Set TestBindCommandBindsCommandButton = p_outcome
     
 End Function
 
@@ -160,13 +161,13 @@ End Function
 ''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
 Public Function TestBindCommandBindsLabel() As cc_isr_Test_Fx.Assert
     
-    Dim outcome As cc_isr_Test_Fx.Assert
+    Dim p_outcome As cc_isr_Test_Fx.Assert
 
-    Set outcome = AssertBindCommandBindsItem(cc_isr_MVVM.FormsProgID.LabelProgId)
+    Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.LabelProgId)
 
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
 
-    Set TestBindCommandBindsCommandButton = outcome
+    Set TestBindCommandBindsCommandButton = p_outcome
 
 End Function
 

@@ -8,13 +8,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "An object that can stub a binding source or target for unit tests."
-'@Folder Tests.Stubs
-'@ModuleDescription "An object that can stub a binding source or target for unit tests."
-'@PredeclaredId
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   An object that can stub a binding source or target for unit tests. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements ITestStub
-Implements INotifyPropertyChanged
-Implements IHandlePropertyChanged ' intercept events handled in PropertyBindingBase
+Implements cc_isr_MVVM.INotifyPropertyChanged
+Implements cc_isr_MVVM.IHandlePropertyChanged ' intercept events handled in PropertyBindingBase
 
 Private Type TState
     Stub As TestStubBase
@@ -25,13 +25,6 @@ Private Type TState
 End Type
 
 Private This As TState
-
-Public Function Create() As TestBindingObject
-    GuardClauses.GuardNonDefaultInstance Me, TestBindingObject, TypeName(Me)
-    Dim Result As TestBindingObject
-    Set Result = New TestBindingObject
-    Set Create = Result
-End Function
 
 Public Property Get TestStringProperty() As String
     This.Stub.OnInvoke "TestStringProperty.Get"
@@ -72,10 +65,10 @@ Public Property Set TestBindingObjectProperty(ByVal a_value As TestBindingObject
     End If
 End Property
 
-Private Sub OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    Dim Handler As IHandlePropertyChanged
+Private Sub OnPropertyChanged(ByVal a_source As Object, ByVal a_propertyName As String)
+    Dim Handler As cc_isr_MVVM.IHandlePropertyChanged
     For Each Handler In This.Handlers
-        Handler.HandlePropertyChanged Source, PropertyName
+        Handler.HandlePropertyChanged a_source, a_propertyName
     Next
 End Sub
 
@@ -84,16 +77,16 @@ Private Sub Class_Initialize()
     Set This.Handlers = New Collection
 End Sub
 
-Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    OnPropertyChanged Source, PropertyName
+Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal a_source As Object, ByVal a_propertyName As String)
+    OnPropertyChanged a_source, a_propertyName
 End Sub
 
-Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
-    OnPropertyChanged Source, PropertyName
+Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal a_source As Object, ByVal a_propertyName As String)
+    OnPropertyChanged a_source, a_propertyName
 End Sub
 
-Private Sub INotifyPropertyChanged_RegisterHandler(ByVal Handler As IHandlePropertyChanged)
-    This.Handlers.Add Handler
+Private Sub INotifyPropertyChanged_RegisterHandler(ByVal a_handler As cc_isr_MVVM.IHandlePropertyChanged)
+    This.Handlers.Add a_handler
 End Sub
 
 Private Property Get ITestStub_MemberInvokes(ByVal a_memberName As String) As Long

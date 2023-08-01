@@ -1,6 +1,7 @@
 Attribute VB_Name = "ValidationManagerTests"
-'@Folder Tests
-'@TestModule
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Unit tests: Validation manager. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Option Private Module
 
@@ -10,16 +11,16 @@ Private Type ThisData
     ExpectedErrSource As String
     ExpectedErrorCaught As Boolean
     
-    Validator As IValueValidator
+    Validator As cc_isr_MVVM.IValueValidator
     
     ConcreteSUT As ValidationManager
     NotifyValidationErrorSUT As INotifyValidationError
     HandleValidationErrorSUT As IHandleValidationError
     
-    BindingManager As IBindingManager
+    BindingManager As cc_isr_MVVM.IBindingManager
     BindingManagerStub As ITestStub
     
-    CommandManager As ICommandManager
+    CommandManager As cc_isr_MVVM.ICommandManager
     CommandManagerStub As ITestStub
     
     BindingSource As TestBindingObject
@@ -47,12 +48,15 @@ End Sub
 
 ''' <summary>   Runs before each test. </summary>
 Private Sub BeforeEach()
-    Set This.ConcreteSUT = ValidationManager.Create(New TestNotifierFactory)
+    
+    Dim p_bindingSource As New TestBindingObject
+    
+    Set This.ConcreteSUT = cc_isr_MVVM.Factory.CreateValidationManager(New TestNotifierFactory)
     Set This.NotifyValidationErrorSUT = This.ConcreteSUT
     Set This.HandleValidationErrorSUT = This.ConcreteSUT
-    Set This.BindingSource = TestBindingObject.Create(This.ConcreteSUT)
+    Set This.BindingSource = New TestBindingObject ' TestBindingObject.Create(This.ConcreteSUT)
     Set This.BindingSourceStub = This.BindingSource
-    Set This.BindingTarget = TestBindingObject.Create(This.ConcreteSUT)
+    Set This.BindingTarget = New TestBindingObject ' TestBindingObject.Create(This.ConcreteSUT)
     Set This.BindingTargetStub = This.BindingTarget
     Set This.Command = New TestCommand
     Set This.CommandManager = New TestCommandManager

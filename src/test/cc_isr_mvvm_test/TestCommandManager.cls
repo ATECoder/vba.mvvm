@@ -7,9 +7,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder Tests.Stubs
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Command manager tester. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Implements ICommandManager
+Implements cc_isr_MVVM.ICommandManager
 Implements ITestStub
 
 Private Type TState
@@ -22,11 +24,12 @@ Private Sub Class_Initialize()
     Set This.Stub = New TestStubBase
 End Sub
 
-Private Function ICommandManager_BindCommand(ByVal BindingContext As Object, ByVal Target As Object, ByVal Command As ICommand) As ICommandBinding
+Private Function ICommandManager_BindCommand(ByVal a_bindingContext As Object, ByVal a_target As Object, _
+        ByVal a_command As cc_isr_MVVM.ICommand) As cc_isr_MVVM.ICommandBinding
     This.Stub.OnInvoke "BindCommand"
 End Function
 
-Private Sub ICommandManager_EvaluateCanExecute(ByVal BindingContext As Object)
+Private Sub ICommandManager_EvaluateCanExecute(ByVal a_bindingContext As Object)
     This.Stub.OnInvoke "EvaluateCanExecute"
 End Sub
 

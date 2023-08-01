@@ -1,4 +1,7 @@
 Attribute VB_Name = "ConstructionTests"
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Unit tests: Construction. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 
 Private Type ThisData
@@ -35,22 +38,22 @@ End Function
 ''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
 Public Function TestAcceptCommandShouldConstruct() As cc_isr_Test_Fx.Assert
 
-    Dim outcome As cc_isr_Test_Fx.Assert
+    Dim p_outcome As cc_isr_Test_Fx.Assert
 
     On Error Resume Next
 
     Dim p_result As cc_isr_MVVM.AcceptCommand
     
-    Set p_result = cc_isr_MVVM.Constructor.NewAcceptCommand()
+    Set p_result = cc_isr_MVVM.Factory.NewAcceptCommand()
     
-    Set outcome = This.Assert.AreEqual(0, Err.Number, "Error number " & CStr(Err.Number) & " should be 0.")
+    Set p_outcome = This.Assert.AreEqual(0, Err.Number, "Error number " & CStr(Err.Number) & " should be 0.")
     
-    If outcome.AssertSuccessful Then _
-        Set outcome = This.Assert.IsNotNull(p_result, TypeName(p_result) & " should not be null.")
+    If p_outcome.AssertSuccessful Then _
+        Set p_outcome = This.Assert.IsNotNull(p_result, TypeName(p_result) & " should not be null.")
     
-    If Not outcome.AssertSuccessful Then Debug.Print outcome.AssertMessage
+    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
 
-    Set TestAcceptCommandShouldConstruct = outcome
+    Set TestAcceptCommandShouldConstruct = p_outcome
     
     On Error GoTo 0
     

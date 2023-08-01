@@ -7,24 +7,26 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder Tests.Stubs
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Binding manager tester. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements ITestStub
-Implements IBindingManager
-Implements IHandlePropertyChanged
+Implements cc_isr_MVVM.IBindingManager
+Implements cc_isr_MVVM.IHandlePropertyChanged
 
 Private Type TState
     Stub As TestStubBase
-    Context As IAppContext
+    Context As cc_isr_MVVM.IAppContext
     PropertyBindings As Collection
-    NotifierFactory As INotifierFactory
-    StringFormatterFactory As IStringFormatterFactory
+    NotifierFactory As cc_isr_MVVM.INotifierFactory
+    StringFormatterFactory As cc_isr_MVVM.IStringFormatterFactory
     DebugOutput As Boolean
 End Type
 
 Private This As TState
 
-Public Property Get NotifierFactory() As INotifierFactory
+Public Property Get NotifierFactory() As cc_isr_MVVM.INotifierFactory
     Set NotifierFactory = This.NotifierFactory
 End Property
 
@@ -35,35 +37,43 @@ Private Sub Class_Initialize()
     Set This.PropertyBindings = New Collection
 End Sub
 
-Private Sub IBindingManager_Apply(ByVal Source As Object)
+Private Sub IBindingManager_Apply(ByVal a_source As Object)
     This.Stub.OnInvoke "Apply"
 End Sub
 
-'Private Function IBindingManager_BindPropertyPath(ByVal Source As Object, ByVal PropertyPath As String, ByVal Target As Object, _
-Optional ByVal TargetProperty As String, _
-Optional ByVal Mode As BindingMode = 0&, _
-Optional ByVal UpdateTrigger As BindingUpdateSourceTrigger = 1&, _
-Optional ByVal Validator As IValueValidator, _
-Optional ByVal Converter As IValueConverter, _
-Optional ByVal FormatString As String, _
-Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
-'VF: changed default UpdateTrigger due to revised enum BindingUpdateSourceTrigger
-Private Function IBindingManager_BindPropertyPath(ByVal Source As Object, ByVal PropertyPath As String, ByVal Target As Object, _
-Optional ByVal TargetProperty As String, _
-Optional ByVal Mode As BindingMode = 0&, _
-Optional ByVal UpdateTrigger As BindingUpdateSourceTrigger = 2&, _
-Optional ByVal Validator As IValueValidator, _
-Optional ByVal Converter As IValueConverter, _
-Optional ByVal FormatString As String, _
-Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
+'Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVal a_propertyPath As String, ByVal a_target As Object, _
+Optional ByVal a_targetProperty As String, _
+Optional ByVal a_mode As cc_isr_MVVM.BindingMode = 0&, _
+Optional ByVal a_updateTrigger As cc_isr_MVVM.BindingUpdateSourceTrigger = 1&, _
+Optional ByVal a_validator As cc_isr_MVVM.IValueValidator, _
+Optional ByVal a_converter As cc_isr_MVVM.IValueConverter, _
+Optional ByVal a_formatString As String, _
+Optional ByVal a_validationAdorner As cc_isr_MVVM.IDynamicAdorner) As IPropertyBinding
+'VF: changed default a_updateTrigger due to revised enum BindingUpdateSourceTrigger
+
+
+Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVal a_propertyPath As String, _
+        ByVal a_target As Object, _
+        Optional ByVal a_targetProperty As String, _
+        Optional ByVal a_mode As cc_isr_MVVM.BindingMode = 0&, _
+        Optional ByVal a_updateTrigger As cc_isr_MVVM.BindingUpdateSourceTrigger = 2&, _
+        Optional ByVal a_validator As cc_isr_MVVM.IValueValidator, _
+        Optional ByVal a_converter As cc_isr_MVVM.IValueConverter, _
+        Optional ByVal a_formatString As String, _
+        Optional ByVal a_validationAdorner As cc_isr_MVVM.IDynamicAdorner) As cc_isr_MVVM.IPropertyBinding
         
     This.Stub.OnInvoke "BindPropertyPath"
     
+    Dim p_testPropertyBinding As New TestPropertyBinding
     Dim Binding As IPropertyBinding
-    Set Binding = TestPropertyBinding.Create(This.Context, BindingPath.Create(Source, PropertyPath), Target, TargetProperty, Mode, UpdateTrigger, Validator, Converter, This.StringFormatterFactory.Create(FormatString), ValidationAdorner)
+    Set Binding = p_testPropertyBinding.Initialize(This.Context, _
+            cc_isr_MVVM.Factory.CreateBindingPath(a_source, a_propertyPath), a_target, _
+                    a_targetProperty, a_mode, a_updateTrigger, a_validator, a_converter, _
+                    This.StringFormatterFactory.Create(a_formatString), a_validationAdorner)
     This.PropertyBindings.Add Binding
     
     Set IBindingManager_BindPropertyPath = Binding
+    
 End Function
 
 Private Property Get IBindingManager_DebugOutput() As Boolean
@@ -71,17 +81,17 @@ Private Property Get IBindingManager_DebugOutput() As Boolean
     IBindingManager_DebugOutput = This.DebugOutput
 End Property
 
-Private Property Get IBindingManager_NotifierFactory() As INotifierFactory
+Private Property Get IBindingManager_NotifierFactory() As cc_isr_MVVM.INotifierFactory
     This.Stub.OnInvoke "NotifierFactory.Get"
     Set IBindingManager_NotifierFactory = This.NotifierFactory
 End Property
 
-Private Property Get IBindingManager_StringFormatterFactory() As IStringFormatterFactory
+Private Property Get IBindingManager_StringFormatterFactory() As cc_isr_MVVM.IStringFormatterFactory
     This.Stub.OnInvoke "StringFormatterFactory.Get"
     Set IBindingManager_StringFormatterFactory = This.StringFormatterFactory
 End Property
 
-Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
+Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal a_source As Object, ByVal a_propertyName As String)
     This.Stub.OnInvoke "OnPropertyChanged"
 End Sub
 

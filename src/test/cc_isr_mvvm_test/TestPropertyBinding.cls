@@ -8,105 +8,105 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "An object that can stub an IPropertyBinding dependency in a unit test."
-'@Folder Tests.Stubs
-'@ModuleDescription "An object that can stub an IPropertyBinding dependency in a unit test."
-'@PredeclaredId
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   An object that can stub an IPropertyBinding dependency in a unit test. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Implements IPropertyBinding
-Implements IHandlePropertyChanged
+Implements cc_isr_MVVM.IPropertyBinding
+Implements cc_isr_MVVM.IHandlePropertyChanged
 Implements ITestStub
 
 Private Type TState
     Stub As TestStubBase
-    Base As PropertyBindingBase
-    Handler As IHandlePropertyChanged
+    Base As cc_isr_MVVM.PropertyBindingBase
+    Handler As cc_isr_MVVM.IHandlePropertyChanged
 End Type
 
 Private This As TState
 
-Public Function Create(ByVal Context As IAppContext, ByVal Source As IBindingPath, ByVal Target As Object, _
-        Optional ByVal TargetProperty As String = "Value", _
-        Optional ByVal Mode As BindingMode = BindingMode.TwoWayBinding, _
-        Optional ByVal UpdateSource As BindingUpdateSourceTrigger = OnExit, _
-        Optional ByVal Validator As IValueValidator, _
-        Optional ByVal Converter As IValueConverter, _
-        Optional ByVal StringFormat As IStringFormatter, _
-        Optional ByVal ValidationAdorner As IDynamicAdorner) As ITestStub
-    Dim Result As TestPropertyBinding
-    Set Result = New TestPropertyBinding
+Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As cc_isr_MVVM.IBindingPath, ByVal a_target As Object, _
+        Optional ByVal a_targetProperty As String = "Value", _
+        Optional ByVal a_mode As cc_isr_MVVM.BindingMode = BindingMode.TwoWayBinding, _
+        Optional ByVal a_updateSource As cc_isr_MVVM.BindingUpdateSourceTrigger = OnExit, _
+        Optional ByVal a_validator As cc_isr_MVVM.IValueValidator, _
+        Optional ByVal a_converter As cc_isr_MVVM.IValueConverter, _
+        Optional ByVal a_stringFormatter As cc_isr_MVVM.IStringFormatter, _
+        Optional ByVal a_validationAdorner As cc_isr_MVVM.IDynamicAdorner) As ITestStub
     
-    Dim Base As PropertyBindingBase
-    Set Base = PropertyBindingBase.Create(Context, Source, Target, TargetProperty, Mode, UpdateSource, Converter, StringFormat, Validator, ValidationAdorner)
-    Result.InjectBindingInfo Base
-    Set Create = Result
+    Dim Base As cc_isr_MVVM.PropertyBindingBase
+    Set Base = cc_isr_MVVM.Factory.CreatePropertyBindingBase(a_context, a_source, a_target, _
+            a_targetProperty, a_mode, a_updateSource, a_converter, a_stringFormatter, a_validator, a_validationAdorner)
+    Me.InjectBindingInfo Base
+    Set Initialize = Me
 End Function
 
-Public Sub InjectBindingInfo(ByVal BindingInfo As PropertyBindingBase)
-    GuardClauses.GuardDefaultInstance Me, TestPropertyBinding, TypeName(Me)
-    GuardClauses.GuardNullReference BindingInfo, TypeName(Me)
+Public Sub InjectBindingInfo(ByVal a_bindingInfo As cc_isr_MVVM.PropertyBindingBase)
+    
+    GuardClauses.GuardNullReference a_bindingInfo, TypeName(Me)
     GuardClauses.GuardDoubleInitialization This.Base, TypeName(Me)
     GuardClauses.GuardDoubleInitialization This.Handler, TypeName(Me)
-    Set This.Base = BindingInfo
-    Set This.Handler = BindingInfo
+    Set This.Base = a_bindingInfo
+    Set This.Handler = a_bindingInfo
+
 End Sub
 
-Public Property Get AsIHandlePropertyChanged() As IHandlePropertyChanged
+Public Property Get AsIHandlePropertyChanged() As cc_isr_MVVM.IHandlePropertyChanged
     Set AsIHandlePropertyChanged = Me
 End Property
 
-Public Property Get Source() As IBindingPath
+Public Property Get Source() As cc_isr_MVVM.IBindingPath
     Set Source = This.Base.Source
 End Property
 
-Public Property Set Source(ByVal a_value As IBindingPath)
+Public Property Set Source(ByVal a_value As cc_isr_MVVM.IBindingPath)
     Set This.Base.Source = a_value
 End Property
 
-Public Property Get Target() As IBindingPath
+Public Property Get Target() As cc_isr_MVVM.IBindingPath
     Set Target = This.Base.Target
 End Property
 
-Public Property Set Target(ByVal a_value As IBindingPath)
+Public Property Set Target(ByVal a_value As cc_isr_MVVM.IBindingPath)
     Set This.Base.Target = a_value
 End Property
 
-Public Property Get Mode() As BindingMode
+Public Property Get Mode() As cc_isr_MVVM.BindingMode
     Mode = This.Base.Mode
 End Property
 
-Public Property Let Mode(ByVal a_value As BindingMode)
+Public Property Let Mode(ByVal a_value As cc_isr_MVVM.BindingMode)
     This.Base.Mode = a_value
 End Property
 
-Public Property Get UpdateSourceTrigger() As BindingUpdateSourceTrigger
+Public Property Get UpdateSourceTrigger() As cc_isr_MVVM.BindingUpdateSourceTrigger
     UpdateSourceTrigger = This.Base.UpdateSourceTrigger
 End Property
 
-Public Property Let UpdateSourceTrigger(ByVal a_value As BindingUpdateSourceTrigger)
+Public Property Let UpdateSourceTrigger(ByVal a_value As cc_isr_MVVM.BindingUpdateSourceTrigger)
     This.Base.UpdateSourceTrigger = a_value
 End Property
 
-Public Property Get Validator() As IValueValidator
+Public Property Get Validator() As cc_isr_MVVM.IValueValidator
     Set Validator = This.Base.Validator
 End Property
 
-Public Property Set Validator(ByVal a_value As IValueValidator)
+Public Property Set Validator(ByVal a_value As cc_isr_MVVM.IValueValidator)
     Set This.Base.Validator = a_value
 End Property
 
-Public Property Get ValidationAdorner() As IDynamicAdorner
+Public Property Get ValidationAdorner() As cc_isr_MVVM.IDynamicAdorner
     Set ValidationAdorner = This.Base.ValidationAdorner
 End Property
 
-Public Property Set ValidationAdorner(ByVal a_value As IDynamicAdorner)
+Public Property Set ValidationAdorner(ByVal a_value As cc_isr_MVVM.IDynamicAdorner)
     Set This.Base.ValidationAdorner = a_value
 End Property
 
-Public Property Get Converter() As IValueConverter
+Public Property Get Converter() As cc_isr_MVVM.IValueConverter
     Set Converter = This.Base.Converter
 End Property
 
-Public Property Set Converter(ByVal a_value As IValueConverter)
+Public Property Set Converter(ByVal a_value As cc_isr_MVVM.IValueConverter)
     Set This.Base.Converter = a_value
 End Property
 
@@ -114,9 +114,9 @@ Private Sub Class_Initialize()
     Set This.Stub = New TestStubBase
 End Sub
 
-Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
+Private Sub IHandlePropertyChanged_HandlePropertyChanged(ByVal a_source As Object, ByVal a_propertyName As String)
     This.Stub.OnInvoke "HandlePropertyChanged"
-    This.Handler.HandlePropertyChanged Source, PropertyName
+    This.Handler.HandlePropertyChanged a_source, a_propertyName
 End Sub
 
 Private Property Get IPropertyBinding_CancelExitOnValidationError() As Boolean
@@ -128,12 +128,12 @@ Private Property Get IPropertyBinding_DefaultTargetProperty() As String
     IPropertyBinding_DefaultTargetProperty = vbNullString
 End Property
 
-Private Property Get IPropertyBinding_StringFormat() As IStringFormatter
-    This.Stub.OnInvoke "StringFormat.Get"
-    Set IPropertyBinding_StringFormat = This.Base.StringFormat
+Private Property Get IPropertyBinding_StringFormatter() As cc_isr_MVVM.IStringFormatter
+    This.Stub.OnInvoke "StringFormatter.Get"
+    Set IPropertyBinding_StringFormatter = This.Base.StringFormatter
 End Property
 
-Private Property Get IPropertyBinding_Validator() As IValueValidator
+Private Property Get IPropertyBinding_Validator() As cc_isr_MVVM.IValueValidator
     This.Stub.OnInvoke "Validator.Get"
     Set IPropertyBinding_Validator = This.Base.Validator
 End Property
@@ -151,27 +151,27 @@ Private Function ITestStub_Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal
     ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
 End Function
 
-Private Property Get IPropertyBinding_Mode() As BindingMode
+Private Property Get IPropertyBinding_Mode() As cc_isr_MVVM.BindingMode
     This.Stub.OnInvoke "Mode.Get"
     IPropertyBinding_Mode = This.Base.Mode
 End Property
 
-Private Property Get IPropertyBinding_UpdateSourceTrigger() As BindingUpdateSourceTrigger
+Private Property Get IPropertyBinding_UpdateSourceTrigger() As cc_isr_MVVM.BindingUpdateSourceTrigger
     This.Stub.OnInvoke "UpdateSourceTrigger.Get"
     IPropertyBinding_UpdateSourceTrigger = This.Base.UpdateSourceTrigger
 End Property
 
-Private Property Get IPropertyBinding_Source() As IBindingPath
+Private Property Get IPropertyBinding_Source() As cc_isr_MVVM.IBindingPath
     This.Stub.OnInvoke "Source.Get"
     Set IPropertyBinding_Source = This.Base.Source
 End Property
 
-Private Property Get IPropertyBinding_Target() As IBindingPath
+Private Property Get IPropertyBinding_Target() As cc_isr_MVVM.IBindingPath
     This.Stub.OnInvoke "Target.Get"
     Set IPropertyBinding_Target = This.Base.Target
 End Property
 
-Private Property Get IPropertyBinding_Converter() As IValueConverter
+Private Property Get IPropertyBinding_Converter() As cc_isr_MVVM.IValueConverter
     This.Stub.OnInvoke "Converter.Get"
     Set IPropertyBinding_Converter = This.Base.Converter
 End Property

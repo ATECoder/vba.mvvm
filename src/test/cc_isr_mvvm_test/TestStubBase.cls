@@ -7,7 +7,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder Tests.Stubs
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Test stub base class. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 
 Private Type TState
@@ -16,7 +18,7 @@ End Type
 
 Private This As TState
 
-'@Description "Tracks a new invoke of the specified member."
+''' <summary>   Tracks a new invoke of the specified member. </summary>
 Public Sub OnInvoke(ByVal a_memberName As String)
 Attribute OnInvoke.VB_Description = "Tracks a new invoke of the specified member."
     Dim NewValue As Long
@@ -30,7 +32,7 @@ Attribute OnInvoke.VB_Description = "Tracks a new invoke of the specified member
     Debug.Print TypeName(Me) & ": OnInvoke(" & a_memberName & ") was invoked"
 End Sub
 
-'@Description "Gets the number of invokes made against the specified member in the lifetime of this object."
+''' <summary>   Gets the number of invokes made against the specified member in the lifetime of this object. </summary>
 Public Property Get MemberInvokes(ByVal a_memberName As String) As Long
 Attribute MemberInvokes.VB_Description = "Gets the number of invokes made against the specified member in the lifetime of this object."
     If This.MemberInvokes.Exists(a_memberName) Then
@@ -40,18 +42,19 @@ Attribute MemberInvokes.VB_Description = "Gets the number of invokes made agains
     End If
 End Property
 
-'@Description "Gets a string listing the MemberInvokes cache content."
+''' <summary>   Gets a string listing the MemberInvokes cache content. </summary>
 Public Function ToString() As String
 Attribute ToString.VB_Description = "Gets a string listing the MemberInvokes cache content."
+
     Dim p_memberNames As Variant
     p_memberNames = This.MemberInvokes.Keys
     
-    Dim p_builder As StringBuilder: p_builder = cc_isr_Core.Constructor.CreateStringBuilder
+    Dim p_builder As StringBuilder: p_builder = cc_isr_Core.Factory.NewStringBuilder
     Dim i As Long
     For i = LBound(p_memberNames) To UBound(p_memberNames)
-        Dim Name As String
-        Name = p_memberNames(i)
-        p_builder.AppendFormat "{0} was invoked {1} time(s)", Name, This.MemberInvokes.Item(Name)
+        Dim p_name As String
+        p_name = p_memberNames(i)
+        p_builder.AppendFormat "{0} was invoked {1} time(s)", p_name, This.MemberInvokes.Item(p_name)
     Next
     ToString = p_builder.ToString
     

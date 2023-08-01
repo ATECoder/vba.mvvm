@@ -7,9 +7,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Stubs")
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   Property change notifier tester. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Implements INotifyPropertyChanged
+Implements cc_isr_MVVM.INotifyPropertyChanged
 Implements ITestStub
 
 Private Type TState
@@ -31,17 +33,17 @@ Private Sub Class_Initialize()
     Set This.Stub = New TestStubBase
 End Sub
 
-Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal Source As Object, ByVal PropertyName As String)
+Private Sub INotifyPropertyChanged_OnPropertyChanged(ByVal a_source As Object, ByVal a_propertyName As String)
     This.Stub.OnInvoke "OnPropertyChanged"
-    Dim Handler As IHandlePropertyChanged
+    Dim Handler As cc_isr_MVVM.IHandlePropertyChanged
     For Each Handler In This.Handlers
-        Handler.HandlePropertyChanged Source, PropertyName
+        Handler.HandlePropertyChanged a_source, a_propertyName
     Next
 End Sub
 
-Private Sub INotifyPropertyChanged_RegisterHandler(ByVal Handler As IHandlePropertyChanged)
+Private Sub INotifyPropertyChanged_RegisterHandler(ByVal a_handler As cc_isr_MVVM.IHandlePropertyChanged)
     This.Stub.OnInvoke "RegisterHandler"
-    This.Handlers.Add Handler
+    This.Handlers.Add a_handler
 End Sub
 
 Private Property Get ITestStub_MemberInvokes(ByVal a_memberName As String) As Long

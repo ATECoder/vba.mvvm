@@ -8,12 +8,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "An object that can stub an IView dependency in a unit test."
-'@Folder Tests.Stubs
-'@ModuleDescription "An object that can stub an IView dependency in a unit test."
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   An object that can stub an IView dependency in a unit test. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements ITestStub
-Implements IView
-Implements ICancellable
+Implements cc_isr_MVVM.IView
+Implements cc_isr_MVVM.ICancellable
 
 Private Type TState
     Cancel As Boolean
@@ -24,13 +25,13 @@ End Type
 
 Private This As TState
 
-'@Description "Gets a value indicating whether the stub IView is in a visible (shown) state or not."
+''' <summary>   Gets a value indicating whether the stub IView is in a visible (shown) state or not. </summary>
 Public Property Get Visible() As Boolean
 Attribute Visible.VB_Description = "Gets a value indicating whether the stub IView is in a visible (shown) state or not."
     Visible = This.Shown
 End Property
 
-'@Description "Gets or sets the ViewModel object this stub is working with."
+''' <summary>   Gets or sets the ViewModel object this stub is working with. </summary>
 Public Property Get ViewModel() As Object
 Attribute ViewModel.VB_Description = "Gets or sets the ViewModel object this stub is working with."
     Set ViewModel = This.ViewModel
@@ -40,7 +41,7 @@ Public Property Set ViewModel(ByVal a_value As Object)
     Set This.ViewModel = a_value
 End Property
 
-'@Description "Makes IView.ShowDialog return False (simulates a cancelled dialog)."
+''' <summary>   Makes IView.ShowDialog return False (simulates a cancelled dialog). </summary>
 Public Sub OnCancel()
 Attribute OnCancel.VB_Description = "Makes IView.ShowDialog return False (simulates a cancelled dialog)."
     This.Cancel = True
