@@ -38,15 +38,16 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="ValidationErrorAdornaer"/> object. </summary>
-Public Sub Initialize(ByVal a_target As MSForms.Control, _
+''' <summary>   Initializes and returns an <see cref="IDynamicAdorner"/> representation of
+'''             this <see cref="ValidationErrorAdornaer"/> object. </summary>
+Public Function Initialize(ByVal a_target As MSForms.Control, _
         Optional ByVal a_targetFormatter As cc_isr_MVVM.IValidationErrorFormatter = Nothing, _
         Optional ByVal a_adornerLabel As Variant, _
         Optional ByVal a_labelFormatter As cc_isr_MVVM.IValidationErrorFormatter = Nothing, _
         Optional ByVal a_labelPosition As cc_isr_MVVM.IDynamicPosition = Nothing, _
         Optional ByVal a_adornerIcon As Variant, _
         Optional ByVal a_iconFormatter As cc_isr_MVVM.IValidationErrorFormatter = Nothing, _
-        Optional ByVal a_iconPosition As cc_isr_MVVM.IDynamicPosition = Nothing)
+        Optional ByVal a_iconPosition As cc_isr_MVVM.IDynamicPosition = Nothing) As IDynamicAdorner
     
     cc_isr_Core.GuardClauses.GuardNullReference a_target, VBA.Information.TypeName(Me)
     
@@ -70,7 +71,9 @@ Public Sub Initialize(ByVal a_target As MSForms.Control, _
         End If
     End If
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Friend Sub InitTarget(ByVal a_target As Object, ByVal a_formatter As IValidationErrorFormatter)
     

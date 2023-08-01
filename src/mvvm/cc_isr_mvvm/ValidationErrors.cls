@@ -20,13 +20,15 @@ End Type
 Private This As TState
 
 ''' <summary>   Initializes a collection of <see cref="IValidationError"/> objects for the specified
-'''             binding context (ViewModel). </summary>
-Public Sub Initialize(ByVal a_bindingContext As Object)
+'''             binding context (ViewModel) and returns this <see cref=ValidationErrors"/> object. </summary>
+Public Function Initialize(ByVal a_bindingContext As Object) As ValidationErrors
 Attribute Initialize.VB_Description = "Creates a new collection of IValidationError objects for the specified binding context (ViewModel)."
     
     Set Me.BindingContext = a_bindingContext
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 ''' <summary>   Gets/sets the binding context (ViewModel) for this instance. </summary>
 Public Property Get BindingContext() As Object

@@ -19,13 +19,13 @@ Public Sub AfterAll()
 End Sub
 
 ''' <summary>   Runs before each test. </summary>
-Private Sub BeforeEach()
-    Set Assert = cc_isr_Test_Fx.Assert
+Public Sub BeforeEach()
+    Set This.Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 ''' <summary>   Runs after each test. </summary>
-Private Sub AfterEach()
-    Set Assert = Nothing
+Public Sub AfterEach()
+    Set This.Assert = Nothing
 End Sub
 
 Public Function RunTest()
@@ -51,7 +51,9 @@ Public Function TestAcceptCommandShouldConstruct() As cc_isr_Test_Fx.Assert
     If p_outcome.AssertSuccessful Then _
         Set p_outcome = This.Assert.IsNotNull(p_result, TypeName(p_result) & " should not be null.")
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestAcceptCommandShouldConstruct " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestAcceptCommandShouldConstruct = p_outcome
     

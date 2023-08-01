@@ -26,8 +26,9 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="ListBoxPropertyBinding"/> object. </summary>
-Public Sub Initialize(ByVal a_context As IAppContext, a_source As IBindingPath, _
+''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
+'''             this <see cref="ListBoxPropertyBinding"/> object. </summary>
+Public Function Initialize(ByVal a_context As IAppContext, a_source As IBindingPath, _
         ByVal a_target As MSForms.ListBox, _
         Optional ByVal a_targetProperty As Variant, _
         Optional ByVal a_mode As BindingMode = BindingMode.TwoWayBinding, _
@@ -35,7 +36,7 @@ Public Sub Initialize(ByVal a_context As IAppContext, a_source As IBindingPath, 
         Optional ByVal a_validator As IValueValidator, _
         Optional ByVal a_converter As IValueConverter, _
         Optional ByVal a_stringFormatter As IStringFormatter, _
-        Optional ByVal a_validationAdorner As IDynamicAdorner)
+        Optional ByVal a_validationAdorner As IDynamicAdorner) As IPropertyBinding
     
     Dim p_localTargetProperty As String
     If VBA.IsMissing(a_targetProperty) Then
@@ -60,7 +61,9 @@ Public Sub Initialize(ByVal a_context As IAppContext, a_source As IBindingPath, 
     
     Me.InjectBindingInfo p_bindingBase
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Friend Function InferTargetPropertyFromSource(ByVal a_source As IBindingPath, ByRef a_outMode As cc_isr_MVVM.BindingMode) As String
     

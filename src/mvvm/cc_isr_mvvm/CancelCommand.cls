@@ -20,11 +20,16 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="CancelCommand"/> object. </summary>
-Public Sub Initialize(ByVal a_view As ICancellable)
+''' <summary>   Initializes and returns am <see cref="ICommand"/> representation of
+'''             this <see cref="CancelCommand"/> object. </summary>
+Public Function Initialize(ByVal a_view As ICancellable) As ICommand
 Attribute Initialize.VB_Description = "Initializes a new instance of this command."
+    
     Set Me.View = a_view
-End Sub
+    
+    Set Initialize = Me
+    
+End Function
 
 Public Property Get View() As ICancellable
     Set View = This.View

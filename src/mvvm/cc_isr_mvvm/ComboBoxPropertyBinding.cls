@@ -26,15 +26,16 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="ComboBoxPropertyBinding"/> object. </summary>
-Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, ByVal a_target As MSForms.ComboBox, _
+''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
+'''             this <see cref="ComboBoxPropertyBinding"/> object. </summary>
+Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, ByVal a_target As MSForms.ComboBox, _
         Optional ByVal a_targetProperty As Variant, _
         Optional ByVal a_mode As BindingMode = BindingMode.TwoWayBinding, _
         Optional ByVal a_updateSource As BindingUpdateSourceTrigger = OnPropertyChanged, _
         Optional ByVal a_validator As IValueValidator, _
         Optional ByVal a_converter As IValueConverter, _
         Optional ByVal a_stringFormatter As IStringFormatter, _
-        Optional ByVal a_validationAdorner As IDynamicAdorner)
+        Optional ByVal a_validationAdorner As IDynamicAdorner) As IPropertyBinding
     
     Dim p_localTargetProperty As String
     If VBA.IsMissing(a_targetProperty) Then
@@ -59,7 +60,9 @@ Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBinding
 
     Me.InjectBindingInfo p_bindingBase
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Function InferTargetPropertyFromSource(ByVal a_source As IBindingPath, ByRef a_outMode As cc_isr_MVVM.BindingMode) As String
     

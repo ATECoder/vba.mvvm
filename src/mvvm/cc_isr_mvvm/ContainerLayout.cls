@@ -26,19 +26,22 @@ Private Const DefaultMargin As Long = 3
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="ContainerLayout"/> object. </summary>
-Public Sub Initialize(ByVal a_parent As MSForms.Controls, Optional ByVal a_direction As LayoutDirection, _
+''' <summary>   Initializes and returns an <see cref="IContainerLayout"/> representation of
+'''             this <see cref="ContainerLayout"/> object. </summary>
+Public Function Initialize(ByVal a_parent As MSForms.Controls, Optional ByVal a_direction As LayoutDirection, _
         Optional ByVal a_top As Long = 0, _
         Optional ByVal a_left As Long = 0, _
-        Optional ByVal a_margin As Long = DefaultMargin)
+        Optional ByVal a_margin As Long = DefaultMargin) As IContainerLayout
     
     Set Me.Parent = a_parent
     Me.NextControlTop = a_top + a_margin
     Me.NextControlLeft = a_left + a_margin
     Me.Direction = a_direction
     Me.Margin = a_margin
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 Public Property Get Parent() As MSForms.Controls
     Set Parent = This.Parent

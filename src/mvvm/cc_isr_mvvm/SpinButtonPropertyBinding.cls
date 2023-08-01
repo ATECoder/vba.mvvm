@@ -25,8 +25,9 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="SpinButtonPropertyBinding"/> object. </summary>
-Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
+''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
+'''             this <see cref="SpinButtonPropertyBinding"/> object. </summary>
+Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
         ByVal a_target As MSForms.SpinButton, _
         Optional ByVal a_targetProperty As String = "Value", _
         Optional ByVal a_mode As BindingMode = BindingMode.OneWayBinding, _
@@ -34,7 +35,7 @@ Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBinding
         Optional ByVal a_validator As IValueValidator, _
         Optional ByVal a_converter As IValueConverter, _
         Optional ByVal a_stringFormatter As IStringFormatter, _
-        Optional ByVal a_validationAdorner As IDynamicAdorner)
+        Optional ByVal a_validationAdorner As IDynamicAdorner) As IPropertyBinding
         
     Dim p_bindingBase As PropertyBindingBase
     Set p_bindingBase = Factory.CreatePropertyBindingBase(a_context, a_source, a_target, a_targetProperty, _
@@ -47,7 +48,9 @@ Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBinding
     
     Me.InjectBindingInfo p_bindingBase
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Sub InjectBindingInfo(ByVal a_bindingInfo As PropertyBindingBase)
 

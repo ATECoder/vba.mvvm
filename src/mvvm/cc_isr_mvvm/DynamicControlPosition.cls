@@ -24,12 +24,13 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="DynamicControlPosition"/> object. </summary>
-Public Sub Initialize(ByVal a_position As RelativePosition, _
+''' <summary>   Initializes and returns an <see cref="IDynamicPosition"/> representation of
+'''             this <see cref="DynamicControlPosition"/> object. </summary>
+Public Function Initialize(ByVal a_position As RelativePosition, _
         ByVal a_leftMargin As Double, _
         Optional ByVal a_topMargin As Variant, _
         Optional ByVal a_rightMargin As Variant, _
-        Optional ByVal a_bottomMargin As Variant)
+        Optional ByVal a_bottomMargin As Variant) As IDynamicPosition
     
     Me.Position = a_position
     
@@ -62,7 +63,9 @@ Public Sub Initialize(ByVal a_position As RelativePosition, _
         Me.Margin(BottomSide) = a_bottomMargin
     End If
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Property Get Margin(ByVal a_side As MarginSide) As Double
     Select Case a_side

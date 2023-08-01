@@ -51,7 +51,8 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="PropertyBindingBase"/> object. </summary>
+''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
+'''             this <see cref="PropertyBindingBase"/> object. </summary>
 ''' <remarks>
 ''' this method initializes the <c>IBindingPath</c> objects from the given context and property
 ''' path strings, which makes it simpler for the calling code. Note that the target property path
@@ -79,7 +80,7 @@ Private This As TState
 '''                                       a <c>TargetPropertyPath</c> is only needed when binding to another target property. </param>
 ''' <param name="a_validationAdorner">    [IDynamicAdorner] Lets the user know about validation errors. </param>
 ''' <param name=""> </param>
-Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
+Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
         ByVal a_targetContext As Object, _
         Optional ByVal a_targetPropertyPath As String = "Value", _
         Optional ByVal a_mode As BindingMode = BindingMode.TwoWayBinding, _
@@ -88,7 +89,7 @@ Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBinding
         Optional ByVal a_stringFormatter As IStringFormatter, _
         Optional ByVal a_validator As IValueValidator, _
         Optional ByVal a_validationAdorner As IDynamicAdorner, _
-        Optional ByVal a_cancelExitOnValidationError As Boolean = True)
+        Optional ByVal a_cancelExitOnValidationError As Boolean = True) As IPropertyBinding
 
     Me.CancelExitOnValidationError = a_cancelExitOnValidationError
     Me.Mode = a_mode
@@ -105,7 +106,9 @@ Public Sub Initialize(ByVal a_context As IAppContext, ByVal a_source As IBinding
     Set Me.Validator = a_validator
     Set Me.ValidationAdorner = a_validationAdorner
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Property Get AsIControlEvents() As IControlEvents
     Set AsIControlEvents = Me

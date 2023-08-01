@@ -22,12 +22,14 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref=ValidationManager"/> object. </summary>
-Public Sub Initialize(Optional ByVal a_errorAdornerFactory As IDynamicAdornerFactory)
+''' <summary>   Initializes and returns this <see cref=ValidationManager"/> object. </summary>
+Public Function Initialize(Optional ByVal a_errorAdornerFactory As IDynamicAdornerFactory) As ValidationManager
     
     Me.InitAdornerFactory a_errorAdornerFactory
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 Friend Sub InitAdornerFactory(ByVal a_adornerFactory As cc_isr_MVVM.IDynamicAdornerFactory)
     

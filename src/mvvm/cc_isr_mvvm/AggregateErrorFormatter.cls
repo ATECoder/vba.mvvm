@@ -24,15 +24,16 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="AggregateErrorFormatter"/> object that aggregates/combines
+''' <summary>   Initializes and returns an <see cref="IValidationErrorFormatter"/> representation of
+'''             this <see cref="AggregateErrorFormatter"/> object that aggregates/combines
 '''             all the specified formatters. </summary>
-Public Sub Initialize(ParamArray a_formatters() As Variant)
+Public Function Initialize(ParamArray a_formatters() As Variant) As IValidationErrorFormatter
 
     cc_isr_Core.GuardClauses.GuardExpression UBound(a_formatters) < 0, VBA.Information.TypeName(Me), _
             "At least one formatter is required.", _
             cc_isr_Core.UserDefinedErrors.InvalidArgumentError
     
-    'handle ParamArray proxy args:
+    ' handle ParamArray proxy args:
     
     Dim p_localFormatters() As Variant
     If VBA.IsArray(a_formatters(0)) Then
@@ -57,8 +58,10 @@ Public Sub Initialize(ParamArray a_formatters() As Variant)
         End If
         
     Next
-   
-End Sub
+    
+    Set Initialize = Me
+    
+End Function
 
 ''' <summary>   Adds the specified formatter to this composite formatter. </summary>
 Public Sub AddFormatter(ByVal Formatter As IValidationErrorFormatter)

@@ -11,7 +11,7 @@ Private Type ThisData
     ExpectedErrSource As String
     ExpectedErrorCaught As Boolean
     
-    ConcreteSUT As BindingPath
+    ConcreteSUT As cc_isr_MVVM.BindingPath
     AbstractSUT As cc_isr_MVVM.IBindingPath
     
     BindingContext As TestBindingObject
@@ -33,7 +33,7 @@ Public Sub AfterAll()
 End Sub
 
 ''' <summary>   Runs before each test. </summary>
-Private Sub BeforeEach()
+Public Sub BeforeEach()
     
     Dim p_context As TestBindingObject
     Set p_context = New TestBindingObject
@@ -47,12 +47,12 @@ Private Sub BeforeEach()
     Set This.BindingContext = p_context
     Set This.ConcreteSUT = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
     Set This.AbstractSUT = This.ConcreteSUT
-    Set Assert = cc_isr_Test_Fx.Assert
+    Set This.Assert = cc_isr_Test_Fx.Assert
 
 End Sub
 
 ''' <summary>   Runs after each test. </summary>
-Private Sub AfterEach()
+Public Sub AfterEach()
     
     Set This.ConcreteSUT = Nothing
     Set This.AbstractSUT = Nothing
@@ -63,7 +63,7 @@ Private Sub AfterEach()
     This.ExpectedErrNumber = 0
     This.ExpectedErrorCaught = False
     This.ExpectedErrSource = vbNullString
-    Set Assert = Nothing
+    Set This.Assert = Nothing
 
 End Sub
 
@@ -98,7 +98,9 @@ Public Function TestCreateGuardsNullBindingContext() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestCreateGuardsNullBindingContext " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestCreateGuardsNullBindingContext = p_outcome
     
@@ -115,7 +117,9 @@ Public Function TestCreateGuardsEmptyPath() As cc_isr_Test_Fx.Assert
     
     On Error GoTo 0
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestCreateGuardsEmptyPath " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestCreateGuardsEmptyPath = p_outcome
     
@@ -132,7 +136,9 @@ Public Function TestCreateGuardsNonDefaultInstance() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestCreateGuardsNonDefaultInstance " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestCreateGuardsNonDefaultInstance = p_outcome
 
@@ -151,7 +157,9 @@ Public Function TestContextGuardsDefaultInstance() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestContextGuardsDefaultInstance " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestContextGuardsDefaultInstance = p_outcome
     
@@ -166,7 +174,9 @@ Public Function TestContextGuardsDoubleInitialization() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestContextGuardsDoubleInitialization " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestContextGuardsDoubleInitialization = p_outcome
 
@@ -181,7 +191,9 @@ Public Function TestContextGuardsNullReference() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestContextGuardsNullReference " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestContextGuardsNullReference = p_outcome
     
@@ -200,7 +212,9 @@ Public Function TestPathGuardsDefaultInstance() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestPathGuardsDefaultInstance " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestPathGuardsDefaultInstance = p_outcome
 
@@ -215,7 +229,9 @@ Public Function TestPathGuardsDoubleInitialization() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestPathGuardsDoubleInitialization " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestPathGuardsDoubleInitialization = p_outcome
 
@@ -230,7 +246,9 @@ Public Function TestPathGuardsEmptyString() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestPathGuardsEmptyString " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestPathGuardsEmptyString = p_outcome
 
@@ -256,7 +274,9 @@ Public Function TestResolveSetsBindingSource() As cc_isr_Test_Fx.Assert
         Set p_outcome = This.Assert.IsTrue(This.BindingSource Is p_bindingPath.Object, _
                                             "The binding source should be set to an object.")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestResolveSetsBindingSource " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestResolveSetsBindingSource = p_outcome
 
@@ -283,7 +303,9 @@ Public Function TestResolveSetsBindingPropertyName() As cc_isr_Test_Fx.Assert
         Set p_outcome = This.Assert.AreEqual(This.PropertyName, p_bindingPath.PropertyName, _
             "Propery name should equal the expected name")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestResolveSetsBindingPropertyName " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestResolveSetsBindingPropertyName = p_outcome
 
@@ -297,7 +319,9 @@ Public Function TestCreateResolvesPropertyName() As cc_isr_Test_Fx.Assert
     Set p_outcome = This.Assert.IsFalse(p_SUT.PropertyName = VBA.vbNullString, _
         "Property name should be empty.")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestCreateResolvesPropertyName " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestCreateResolvesPropertyName = p_outcome
 
@@ -312,7 +336,9 @@ Public Function TestCreateResolvesBindingSource() As cc_isr_Test_Fx.Assert
     Set p_outcome = This.Assert.IsNotNull(p_SUT.Object, _
             "The binding path object should not be nothing.")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestCreateResolvesBindingSource " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestCreateResolvesBindingSource = p_outcome
 

@@ -21,15 +21,19 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref=AcceptCommand"/> object. </summary>
-Public Sub Initialize(ByVal a_view As cc_isr_MVVM.IView, ByVal a_validationManager As cc_isr_MVVM.IValidationManager)
+''' <summary>   Initializes and returns an <see cref="ICommand"/> representation of
+'''             this <see cref=AcceptCommand"/> object. </summary>
+Public Function Initialize(ByVal a_view As cc_isr_MVVM.IView, _
+        ByVal a_validationManager As cc_isr_MVVM.IValidationManager) As cc_isr_MVVM.ICommand
 
     cc_isr_Core.GuardClauses.GuardNullReference a_view, VBA.Information.TypeName(Me), "View cannot be Nothing."
     cc_isr_Core.GuardClauses.GuardNullReference a_validationManager, VBA.Information.TypeName(Me), "ValidationManager cannot be Nothing."
     Set Me.View = a_view
     Set Me.ValidationManager = a_validationManager
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 
 Public Property Get View() As cc_isr_MVVM.IView

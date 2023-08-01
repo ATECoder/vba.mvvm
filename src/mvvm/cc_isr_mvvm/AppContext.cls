@@ -26,13 +26,13 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="AppContext"/> object. </summary>
-Public Sub Initialize(Optional ByVal a_bindings As cc_isr_MVVM.IBindingManager, _
+''' <summary>   Initializes and returns this <see cref="AppContext"/> object. </summary>
+Public Function Initialize(Optional ByVal a_bindings As cc_isr_MVVM.IBindingManager, _
         Optional ByVal a_commands As cc_isr_MVVM.ICommandManager, _
         Optional ByVal a_validation As cc_isr_MVVM.IValidationManager, _
         Optional ByVal a_formatterFactory As cc_isr_MVVM.IStringFormatterFactory, _
         Optional ByVal a_adornerFactory As cc_isr_MVVM.IDynamicAdornerFactory, _
-        Optional ByVal a_debugOutput As Boolean = False)
+        Optional ByVal a_debugOutput As Boolean = False) As AppContext
 Attribute Initialize.VB_Description = "Initializes a new MVVM application context."
     
     Me.DebugOutput = a_debugOutput
@@ -46,7 +46,9 @@ Attribute Initialize.VB_Description = "Initializes a new MVVM application contex
     Me.InitBindingManager a_bindings
     Me.InitValidationManager a_validation, a_adornerFactory
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Friend Sub InitStringFormatterFactory(ByVal a_formatterFactory As cc_isr_MVVM.IStringFormatterFactory)
     

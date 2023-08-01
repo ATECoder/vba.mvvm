@@ -21,14 +21,17 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initialize a new instance of the <see cref="DynamicControls"/> object. </summary>
-Public Sub Initialize(ByVal a_context As cc_isr_MVVM.IAppContext, _
-        ByVal a_container As IContainerLayout)
+''' <summary>   Initialize and returns an <see cref="IDynamicControlBuilder"/> representation of
+'''             this <see cref="DynamicControls"/> object. </summary>
+Public Function Initialize(ByVal a_context As cc_isr_MVVM.IAppContext, _
+        ByVal a_container As IContainerLayout) As IDynamicControlBuilder
     
     Set Me.Context = a_context
     Set Me.Container = a_container
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 Public Property Get Container() As cc_isr_MVVM.IContainerLayout
     Set Container = This.Container

@@ -44,10 +44,11 @@ Public Sub AfterAll()
 End Sub
 
 ''' <summary>   Runs before each test. </summary>
-Private Sub BeforeEach()
+Public Sub BeforeEach()
     Set This.CommandManager = New TestCommandManager
     Set This.CommandManagerStub = This.CommandManager
-    Set This.ConcreteSUT = cc_isr_MVVM.Factory.CreateBindingManager(This.CommandManager, cc_isr_MVVM.Factory.NewStringFormatterFactory)
+    Set This.ConcreteSUT = cc_isr_MVVM.Factory.CreateBindingManager(cc_isr_MVVM.Factory.CreateAppContext(a_debugOutput:=True), _
+                                        cc_isr_MVVM.Factory.NewStringFormatterFactory)
     Set This.AbstractSUT = This.ConcreteSUT
     Set This.HandlePropertyChangedSUT = This.ConcreteSUT
     Set This.BindingSource = New TestBindingObject
@@ -57,11 +58,11 @@ Private Sub BeforeEach()
     This.TargetPropertyPath = "TestStringProperty"
     This.SourceProperty = "TestStringProperty"
     This.TargetProperty = "TestStringProperty"
-    Set Assert = cc_isr_Test_Fx.Assert
+    Set This.Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 ''' <summary>   Runs after each test. </summary>
-Private Sub AfterEach()
+Public Sub AfterEach()
     Set This.ConcreteSUT = Nothing
     Set This.AbstractSUT = Nothing
     Set This.HandlePropertyChangedSUT = Nothing
@@ -73,7 +74,7 @@ Private Sub AfterEach()
     This.ExpectedErrNumber = 0
     This.ExpectedErrorCaught = False
     This.ExpectedErrSource = vbNullString
-    Set Assert = Nothing
+    Set This.Assert = Nothing
 End Sub
 
 ''' <summary>   Asserts the absence of an expected error. </summary>
@@ -113,7 +114,8 @@ Public Function TestCreateGuardsNonDefaultInstance() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+    Debug.Print "TestCreateGuardsNonDefaultInstance " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestCreateGuardsNonDefaultInstance = p_outcome
 
@@ -126,14 +128,8 @@ End Function
 Private Function DefaultPropertyPathBindingFor(ByVal a_progID As String, ByRef a_target As Object) As IPropertyBinding
 
     Set a_target = VBA.CreateObject(a_progID)
-    
-    Dim p_outcome As cc_isr_Test_Fx.Assert
-    Set p_outcome = This.AbstractSUT.BindPropertyPath(This.BindingSource, _
-                    This.SourcePropertyPath, a_target, This.TargetPropertyPath)
-    
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
-    
-    Set DefaultPropertyPathBindingFor = p_outcome
+    Set DefaultPropertyPathBindingFor = This.AbstractSUT.BindPropertyPath(This.BindingSource, _
+                                            This.SourcePropertyPath, a_target, This.TargetPropertyPath)
 
 End Function
 
@@ -143,20 +139,14 @@ End Function
 Private Function AssertCreatePropertyBindingType(ByVal a_progID As String, _
         ByVal a_type As Object) As cc_isr_Test_Fx.Assert
     
-    Dim p_outcome As cc_isr_Test_Fx.Assert
-   
     Dim p_target As Object
     
     Dim p_result As IPropertyBinding
     Set p_result = DefaultPropertyPathBindingFor(a_progID, p_target)
         
-    Set p_outcome = This.Assert.IsTrue(TypeOf p_result Is CheckBoxPropertyBinding, _
+    Set AssertCreatePropertyBindingType = This.Assert.IsTrue(TypeOf p_result Is a_type, _
                                  "Property type should equal expected type.")
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
-    
-    Set AssertCreatePropertyBindingType = p_outcome
-
 End Function
 
 ''' <summary>   Asserts creating a property path binding to the object defined by the specified program id. </summary>
@@ -176,12 +166,8 @@ Private Function AssertCreatePropertyBindingType2(ByVal a_progID As String, _
     Dim p_result As IPropertyBinding
     Set p_result = DefaultPropertyPathBindingFor(a_progID, p_target)
         
-    Set p_outcome = This.Assert.IsTrue(TypeOf p_result Is CheckBoxPropertyBinding, _
+    Set AssertCreatePropertyBindingType2 = This.Assert.IsTrue(TypeOf p_result Is CheckBoxPropertyBinding, _
                                  "Property type should equal expected type.")
-    
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
-    
-    Set AssertCreatePropertyBindingType2 = p_outcome
 
 End Function
 
@@ -205,13 +191,9 @@ Private Function AssertCreatePropertyBindingName(ByVal a_progID As String, _
     Set p_result = DefaultPropertyPathBindingFor(a_progID, p_target)
         
        
-    Set p_outcome = This.Assert.AreEqual(a_name, p_result.Target.PropertyName, _
+    Set AssertCreatePropertyBindingName = This.Assert.AreEqual(a_name, p_result.Target.PropertyName, _
                                    "Property name should equal expected value.")
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
-    
-    Set AssertCreatePropertyBindingName = p_outcome
-
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a check box control. </summary>
@@ -224,7 +206,8 @@ Public Function TestCheckBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Ass
 
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.CheckBoxProgId, p_result)
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+    Debug.Print "TestCheckBoxTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestCheckBoxTargetCreatesPropertyBinding = p_outcome
     
@@ -236,25 +219,35 @@ Public Function TestCheckBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
 
-    Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.CheckBoxProgId, "Value")
+    ' dh: Legacy MVVM code specified 'Value' where tests return 'Caption' since the
+    '     This.SourcePropertyPath and This.TargetPropertyPath are strings.
+    Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.CheckBoxProgId, "Caption")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+    Debug.Print "TestCheckBoxTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestCheckBoxTargetBindsValueByDefault = p_outcome
 
 End Function
 
+Public Sub RunTestMethod()
+    BeforeEach
+    TestComboBoxTargetCreatesPropertyBinding
+    AfterEach
+End Sub
+
 ''' <summary>   [Unit Test] Test creating a property path binding for a check box control. </summary>
 ''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
 Public Function TestComboBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
-    Dim p_result As ComboBoxPropertyBinding
+    Dim p_result As ComboBoxPropertyBinding: p_result = cc_isr_MVVM.Factory.ComboBoxPropertyBinding
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.ComboBoxProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+    Debug.Print "TestComboBoxTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestComboBoxTargetCreatesPropertyBinding = p_outcome
                                                                     
@@ -266,9 +259,14 @@ Public Function TestComboBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
+    ' dh: Legacy MVVM code specified 'Value' where tests return 'Caption' since the
+    '     This.SourcePropertyPath and This.TargetPropertyPath are strings.
+    
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.ComboBoxProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestComboBoxTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestComboBoxTargetBindsValueByDefault = p_outcome
 
@@ -284,7 +282,9 @@ Public Function TestListBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Asse
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.ListBoxProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestListBoxTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestListBoxTargetCreatesPropertyBinding = p_outcome
 
@@ -298,7 +298,9 @@ Public Function TestListBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.ListBoxProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestListBoxTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestListBoxTargetBindsValueByDefault = p_outcome
 
@@ -314,7 +316,9 @@ Public Function TestMultiPageTargetCreatesPropertyBinding() As cc_isr_Test_Fx.As
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.MultiPageProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestMultiPageTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestMultiPageTargetCreatesPropertyBinding = p_outcome
 
@@ -328,7 +332,9 @@ Public Function TestMultiPageTargetBindsValueByDefault() As cc_isr_Test_Fx.Asser
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.MultiPageProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestMultiPageTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestMultiPageTargetBindsValueByDefault = p_outcome
 
@@ -344,7 +350,9 @@ Public Function TestOptionButtonTargetCreatesPropertyBinding() As cc_isr_Test_Fx
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.OptionButtonProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestOptionButtonTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestOptionButtonTargetCreatesPropertyBinding = p_outcome
 
@@ -358,7 +366,9 @@ Public Function TestOptionButtonTargetBindsValueByDefault() As cc_isr_Test_Fx.As
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.OptionButtonProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestOptionButtonTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestOptionButtonTargetBindsValueByDefault = p_outcome
 
@@ -374,7 +384,9 @@ Public Function TestScrollBarTargetCreatesPropertyBinding() As cc_isr_Test_Fx.As
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.ScrollBarProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestScrollBarTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestScrollBarTargetCreatesPropertyBinding = p_outcome
 
@@ -388,7 +400,9 @@ Public Function TestScrollBarTargetBindsValueByDefault() As cc_isr_Test_Fx.Asser
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.ScrollBarProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestScrollBarTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestScrollBarTargetBindsValueByDefault = p_outcome
 
@@ -404,7 +418,9 @@ Public Function TestSpinButtonTargetCreatesPropertyBinding() As cc_isr_Test_Fx.A
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.SpinButtonProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestSpinButtonTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestSpinButtonTargetCreatesPropertyBinding = p_outcome
 
@@ -418,7 +434,9 @@ Public Function TestSpinButtonTargetBindsValueByDefault() As cc_isr_Test_Fx.Asse
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.SpinButtonProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestSpinButtonTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestSpinButtonTargetBindsValueByDefault = p_outcome
 
@@ -434,7 +452,9 @@ Public Function TestTabStripTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Ass
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.TabStripProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestTabStripTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestTabStripTargetCreatesPropertyBinding = p_outcome
                                                                     
@@ -448,7 +468,9 @@ Public Function TestTabStripTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.TabStripProgId, "Value")
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestTabStripTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestTabStripTargetBindsValueByDefault = p_outcome
 
@@ -464,7 +486,9 @@ Public Function TestTextBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Asse
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.TextBoxProgId, p_result)
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestTextBoxTargetCreatesPropertyBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestTextBoxTargetCreatesPropertyBinding = p_outcome
                                                                     
@@ -478,7 +502,9 @@ Public Function TestTextBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertCreatePropertyBindingName(cc_isr_MVVM.BindingDefaults.TextBoxProgId, "Text")
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestCheckBoxTargetBindsValueByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestCheckBoxTargetBindsValueByDefault = p_outcome
 
@@ -501,7 +527,9 @@ Public Function TestFrameTargetCreatesOneWayBindingWithNonDefaultTarget() As cc_
     Set p_outcome = This.Assert.AreEqual(TypeName(p_expecterdType), TypeName(p_result), _
                                    "Property type name should equal expected type name.")
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestFrameTargetCreatesOneWayBindingWithNonDefaultTarget " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestFrameTargetCreatesOneWayBindingWithNonDefaultTarget = p_outcome
     
@@ -519,7 +547,9 @@ Public Function TestLabelTargetCreatesOneWayBindingWithNonDefaultTarget() As cc_
     Set p_outcome = AssertCreatePropertyBindingType2(cc_isr_MVVM.BindingDefaults.LabelProgId, _
                                                     p_result, "Font.Bold")
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestLabelTargetCreatesOneWayBindingWithNonDefaultTarget " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestLabelTargetCreatesOneWayBindingWithNonDefaultTarget = p_outcome
 
@@ -535,7 +565,9 @@ Public Function TestFrameTargetBindsCaptionPropertyByDefault() As cc_isr_Test_Fx
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.FrameProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestFrameTargetBindsCaptionPropertyByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestFrameTargetBindsCaptionPropertyByDefault = p_outcome
 
@@ -551,7 +583,9 @@ Public Function TestLabelTargetBindsCaptionPropertyByDefault() As cc_isr_Test_Fx
     
     Set p_outcome = AssertCreatePropertyBindingType(cc_isr_MVVM.BindingDefaults.LabelProgId, p_result)
                                                                     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestLabelTargetBindsCaptionPropertyByDefault " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestLabelTargetBindsCaptionPropertyByDefault = p_outcome
 
@@ -572,7 +606,9 @@ Public Function TestNonControlTargetCreatesOneWayBinding() As cc_isr_Test_Fx.Ass
     Set p_outcome = This.Assert.IsTrue(TypeOf p_result Is OneWayPropertyBinding, _
                                         "Type of result should equal expected type.")
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestNonControlTargetCreatesOneWayBinding " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestNonControlTargetCreatesOneWayBinding = p_outcome
 
@@ -593,7 +629,9 @@ Public Function TestNonControlTargetRequiresTargetPropertyPath() As cc_isr_Test_
     Set p_outcome = AssertExpectError
     On Error GoTo 0
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestNonControlTargetRequiresTargetPropertyPath " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestNonControlTargetRequiresTargetPropertyPath = p_outcome
 
@@ -612,7 +650,9 @@ Public Function TestAddsToPropertyBindingsCollection() As cc_isr_Test_Fx.Assert
         Set p_outcome = This.Assert.IsTrue(Result Is This.ConcreteSUT.PropertyBindings.Item(1), "type of result should match.")
     End If
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestAddsToPropertyBindingsCollection " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestAddsToPropertyBindingsCollection = p_outcome
 
@@ -628,7 +668,9 @@ Public Function TestHandlePropertyChangedEvaluatesCommandCanExecute() As cc_isr_
     
     Set p_outcome = This.CommandManagerStub.Verify(This.Assert, _
                                                 "EvaluateCanExecute", 1)
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestHandlePropertyChangedEvaluatesCommandCanExecute " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestHandlePropertyChangedEvaluatesCommandCanExecute = p_outcome
 
@@ -646,7 +688,9 @@ Public Function TestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropert
     Set p_outcome = This.CommandManagerStub.Verify(This.Assert, _
             "EvaluateCanExecute", 2)
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set TestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange = p_outcome
 

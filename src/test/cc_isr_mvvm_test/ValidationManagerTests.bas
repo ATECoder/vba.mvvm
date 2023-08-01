@@ -47,7 +47,7 @@ Public Sub AfterAll()
 End Sub
 
 ''' <summary>   Runs before each test. </summary>
-Private Sub BeforeEach()
+Public Sub BeforeEach()
     
     Dim p_bindingSource As New TestBindingObject
     
@@ -72,7 +72,7 @@ Private Sub BeforeEach()
 End Sub
 
 ''' <summary>   Runs after each test. </summary>
-Private Sub AfterEach()
+Public Sub AfterEach()
     Set This.ConcreteSUT = Nothing
     Set This.NotifyValidationErrorSUT = Nothing
     Set This.HandleValidationErrorSUT = Nothing

@@ -22,11 +22,13 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="ValueRangeValidator"/> object. </summary>
-Public Sub Initialize(ByVal a_min As Variant, ByVal a_max As Variant)
+''' <summary>   Initializes and returns an <see cref="IValueValidator"/> representation of
+'''             this <see cref="ValueRangeValidator"/> object. </summary>
+Public Function Initialize(ByVal a_min As Variant, ByVal a_max As Variant) As IValueValidator
     Me.Min = a_min
     Me.Max = a_max
-End Sub
+    Set Initialize = Me
+End Function
 
 Public Property Get Min() As Variant
     Min = This.Min

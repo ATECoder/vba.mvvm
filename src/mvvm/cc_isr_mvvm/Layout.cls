@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object that encapsulates the UserForm Resizer"
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   An object that encapsulates the UserForm Layout"
+''' <summary>   An object that encapsulates the UserForm Layout. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 
@@ -29,9 +29,9 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="Layout"/> object. </summary>
-Public Sub Initialize(ByVal a_object As Object, Optional ByVal a_newWidthPercent As Long = 50, _
-        Optional ByVal a_newHeightPercent As Long = 50)
+''' <summary>   Initializes and returns this <see cref="Layout"/> object. </summary>
+Public Function Initialize(ByVal a_object As Object, Optional ByVal a_newWidthPercent As Long = 50, _
+        Optional ByVal a_newHeightPercent As Long = 50) As Layout
     
     cc_isr_Core.GuardClauses.GuardNullReference a_object, VBA.Information.TypeName(Me)
     
@@ -43,7 +43,9 @@ Public Sub Initialize(ByVal a_object As Object, Optional ByVal a_newWidthPercent
     Me.Height = a_newHeightPercent
     Set Me.LayoutBindings = New Collection
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Property Get Object() As Object
     Set Object = This.Object

@@ -32,7 +32,8 @@ Attribute LabelEvents.VB_VarHelpID = -1
 
 Private This As TCommandBinding
 
-''' <summary>   Initializes and returns this <see cref="CommandBinding"/> object. </summary>
+''' <summary>   Initializes and returns an <see cref="IPropertyBinding"/> representation of
+'''             this <see cref="CommandBinding"/> object. </summary>
 ''' <param name="a_target">       [Object] The command target object, e.g., <see cref="MSForms.CommandButton"/>. </param>
 ''' <param name="a_command">      [ICommand] an object representing the command.  </param>
 ''' <param name="a_viewModel">    [Object] the ViewModel object. </param>

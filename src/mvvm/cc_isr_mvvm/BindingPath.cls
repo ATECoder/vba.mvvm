@@ -24,9 +24,10 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="BindingPath"/> object from the specified
+''' <summary>   Initializes and returns an <see cref="IBindingPath"/> representation of
+'''             this <see cref="BindingPath"/> object from the specified
 '''             property path string and binding context. </summary>
-Public Sub Initialize(ByVal a_context As Object, ByVal a_path As String)
+Public Function Initialize(ByVal a_context As Object, ByVal a_path As String) As IBindingPath
 Attribute Initialize.VB_Description = "Initializes a new binding path from the specified property path string and binding context."
     
     cc_isr_Core.GuardClauses.GuardNullReference a_context, VBA.Information.TypeName(Me)
@@ -37,7 +38,9 @@ Attribute Initialize.VB_Description = "Initializes a new binding path from the s
     
     Me.Resolve
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 ''' <summary>   Gets/Sets the binding context. </summary>
 Public Property Get Context() As Object

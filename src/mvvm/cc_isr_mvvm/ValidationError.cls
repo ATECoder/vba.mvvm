@@ -22,14 +22,17 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="ValidationError"/> object. </summary>
-Public Sub Initialize(ByVal a_binding As IPropertyBinding, ByVal a_message As String)
-Attribute Initialize.VB_Description = "Creates a new instance of a validation error object."
+''' <summary>   Initializes and returns an <see cref="IValidationError"/> representation of
+'''             this <see cref="ValidationError"/> object. </summary>
+Public Function Initialize(ByVal a_binding As IPropertyBinding, _
+        ByVal a_message As String) As IValidationError
     
     Set Me.Binding = a_binding
     Me.Message = a_message
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 ''' <summary>   The validation error message. </summary>
 Public Property Get Message() As String

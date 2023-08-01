@@ -28,11 +28,12 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="BindingManager"/> object. </summary>
-Public Sub Initialize(ByVal a_context As IAppContext, _
+''' <summary>   Initializes and returns an <see cref="IBindingManager"/> representation of
+'''             this <see cref="BindingManager"/> object. </summary>
+Public Function Initialize(ByVal a_context As IAppContext, _
         ByVal a_stringFormatterFactory As IStringFormatterFactory, _
         Optional ByVal a_factory As INotifierFactory, _
-        Optional ByVal a_debugOutput As Boolean = False)
+        Optional ByVal a_debugOutput As Boolean = False) As IBindingManager
     
     Set Me.Context = a_context
     Me.DebugOutput = a_debugOutput
@@ -49,7 +50,9 @@ Public Sub Initialize(ByVal a_context As IAppContext, _
         Set Me.NotifierFactory = a_factory
     End If
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Property Get NotifierFactory() As INotifierFactory
     Set NotifierFactory = This.NotifierFactory
@@ -115,13 +118,18 @@ End Property
 Public Sub Terminate()
 Attribute Terminate.VB_Description = "Releases all held property bindings, prepares the object for proper destruction."
     '@Ignore VariableNotUsed
-    Dim Index As Long
-    For Index = 1 To This.PropertyBindings.Count
+    Dim i As Long
+    For i = 1 To This.PropertyBindings.Count
         This.PropertyBindings.Remove 1
     Next
     Set This.PropertyBindings = Nothing
 End Sub
 
+''' <summary>   Class initializes. </summary>
+''' <remarks>   Presently, type of MS Control is not an MS Control.  Potentuially, It might be better to
+'''             enumerate the binding target strategies by the control name as
+'''             prefixing the control name with the library name is not robust.
+'''             Note, though, the type of range indeed inbcludes the Excel library name. </remarks>
 Private Sub Class_Initialize()
     Set This.BindingTargetStrategies = New Dictionary
     Set This.PropertyBindings = New Collection
@@ -206,22 +214,48 @@ Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVa
     
 End Function
 
+''' <summary>   Get a key to the list of strategies based to the specified object type. </summary>
+''' <remarks>   Presently, type of MS Control is not an MS Control.  Potentuially, It might be better to
+'''             enumerate the binding target strategies by the control name as
+'''             prefixing the control name with the library name is not robust.
+'''             Note, though, the type of range indeed inbcludes the Excel library name. </remarks>
+''' <param name="a_target">   [Object] The target object, which code be an MS Forms control or
+'''                           and Excel Range. </param>
+''' <returns>   [String]. </returns>
+Public Function GetKeyForObjectType(ByVal a_target As Object) As String
+
+    Dim p_libraryName As String
+    If TypeOf a_target Is MSForms.Control Then
+        
+        ' this does not capture controls such as check box.
+        p_libraryName = "MSForms"
+    
+    ElseIf TypeOf a_target Is Excel.Range Then
+        
+        p_libraryName = "Excel"
+    
+    Else
+        ' FIXME now what, prefix other target libraries here? need a better way.
+        ' dh: defaulting to MS Forms for now.
+        p_libraryName = "MSForms"
+    
+    End If
+
+    GetKeyForObjectType = p_libraryName & IIf(p_libraryName = VBA.vbNullString, "", ".") & _
+                         VBA.Information.TypeName(a_target)
+    
+End Function
+
 Private Function TryGetBindingStrategyFor(ByVal a_target As Object, ByRef outStrategy As IBindingTargetStrategy) As Boolean
     
-    Dim LibraryName As String
-    If TypeOf a_target Is MSForms.Control Then
-        LibraryName = "MSForms"
-    ElseIf TypeOf a_target Is Excel.Range Then
-        LibraryName = "Excel"
-    Else
-        'FIXME now what, prefix other target libraries here? need a better way.
-    End If
-    
-    Dim Key As String
-    Key = LibraryName & "." & VBA.Information.TypeName(a_target)
-    If This.BindingTargetStrategies.Exists(Key) Then
-        Set outStrategy = This.BindingTargetStrategies.Item(Key)
+    Dim p_key As String: p_key = Me.GetKeyForObjectType(a_target)
+    If This.BindingTargetStrategies.Exists(p_key) Then
+        Set outStrategy = This.BindingTargetStrategies.Item(p_key)
         TryGetBindingStrategyFor = True
+    Else
+        cc_isr_Core.UserDefinedErrors.RaiseError cc_isr_Core.UserDefinedErrors.InvalidArgumentError, _
+                TypeName(Me) & "." & "TryGetBidingStrategyFor", _
+                " Invalid key  '" & p_key & "' generated for target '" & TypeName(a_target)   '"."
     End If
     
 End Function

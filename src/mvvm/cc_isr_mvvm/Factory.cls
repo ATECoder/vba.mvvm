@@ -74,7 +74,7 @@ Public Function CreateAppContext(Optional ByVal a_bindings As cc_isr_MVVM.IBindi
         Optional ByVal a_validation As cc_isr_MVVM.IValidationManager, _
         Optional ByVal a_formatterFactory As cc_isr_MVVM.IStringFormatterFactory, _
         Optional ByVal a_adornerFactory As cc_isr_MVVM.IDynamicAdornerFactory, _
-        Optional ByVal a_debugOutput As Boolean = False) As cc_isr_MVVM.AppContext
+        Optional ByVal a_debugOutput As Boolean = False) As AppContext
     
     Dim p_result As cc_isr_MVVM.AppContext
     Set p_result = New cc_isr_MVVM.AppContext

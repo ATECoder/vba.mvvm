@@ -27,12 +27,15 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="StringFormatter"/> object. </summary>
-Public Sub Initialize(ByVal a_formatString As String)
+''' <summary>   Initializes and returns an <see cref="IStringFormatter"/> represention of
+'''             this <see cref="StringFormatter"/> object. </summary>
+Public Function Initialize(ByVal a_formatString As String) As IStringFormatter
     
     Me.FormatString = a_formatString
+    
+    Set Initialize = Me
 
-End Sub
+End Function
 
 Public Property Get FormatString() As String
     FormatString = This.FormatString

@@ -37,7 +37,7 @@ Public Sub BeforeEach()
     Set This.AbstractSUT = This.ConcreteSUT
     Set This.BindingContext = New TestBindingObject
     Set This.Command = New TestCommand
-    Set Assert = cc_isr_Test_Fx.Assert
+    Set This.Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 ''' <summary>   Runs after each test. </summary>
@@ -46,7 +46,7 @@ Public Sub AfterEach()
     Set This.AbstractSUT = Nothing
     Set This.BindingContext = Nothing
     Set This.Command = Nothing
-    Set Assert = Nothing
+    Set This.Assert = Nothing
 End Sub
 
 ''' <summary>   Asserts the absence of an expected error. </summary>
@@ -81,12 +81,7 @@ Private Function DefaultTargetCommandBindingFor(ByVal a_progID As String, ByRef 
 
     Set a_target = VBA.CreateObject(a_progID)
     
-    Set p_outcome = This.AbstractSUT.BindCommand(This.BindingContext, a_target, This.Command)
-    
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
-    
-    Set DefaultTargetCommandBindingFor = p_outcome
-    
+    Set DefaultTargetCommandBindingFor = This.AbstractSUT.BindCommand(This.BindingContext, a_target, This.Command)
     
 End Function
 
@@ -110,7 +105,9 @@ Private Function AssertBindCommandBindsItem(ByVal a_progID As String) As cc_isr_
     
     End If
     
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "AssertBindCommandBindsItem " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set AssertBindCommandBindsItem = p_outcome
 
@@ -124,7 +121,9 @@ Public Function TestBindCommandBindsCommandButton() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.CommandButtonProgId)
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestBindCommandBindsCommandButton " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestBindCommandBindsCommandButton = p_outcome
     
@@ -137,7 +136,9 @@ Public Function TestBindCommandBindsCheckBox() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.CheckBoxProgId)
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestBindCommandBindsCommandButton " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestBindCommandBindsCommandButton = p_outcome
     
@@ -151,7 +152,9 @@ Public Function TestBindCommandBindsImage() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.ImageProgId)
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestBindCommandBindsCommandButton " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestBindCommandBindsCommandButton = p_outcome
     
@@ -165,7 +168,9 @@ Public Function TestBindCommandBindsLabel() As cc_isr_Test_Fx.Assert
 
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.LabelProgId)
 
-    If Not p_outcome.AssertSuccessful Then Debug.Print p_outcome.AssertMessage
+
+    Debug.Print "TestBindCommandBindsCommandButton " & _
+        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestBindCommandBindsCommandButton = p_outcome
 

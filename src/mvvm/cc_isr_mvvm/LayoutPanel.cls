@@ -22,11 +22,11 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes this <see cref="LayoutPanel"/> object. </summary>
-Public Sub Initialize(ByVal a_parentForm As MSForms.UserForm, _
+''' <summary>   Initializes and returns this <see cref="LayoutPanel"/> object. </summary>
+Public Function Initialize(ByVal a_parentForm As MSForms.UserForm, _
         Optional ByVal a_parent As MSForms.Controls, _
         Optional ByVal a_height As Single, _
-        Optional ByVal a_width As Single)
+        Optional ByVal a_width As Single) As LayoutPanel
     
     If a_parent Is Nothing Then Set a_parent = a_parentForm.Controls
     
@@ -51,7 +51,9 @@ Public Sub Initialize(ByVal a_parentForm As MSForms.UserForm, _
     Me.Frame.ScrollBars = MSForms.fmScrollBars.fmScrollBarsBoth
     Me.Frame.KeepScrollBarsVisible = MSForms.fmScrollBars.fmScrollBarsNone
     
-End Sub
+    Set Initialize = Me
+    
+End Function
 
 Public Property Get Frame() As MSForms.Frame
     Set Frame = This.Frame
