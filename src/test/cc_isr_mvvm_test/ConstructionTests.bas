@@ -1,6 +1,9 @@
 Attribute VB_Name = "ConstructionTests"
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Unit tests: Construction. </summary>
+''' <remarks>
+''' 2023-08-02: All tests passed.
+''' </remarks>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 

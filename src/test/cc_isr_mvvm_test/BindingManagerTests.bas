@@ -1,6 +1,12 @@
 Attribute VB_Name = "BindingManagerTests"
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Unit tests: Binding manager. </summary>
+''' <remarks>
+''' 2023-08-01: Some tests faile:
+''' - PendingTestHandlePropertyChangedEvaluatesCommandCanExecute,
+''' - PendingTestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange.
+''' Possibly because the <see cref="TestBindingObject" has no command binding.
+''' </remarks>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 ' Option Private Module
