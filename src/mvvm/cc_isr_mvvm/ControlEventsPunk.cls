@@ -8,11 +8,11 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "Provides an event sink to relay MSForms.Control events."
-'@IgnoreModule IntegerDataType
-'@Folder cc_isr_MVVM.Infrastructure.Win32
+''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Provides an event sink to relay MSForms.Control events. </summary>
-'based on https://stackoverflow.com/a/51936950
-'based on https://stackoverflow.com/a/61893857
+''' <remarks>   based on <see heref="https://stackoverflow.com/a/51936950"/> and
+'''             <see href="https://stackoverflow.com/a/61893857"/> </remarks>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements IControlEvents
 

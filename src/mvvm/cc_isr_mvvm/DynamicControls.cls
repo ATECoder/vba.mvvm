@@ -23,6 +23,7 @@ Private This As TState
 
 ''' <summary>   Initialize and returns an <see cref="IDynamicControlBuilder"/> representation of
 '''             this <see cref="DynamicControls"/> object. </summary>
+''' <returns>   [<see cref="IDynamicControlBuilder"/>]. </returns>
 Public Function Initialize(ByVal a_context As cc_isr_MVVM.IAppContext, _
         ByVal a_container As IContainerLayout) As IDynamicControlBuilder
     

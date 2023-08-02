@@ -67,7 +67,7 @@ Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVa
     Dim p_testPropertyBinding As New TestPropertyBinding
     Dim Binding As IPropertyBinding
     Set Binding = p_testPropertyBinding.Initialize(This.Context, _
-            cc_isr_MVVM.Factory.CreateBindingPath(a_source, a_propertyPath), a_target, _
+            cc_isr_MVVM.Factory.NewBindingPath().Initialize(a_source, a_propertyPath), a_target, _
                     a_targetProperty, a_mode, a_updateTrigger, a_validator, a_converter, _
                     This.StringFormatterFactory.Create(a_formatString), a_validationAdorner)
     This.PropertyBindings.Add Binding
@@ -105,6 +105,6 @@ End Function
 
 Private Function ITestStub_Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal a_memberName As String, _
                                   ByVal a_expectedInvokes As Long) As cc_isr_Test_Fx.Assert
-    ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
+    Set ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
 End Function
 

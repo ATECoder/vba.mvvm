@@ -6,7 +6,7 @@ Attribute VB_Name = "ValidationError"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Description = "Represents a binding validation error."
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Represents a binding validation error. </summary>
@@ -24,8 +24,8 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IValidationError"/> representation of
 '''             this <see cref="ValidationError"/> object. </summary>
-Public Function Initialize(ByVal a_binding As IPropertyBinding, _
-        ByVal a_message As String) As IValidationError
+''' <returns>   [<see cref="IValidationError"/>]. </returns>
+Public Function Initialize(ByVal a_binding As IPropertyBinding, ByVal a_message As String) As IValidationError
     
     Set Me.Binding = a_binding
     Me.Message = a_message

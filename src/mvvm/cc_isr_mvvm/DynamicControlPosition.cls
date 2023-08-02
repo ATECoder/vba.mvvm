@@ -26,6 +26,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IDynamicPosition"/> representation of
 '''             this <see cref="DynamicControlPosition"/> object. </summary>
+''' <returns>   [<see cref="IDynamicPosition"/>]. </returns>
 Public Function Initialize(ByVal a_position As RelativePosition, _
         ByVal a_leftMargin As Double, _
         Optional ByVal a_topMargin As Variant, _

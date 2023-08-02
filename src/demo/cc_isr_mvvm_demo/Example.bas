@@ -35,7 +35,7 @@ Attribute Run.VB_Description = "Runs the MVVM example UI."
     Set a_viewModel.SomeCommand = New BrowseCommand
     
     Dim p_appContext As AppContext
-    Set p_appContext = cc_isr_MVVM.Factory.CreateAppContext(a_debugOutput:=True)
+    Set p_appContext = cc_isr_MVVM.Factory.NewAppContext().Initialize(a_debugOutput:=True)
     
     a_viewModel.BooleanProperty = False
     a_viewModel.ByteProperty = 240
@@ -62,7 +62,7 @@ End Sub
 Public Sub DynamicRun()
 
     Dim p_context As IAppContext
-    Set p_context = cc_isr_MVVM.Factory.CreateAppContext()
+    Set p_context = cc_isr_MVVM.Factory.NewAppContext().Initialize()
     
     Dim p_viewModel As New ExampleViewModel
     

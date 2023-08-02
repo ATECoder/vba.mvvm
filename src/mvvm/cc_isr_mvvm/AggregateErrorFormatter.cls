@@ -27,6 +27,8 @@ Private This As TState
 ''' <summary>   Initializes and returns an <see cref="IValidationErrorFormatter"/> representation of
 '''             this <see cref="AggregateErrorFormatter"/> object that aggregates/combines
 '''             all the specified formatters. </summary>
+''' <param name="a_formatters">   [Variant] The formatters to aggregate. </param>
+''' <returns>   [<see cref="IValidationErrorFormatter"/>]. </returns>
 Public Function Initialize(ParamArray a_formatters() As Variant) As IValidationErrorFormatter
 
     cc_isr_Core.GuardClauses.GuardExpression UBound(a_formatters) < 0, VBA.Information.TypeName(Me), _

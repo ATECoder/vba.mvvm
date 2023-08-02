@@ -99,5 +99,5 @@ End Function
 
 Private Function ITestStub_Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal a_memberName As String, _
                                   ByVal a_expectedInvokes As Long) As cc_isr_Test_Fx.Assert
-    ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
+    Set ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
 End Function

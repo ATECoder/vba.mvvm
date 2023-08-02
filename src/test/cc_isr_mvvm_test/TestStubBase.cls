@@ -65,8 +65,8 @@ Public Function Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal a_memberNa
     
     Dim p_invokes As Long
     p_invokes = MemberInvokes(a_memberName)
-    a_assert.AreEqual a_expectedInvokes, p_invokes, _
-                      "Member was invoked " & p_invokes & " time(s), but test expected " & a_expectedInvokes & "."
+    Set Verify = a_assert.AreEqual(a_expectedInvokes, p_invokes, _
+                      "Member was invoked " & p_invokes & " time(s), but test expected " & a_expectedInvokes & ".")
 
 End Function
 
@@ -94,7 +94,7 @@ End Function
 
 Private Function ITestStub_Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal a_memberName As String, ByVal a_expectedInvokes As Long) As cc_isr_Test_Fx.Assert
     
-    ITestStub_Verify = Verify(a_assert, a_memberName, a_expectedInvokes)
+    Set ITestStub_Verify = Verify(a_assert, a_memberName, a_expectedInvokes)
 
 End Function
 

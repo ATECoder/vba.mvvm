@@ -17,7 +17,7 @@ Attribute VB_Description = "An object that can resolve a string property path to
 ''' <c>Resolve</c> method. Thus, creating a binding path really just looks like this:
 ''' <code>
 ''' Dim Path As IBindingPath
-''' Set Path = Factory.CreateBindingPath(ViewModel, "PropertyName")
+''' Set Path = Factory.NewBindingPath().Initialize(ViewModel, "PropertyName")
 ''' <code>
 '''
 ''' </remarks>

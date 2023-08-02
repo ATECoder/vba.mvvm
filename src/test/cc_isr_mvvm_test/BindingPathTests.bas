@@ -45,7 +45,7 @@ Public Sub BeforeEach()
     Set This.BindingSource = p_context.TestBindingObjectProperty
     
     Set This.BindingContext = p_context
-    Set This.ConcreteSUT = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
+    Set This.ConcreteSUT = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     Set This.AbstractSUT = This.ConcreteSUT
     Set This.Assert = cc_isr_Test_Fx.Assert
 
@@ -94,7 +94,7 @@ Public Function TestCreateGuardsNullBindingContext() As cc_isr_Test_Fx.Assert
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.NullArgumentError.Code
     On Error Resume Next
-    cc_isr_MVVM.Factory.CreateBindingPath Nothing, This.Path
+    cc_isr_MVVM.Factory.NewBindingPath().Initialize Nothing, This.Path
     Set p_outcome = AssertExpectError
     On Error GoTo 0
     
@@ -111,7 +111,7 @@ Public Function TestCreateGuardsEmptyPath() As cc_isr_Test_Fx.Assert
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidArgumentError.Code
     On Error Resume Next
-    cc_isr_MVVM.Factory.CreateBindingPath This.BindingContext, vbNullString
+    cc_isr_MVVM.Factory.NewBindingPath().Initialize This.BindingContext, vbNullString
     
     Set p_outcome = AssertExpectError
     
@@ -132,7 +132,7 @@ Public Function TestCreateGuardsNonDefaultInstance() As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
     On Error Resume Next
     Dim p_bindingPath As BindingPath
-    p_bindingPath = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
+    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
@@ -151,7 +151,7 @@ Public Function TestContextGuardsDefaultInstance() As cc_isr_Test_Fx.Assert
     On Error Resume Next
     
     Dim p_bindingPath As BindingPath
-    p_bindingPath = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
+    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     ' Set BindingPath.Context = This.BindingContext
     
     Set p_outcome = AssertExpectError
@@ -206,7 +206,7 @@ Public Function TestPathGuardsDefaultInstance() As cc_isr_Test_Fx.Assert
     On Error Resume Next
     
     Dim p_bindingPath As BindingPath
-    p_bindingPath = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
+    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     ' BindingPath.Path = This.Path
     
     Set p_outcome = AssertExpectError
@@ -315,7 +315,7 @@ Public Function TestCreateResolvesPropertyName() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     Dim p_SUT As BindingPath
-    Set p_SUT = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
+    Set p_SUT = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     Set p_outcome = This.Assert.IsFalse(p_SUT.PropertyName = VBA.vbNullString, _
         "Property name should be empty.")
 
@@ -331,7 +331,7 @@ Public Function TestCreateResolvesBindingSource() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     Dim p_SUT As BindingPath
-    Set p_SUT = cc_isr_MVVM.Factory.CreateBindingPath(This.BindingContext, This.Path)
+    Set p_SUT = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     
     Set p_outcome = This.Assert.IsNotNull(p_SUT.Object, _
             "The binding path object should not be nothing.")

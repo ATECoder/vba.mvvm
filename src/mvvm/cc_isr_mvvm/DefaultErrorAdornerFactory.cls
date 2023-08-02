@@ -20,13 +20,15 @@ Private Function IDynamicAdornerFactory_Create(ByVal a_target As Object) As IDyn
     Select Case True
         
         Case TypeOf a_target Is MSForms.TextBox
-            Set p_result = Factory.CreateValidationErrorAdorner(a_target, _
-                            a_labelPosition:=Factory.CreateDynamicControlPosition(RelativePosition.AboveLeft, 0))
+        
+            Set p_result = Factory.NewValidationErrorAdorner().Initialize(a_target, _
+                            a_labelPosition:=Factory.NewDynamicControlPosition().Initialize(RelativePosition.AboveLeft, 0))
         
         Case TypeOf a_target Is MSForms.ComboBox
-            Set p_result = Factory.CreateValidationErrorAdorner(a_target, _
-                            a_iconPosition:=Factory.CreateDynamicControlPosition(RelativePosition.InsideRight, _
-                                    0, a_topMargin:=3, a_rightMargin:=12))
+        
+            Set p_result = Factory.NewValidationErrorAdorner().Initialize(a_target, _
+                            a_iconPosition:=Factory.NewDynamicControlPosition().Initialize(RelativePosition.InsideRight, _
+                                    0, 3, 12))
         
         Case Else
             Debug.Print "A dynamic adorner was requested, but the target type isn't supported."

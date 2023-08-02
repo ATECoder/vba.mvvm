@@ -16,15 +16,18 @@ Implements ICommand
 
 Private Type TState
     View As IView
-    ValidationManager As cc_isr_MVVM.IValidationManager
+    ValidationManager As IValidationManager
 End Type
 
 Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="ICommand"/> representation of
 '''             this <see cref=AcceptCommand"/> object. </summary>
+''' <param name="a_view">                [IView] a view. </param>
+''' <param name="a_validationManager">   [IValidationManager] a validation manager. </param>
+''' <returns>   [<see cref="ICommand"/>]. </returns>
 Public Function Initialize(ByVal a_view As cc_isr_MVVM.IView, _
-        ByVal a_validationManager As cc_isr_MVVM.IValidationManager) As cc_isr_MVVM.ICommand
+        ByVal a_validationManager As cc_isr_MVVM.IValidationManager) As ICommand
 
     cc_isr_Core.GuardClauses.GuardNullReference a_view, VBA.Information.TypeName(Me), "View cannot be Nothing."
     cc_isr_Core.GuardClauses.GuardNullReference a_validationManager, VBA.Information.TypeName(Me), "ValidationManager cannot be Nothing."

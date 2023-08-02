@@ -29,6 +29,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IStringFormatter"/> represention of
 '''             this <see cref="StringFormatter"/> object. </summary>
+''' <returns>   [<see cref="IStringFormatter"/>]. </returns>
 Public Function Initialize(ByVal a_formatString As String) As IStringFormatter
     
     Me.FormatString = a_formatString

@@ -40,6 +40,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IDynamicAdorner"/> representation of
 '''             this <see cref="ValidationErrorAdornaer"/> object. </summary>
+''' <returns>   [<see cref="IDynamicAdorner"/>]. </returns>
 Public Function Initialize(ByVal a_target As MSForms.Control, _
         Optional ByVal a_targetFormatter As cc_isr_MVVM.IValidationErrorFormatter = Nothing, _
         Optional ByVal a_adornerLabel As Variant, _
@@ -167,7 +168,7 @@ End Property
 
 Friend Property Get DefaultLabelPosition() As cc_isr_MVVM.IDynamicPosition
 
-    Set DefaultLabelPosition = Factory.CreateDynamicControlPosition(RelativePosition.BelowRight, 3, 0)
+    Set DefaultLabelPosition = Factory.NewDynamicControlPosition().Initialize(RelativePosition.BelowRight, 3, 0)
     
 End Property
 
@@ -181,12 +182,14 @@ End Property
 
 Friend Property Get DefaultIconPosition() As cc_isr_MVVM.IDynamicPosition
 
-    Set DefaultIconPosition = Factory.CreateDynamicControlPosition(RelativePosition.InsideRight, 3)
+    Set DefaultIconPosition = Factory.NewDynamicControlPosition().Initialize(RelativePosition.InsideRight, 3)
 
 End Property
 
 Public Property Get Target() As Object
+
     Set Target = This.Target
+
 End Property
 
 Public Property Set Target(ByVal a_value As Object)
@@ -197,7 +200,9 @@ Public Property Set Target(ByVal a_value As Object)
 End Property
 
 Public Property Get TargetFormatter() As IValidationErrorFormatter
+    
     Set TargetFormatter = This.TargetFormatter
+
 End Property
 
 Public Property Set TargetFormatter(ByVal a_value As IValidationErrorFormatter)

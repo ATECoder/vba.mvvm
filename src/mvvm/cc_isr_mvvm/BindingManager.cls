@@ -30,6 +30,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IBindingManager"/> representation of
 '''             this <see cref="BindingManager"/> object. </summary>
+''' <returns>   [<see cref="IBindingManager"/>]. </returns>
 Public Function Initialize(ByVal a_context As IAppContext, _
         ByVal a_stringFormatterFactory As IStringFormatterFactory, _
         Optional ByVal a_factory As INotifierFactory, _
@@ -174,30 +175,39 @@ Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVa
     Dim p_binding As IPropertyBinding
     Dim p_strategy As IBindingTargetStrategy
     If TryGetBindingStrategyFor(a_target, p_strategy) Then
+    
         If a_targetProperty = VBA.vbNullString Then
+            
             Set p_binding = p_strategy.DefaultPropertyBindingFor(This.Context, _
-                Factory.CreateBindingPath(a_source, a_propertyPath), a_target, a_mode, _
-                a_updateTrigger, a_validator, a_converter, p_formatter, a_validationAdorner)
+                    Factory.NewBindingPath().Initialize(a_source, a_propertyPath), a_target, a_mode, _
+                    a_updateTrigger, a_validator, a_converter, p_formatter, a_validationAdorner)
+        
         Else
+            
             Set p_binding = p_strategy.PropertyBindingFor(This.Context, _
-                Factory.CreateBindingPath(a_source, a_propertyPath), _
-                Factory.CreateBindingPath(a_target, a_targetProperty), _
-                a_mode, a_updateTrigger, a_validator, a_converter, p_formatter, a_validationAdorner)
+                Factory.NewBindingPath().Initialize(a_source, a_propertyPath), _
+                    Factory.NewBindingPath().Initialize(a_target, a_targetProperty), _
+                    a_mode, a_updateTrigger, a_validator, a_converter, p_formatter, a_validationAdorner)
+        
         End If
     Else
-        Set p_binding = Factory.CreateOneWayPropertyBinding(This.Context, _
-                Factory.CreateBindingPath(a_source, a_propertyPath), _
-                Factory.CreateBindingPath(a_target, a_targetProperty), _
+        
+        Set p_binding = Factory.NewOneWayPropertyBinding().Initialize(This.Context, _
+                Factory.NewBindingPath().Initialize(a_source, a_propertyPath), _
+                Factory.NewBindingPath().Initialize(a_target, a_targetProperty), _
                 a_validator:=a_validator, _
                 a_converter:=a_converter, _
                 a_stringFormatter:=p_formatter, _
                 a_validationAdorner:=a_validationAdorner)
+    
     End If
     
     If TypeOf a_source Is INotifyPropertyChanged Then
+        
         Dim p_notifier As INotifyPropertyChanged
         Set p_notifier = a_source
         p_notifier.RegisterHandler p_binding
+    
     End If
     
     This.PropertyBindings.Add p_binding
@@ -206,9 +216,11 @@ Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVa
     
     On Error Resume Next
     If This.DebugOutput And a_targetProperty = VBA.vbNullString Then
-        Debug.Print VBA.Information.TypeName(Me) & ": p_binding property path '" & a_propertyPath & "' to the default-binding property of type '" & VBA.Information.TypeName(a_target) & "'."
+        Debug.Print VBA.Information.TypeName(Me) & ": binding property path '" & a_propertyPath & _
+            "' to the default-binding property of type '" & VBA.Information.TypeName(a_target) & "'."
     ElseIf This.DebugOutput Then
-        Debug.Print VBA.Information.TypeName(Me) & ": p_binding property path '" & a_propertyPath & "' to '" & VBA.Information.TypeName(a_target) & "." & a_targetProperty & "'."
+        Debug.Print VBA.Information.TypeName(Me) & ": binding property path '" & a_propertyPath & _
+            "' to '" & VBA.Information.TypeName(a_target) & "." & a_targetProperty & "'."
     End If
     On Error GoTo 0
     
@@ -253,9 +265,15 @@ Private Function TryGetBindingStrategyFor(ByVal a_target As Object, ByRef outStr
         Set outStrategy = This.BindingTargetStrategies.Item(p_key)
         TryGetBindingStrategyFor = True
     Else
+        ' not throwing an exception so as to test binding to a non-control element
+        ' which then creates a one-way binding.
+        ' see Binding Manager Tests TestNonControlTargetCreatesOneWayBinding
+        TryGetBindingStrategyFor = False
+#If False Then
         cc_isr_Core.UserDefinedErrors.RaiseError cc_isr_Core.UserDefinedErrors.InvalidArgumentError, _
                 TypeName(Me) & "." & "TryGetBidingStrategyFor", _
                 " Invalid key  '" & p_key & "' generated for target '" & TypeName(a_target)   '"."
+#End If
     End If
     
 End Function

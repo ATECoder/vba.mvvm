@@ -22,6 +22,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns am <see cref="ICommand"/> representation of
 '''             this <see cref="CancelCommand"/> object. </summary>
+''' <returns>   [<see cref="ICommand"/>]. </returns>
 Public Function Initialize(ByVal a_view As ICancellable) As ICommand
 Attribute Initialize.VB_Description = "Initializes a new instance of this command."
     

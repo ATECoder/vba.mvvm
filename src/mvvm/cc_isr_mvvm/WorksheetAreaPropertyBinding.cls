@@ -8,7 +8,8 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   </summary>
+''' <summary>   A property binding that binds any property of any source to
+'''             properties of a Worksheet area element target. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements IPropertyBinding
@@ -27,7 +28,9 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
 '''             this <see cref="WorksheetAreaPropertyBinding"/> object. </summary>
-Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, ByVal a_target As Excel.Range, _
+''' <returns>   [<see cref="IPropertyBinding"/>]. </returns>
+Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
+        ByVal a_target As Excel.Range, _
         Optional ByVal a_targetProperty As String = "Value", _
         Optional ByVal a_mode As BindingMode = BindingMode.TwoWayBinding, _
         Optional ByVal a_validator As IValueValidator, _
@@ -40,13 +43,9 @@ Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBi
             cc_isr_Core.UserDefinedErrors.InvalidArgumentError
     
     Dim p_bindingBase As PropertyBindingBase
-    Set p_bindingBase = Factory.CreatePropertyBindingBase(a_context, a_source, a_target, a_targetProperty, _
-            a_mode:=a_mode, _
-            a_updateSource:=BindingUpdateSourceTrigger.OnPropertyChanged, _
-            a_validator:=a_validator, _
-            a_converter:=a_converter, _
-            a_stringFormatter:=a_stringFormatter, _
-            a_validationAdorner:=a_validationAdorner)
+    Set p_bindingBase = Factory.NewPropertyBindingBase().Initialize(a_context, a_source, a_target, a_targetProperty, _
+            a_mode, BindingUpdateSourceTrigger.OnPropertyChanged, a_converter, a_stringFormatter, a_validator, _
+            a_validationAdorner)
     
     Me.InjectBindingInfo p_bindingBase
     

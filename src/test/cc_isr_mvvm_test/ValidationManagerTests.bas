@@ -51,7 +51,7 @@ Public Sub BeforeEach()
     
     Dim p_bindingSource As New TestBindingObject
     
-    Set This.ConcreteSUT = cc_isr_MVVM.Factory.CreateValidationManager(New TestNotifierFactory)
+    Set This.ConcreteSUT = cc_isr_MVVM.Factory.NewValidationManager().Initialize(New TestNotifierFactory)
     Set This.NotifyValidationErrorSUT = This.ConcreteSUT
     Set This.HandleValidationErrorSUT = This.ConcreteSUT
     Set This.BindingSource = New TestBindingObject ' TestBindingObject.Create(This.ConcreteSUT)

@@ -8,7 +8,9 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   </summary>
+''' <summary>   A property binding that binds any property of any source,
+'''             two-way to the 'ListIndex' or 'Text' properties or one-way
+'''             to the 'List' property of a ComboBox UI element target. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements IPropertyBinding
@@ -28,7 +30,9 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
 '''             this <see cref="ComboBoxPropertyBinding"/> object. </summary>
-Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, ByVal a_target As MSForms.ComboBox, _
+''' <returns>   [<see cref="IPropertyBinding"/>]. </returns>
+Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
+        ByVal a_target As MSForms.ComboBox, _
         Optional ByVal a_targetProperty As Variant, _
         Optional ByVal a_mode As BindingMode = BindingMode.TwoWayBinding, _
         Optional ByVal a_updateSource As BindingUpdateSourceTrigger = OnPropertyChanged, _
@@ -45,14 +49,9 @@ Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBi
     End If
     
     Dim p_bindingBase As PropertyBindingBase
-    Set p_bindingBase = Factory.CreatePropertyBindingBase(a_context, a_source, a_target, _
-            p_localTargetProperty, _
-            a_mode:=a_mode, _
-            a_updateSource:=a_updateSource, _
-            a_converter:=a_converter, _
-            a_stringFormatter:=a_stringFormatter, _
-            a_validator:=a_validator, _
-            a_validationAdorner:=a_validationAdorner)
+    Set p_bindingBase = Factory.NewPropertyBindingBase().Initialize(a_context, a_source, a_target, _
+            p_localTargetProperty, a_mode, a_updateSource, a_converter, a_stringFormatter, _
+            a_validator, a_validationAdorner)
     
     If Not a_validator Is Nothing Then
         p_bindingBase.AsINotifyValidationError.RegisterHandler Factory.ValidationManager

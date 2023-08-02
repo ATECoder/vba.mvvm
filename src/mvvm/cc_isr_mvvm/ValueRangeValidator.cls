@@ -24,10 +24,13 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IValueValidator"/> representation of
 '''             this <see cref="ValueRangeValidator"/> object. </summary>
+''' <returns>   [<see cref="IValueValidator"/>]. </returns>
 Public Function Initialize(ByVal a_min As Variant, ByVal a_max As Variant) As IValueValidator
+    
     Me.Min = a_min
     Me.Max = a_max
     Set Initialize = Me
+
 End Function
 
 Public Property Get Min() As Variant

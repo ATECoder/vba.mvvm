@@ -21,5 +21,7 @@ Option Explicit
 Implements IStringFormatterFactory
 
 Private Function IStringFormatterFactory_Create(ByVal a_formatString As String) As IStringFormatter
-    Set IStringFormatterFactory_Create = Factory.CreateStringFormatter(a_formatString)
+
+    Set IStringFormatterFactory_Create = Factory.NewStringFormatter().Initialize(a_formatString)
+
 End Function

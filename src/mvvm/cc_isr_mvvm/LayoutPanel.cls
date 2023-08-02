@@ -23,6 +23,7 @@ End Type
 Private This As TState
 
 ''' <summary>   Initializes and returns this <see cref="LayoutPanel"/> object. </summary>
+''' <returns>   [<see cref="LayoutPanel"/>]. </returns>
 Public Function Initialize(ByVal a_parentForm As MSForms.UserForm, _
         Optional ByVal a_parent As MSForms.Controls, _
         Optional ByVal a_height As Single, _

@@ -9,8 +9,8 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "A target binding strategy that creates a CaptionPropertyBinding by default, or a OneWayPropertyBinding given a target property path."
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   A target binding strategy that creates a CaptionPropertyBinding by default,
-'''             or a OneWayPropertyBinding given a target property path. </summary>
+''' <summary>   A target binding strategy that creates a <see cref="CaptionPropertyBinding"/> by default,
+'''             or a <see cref="OneWayPropertyBinding"/> given a target property path. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements IBindingTargetStrategy
@@ -24,12 +24,8 @@ Private Function IBindingTargetStrategy_DefaultPropertyBindingFor(ByVal a_contex
         ByVal a_stringFormatter As IStringFormatter, _
         ByVal a_validationAdorner As IDynamicAdorner) As IPropertyBinding
 
-    Set IBindingTargetStrategy_DefaultPropertyBindingFor = Factory.CreateCaptionPropertyBinding(a_context, _
-            a_source, a_target, _
-            a_validator:=a_validator, _
-            a_stringFormatter:=a_stringFormatter, _
-            a_converter:=a_converter, _
-            a_validationAdorner:=a_validationAdorner)
+    Set IBindingTargetStrategy_DefaultPropertyBindingFor = Factory.NewCaptionPropertyBinding().Initialize(a_context, _
+            a_source, a_target, a_validator, a_converter, a_stringFormatter, a_validationAdorner)
 
 End Function
 
@@ -42,11 +38,7 @@ Private Function IBindingTargetStrategy_PropertyBindingFor(ByVal a_context As IA
         ByVal a_stringFormatter As IStringFormatter, _
         ByVal a_validationAdorner As IDynamicAdorner) As IPropertyBinding
 
-    Set IBindingTargetStrategy_PropertyBindingFor = Factory.CreateOneWayPropertyBinding(a_context, _
-            a_source, a_target, _
-            a_validator:=a_validator, _
-            a_stringFormatter:=a_stringFormatter, _
-            a_converter:=a_converter, _
-            a_validationAdorner:=a_validationAdorner)
+    Set IBindingTargetStrategy_PropertyBindingFor = Factory.NewOneWayPropertyBinding().Initialize(a_context, _
+            a_source, a_target, a_validator, a_converter, a_stringFormatter, a_validationAdorner)
 
 End Function

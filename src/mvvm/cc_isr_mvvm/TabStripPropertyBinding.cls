@@ -7,9 +7,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
-'@Folder cc_isr_MVVM.Infrastructure.Bindings.PropertyBindings
-'@PredeclaredId
-'@Exposed
+''' - - - - - - - - - - - - - - - - - - - - -
+''' <summary>   A property binding that binds any property of any source to
+'''             properties of a TabStrip UI element target. </summary>
+''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements IPropertyBinding
 Implements cc_isr_Core.IDisposable
@@ -27,7 +28,9 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
 '''             this <see cref="TabStripPropertyBinding"/> object. </summary>
-Public Function Initialize(ByVal a_context As IAppContext, a_source As IBindingPath, ByVal a_target As MSForms.TabStrip, _
+''' <returns>   [<see cref="IPropertyBinding"/>]. </returns>
+Public Function Initialize(ByVal a_context As IAppContext, a_source As IBindingPath, _
+        ByVal a_target As MSForms.TabStrip, _
         Optional ByVal a_targetProperty As String = "Value", _
         Optional ByVal a_mode As BindingMode = BindingMode.TwoWayBinding, _
         Optional ByVal a_updateSource As BindingUpdateSourceTrigger = OnPropertyChanged, _
@@ -37,14 +40,9 @@ Public Function Initialize(ByVal a_context As IAppContext, a_source As IBindingP
         Optional ByVal a_validationAdorner As IDynamicAdorner) As IPropertyBinding
 
     Dim p_bindingBase As PropertyBindingBase
-    Set p_bindingBase = Factory.CreatePropertyBindingBase(a_context, _
-            a_source, a_target, a_targetProperty, _
-            a_mode, _
-            a_updateSource, _
-            a_validator, _
-            a_converter, _
-            a_stringFormatter, _
-            a_validationAdorner)
+    Set p_bindingBase = Factory.NewPropertyBindingBase().Initialize(a_context, _
+            a_source, a_target, a_targetProperty, a_mode, a_updateSource, a_converter, a_stringFormatter, _
+            a_validator, a_validationAdorner)
     
     Me.InjectBindingInfo p_bindingBase
     

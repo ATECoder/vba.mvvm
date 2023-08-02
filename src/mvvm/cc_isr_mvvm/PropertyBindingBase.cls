@@ -68,18 +68,20 @@ Private This As TState
 ''' control-specific behavior accordingly.
 ''' </remarks>
 ''' <param name="a_context"> </param>
-''' <param name="a_source">               [IBindingPath] Old description: Typically, that’s just a reference to the source ViewModel
-'''                                       object. </param>
-''' <param name="a_targetContext">        [Object] Typically, that’s just a reference to the target MSForms control.
-'''                                       Technically, it could really be any object that has any number of public
-'''                                       properties. </param>
-''' <param name="a_targetPropertyPath">   [String] Each binding type has a default target property that is automatically
-'''                                       inferred from the type of target (and in some cases, from the data type of
-'''                                       the source property). For example, binding to a <c>TextBox</c> control
-'''                                       automatically wires up the control’s <c>Text</c> property, such that providing
-'''                                       a <c>TargetPropertyPath</c> is only needed when binding to another target property. </param>
-''' <param name="a_validationAdorner">    [IDynamicAdorner] Lets the user know about validation errors. </param>
-''' <param name=""> </param>
+''' <param name="a_source">                        [IBindingPath] Old description: Typically, that’s just a reference to
+'''                                                the source ViewModel object. </param>
+''' <param name="a_targetContext">                 [Object] Typically, that’s just a reference to the target MSForms control.
+'''                                                Technically, it could really be any object that has any number of public
+'''                                                properties. </param>
+''' <param name="a_targetPropertyPath">            [String] Each binding type has a default target property that is
+'''                                                automatically inferred from the type of target (and in some cases,
+'''                                                from the data type of the source property). For example, binding to a
+'''                                                <c>TextBox</c> control automatically wires up the control’s <c>Text</c>
+'''                                                property, such that providing a <c>TargetPropertyPath</c> is only needed
+'''                                                when binding to another target property. </param>
+''' <param name="a_validationAdorner">             [IDynamicAdorner] Lets the user know about validation errors. </param>
+''' <param name="a_cancelExitOnValidationError">   [Boolean, True] Cancel exit on validation error. </param>
+''' <returns>   [<see cref="IPropertyBinding"/>]. </returns>
 Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
         ByVal a_targetContext As Object, _
         Optional ByVal a_targetPropertyPath As String = "Value", _
@@ -96,7 +98,7 @@ Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBi
     Me.UpdateSourceTrigger = a_updateSource
     
     Set Me.Source = a_source
-    Set Me.Target = Factory.CreateBindingPath(a_targetContext, a_targetPropertyPath)
+    Set Me.Target = Factory.NewBindingPath().Initialize(a_targetContext, a_targetPropertyPath)
     
     Set Me.Context = a_context
     
@@ -331,7 +333,7 @@ Public Sub ApplyToTarget()
         End If
     End If
     
-    Validate p_sourceValue, Propagate:=False
+    Validate p_sourceValue, False
     p_sourceValue = Convert(p_sourceValue)
     
     This.Target.Resolve
@@ -541,29 +543,32 @@ Private Function ResolvePropertyName(ByVal a_propertyPath As String) As String
     ResolvePropertyName = p_parts(UBound(p_parts))
 End Function
 
+''' <summary>   Gets a default value for certain specific target properties, used when source path cannot be
+'''             fully resolved, e.g., when target binds to <c>SomeObjectProperty.SomeProperty</c> and
+'''             <c>SomeObjectProperty</c> is Nothing. </summary>
 Private Function TryGetDefaultBindingValue(ByRef a_outValue As Variant) As Boolean
-'Gets a default value for certain specific target properties, used when source path cannot be fully resolved,
-'e.g. when target binds to "SomeObjectProperty.SomeProperty" and "SomeObjectProperty" is Nothing.
 
     Select Case This.Target.PropertyName
     
         Case "Text", "Caption"
+            
             a_outValue = VBA.vbNullString
             TryGetDefaultBindingValue = True
             
         Case "Enabled", "Visible"
+        
             a_outValue = False
             TryGetDefaultBindingValue = True
             
         Case "Value"
-            If TypeOf This.Target Is MSForms.CheckBox _
-                Or TypeOf This.Target Is MSForms.OptionButton _
-            Then
+            
+            If TypeOf This.Target Is MSForms.CheckBox Or TypeOf This.Target Is MSForms.OptionButton Then
                 a_outValue = False
                 TryGetDefaultBindingValue = True
             End If
             
     End Select
+    
 End Function
 
 Private Function Convert(ByVal a_value As Variant) As Variant
@@ -591,7 +596,7 @@ CleanFail:
     Resume CleanExit 'NOTE: 'VF: is never reached
 End Function
 
-Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate As Boolean = True) As Boolean
+Public Function Validate(ByVal a_targetValue As Variant, Optional ByVal a_propagate As Boolean = True) As Boolean
 
     If This.Validator Is Nothing Then
         Validate = True
@@ -599,9 +604,9 @@ Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate 
     End If
     
     On Error GoTo CleanFail
-    If This.Validator.IsValid(TargetValue, This.Source, This.Target) Then
+    If This.Validator.IsValid(a_targetValue, This.Source, This.Target) Then
         
-        If Propagate Then
+        If a_propagate Then
             This.Context.Validation.ClearValidationError This.Source
             If Not This.ValidationAdorner Is Nothing Then This.ValidationAdorner.Hide
         End If
@@ -610,22 +615,22 @@ Public Function Validate(ByVal TargetValue As Variant, Optional ByVal Propagate 
         
     Else
         
-        If Propagate Then
-            Dim Message As String
-            Message = This.Validator.Message
+        If a_propagate Then
+            Dim p_message As String
+            p_message = This.Validator.Message
             
             This.Context.Validation.OnValidationError _
                 a_context:=This.Source.Context, _
-                a_validationError:=Factory.CreateValidationError(Me, Message)
+                a_validationError:=Factory.NewValidationError().Initialize(Me, p_message)
             
-            If Not This.ValidationAdorner Is Nothing Then This.ValidationAdorner.Show Message
+            If Not This.ValidationAdorner Is Nothing Then This.ValidationAdorner.Show p_message
             'VF: commented out as it leads to select all, which is not desired in text and numeric textboxes even though there may be more than one eventhandler
             'OnEnter
         End If
     End If
         
 CleanExit:
-    If Propagate Then
+    If a_propagate Then
         This.Context.Commands.EvaluateCanExecute This.Source.Context
     End If
     Exit Function
@@ -754,7 +759,8 @@ End Sub
 Private Sub OnValidationError()
 
     This.Context.Validation.OnValidationError This.Source.Context, _
-    Factory.CreateValidationError(Me, This.Validator.Message)
+        Factory.NewValidationError().Initialize(Me, This.Validator.Message)
+        
     This.ValidationAdorner.Show This.Validator.Message
     
 End Sub

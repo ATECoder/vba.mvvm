@@ -34,7 +34,7 @@ Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As cc_
         Optional ByVal a_validationAdorner As cc_isr_MVVM.IDynamicAdorner) As ITestStub
     
     Dim Base As cc_isr_MVVM.PropertyBindingBase
-    Set Base = cc_isr_MVVM.Factory.CreatePropertyBindingBase(a_context, a_source, a_target, _
+    Set Base = cc_isr_MVVM.Factory.NewPropertyBindingBase().Initialize(a_context, a_source, a_target, _
             a_targetProperty, a_mode, a_updateSource, a_converter, a_stringFormatter, a_validator, a_validationAdorner)
     Me.InjectBindingInfo Base
     Set Initialize = Me
@@ -148,7 +148,7 @@ End Function
 
 Private Function ITestStub_Verify(ByVal a_assert As cc_isr_Test_Fx.Assert, ByVal a_memberName As String, _
                                   ByVal a_expectedInvokes As Long) As cc_isr_Test_Fx.Assert
-    ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
+    Set ITestStub_Verify = This.Stub.Verify(a_assert, a_memberName, a_expectedInvokes)
 End Function
 
 Private Property Get IPropertyBinding_Mode() As cc_isr_MVVM.BindingMode

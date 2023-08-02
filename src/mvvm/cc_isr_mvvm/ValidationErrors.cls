@@ -21,6 +21,7 @@ Private This As TState
 
 ''' <summary>   Initializes a collection of <see cref="IValidationError"/> objects for the specified
 '''             binding context (ViewModel) and returns this <see cref=ValidationErrors"/> object. </summary>
+''' <returns>   [<see cref="ValidationErrors"/>]. </returns>
 Public Function Initialize(ByVal a_bindingContext As Object) As ValidationErrors
 Attribute Initialize.VB_Description = "Creates a new collection of IValidationError objects for the specified binding context (ViewModel)."
     

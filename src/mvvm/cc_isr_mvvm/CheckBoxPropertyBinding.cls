@@ -8,7 +8,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   </summary>
+''' <summary>   A property binding that binds any property of any source,
+'''             two-way to <see cref="BindingDefaults.CaptionDefaultProperty"/>
+'''             or <see cref="BindingDefaults.CheckBoxDefaultProperty"/> properties of
+'''             a CheckBox UI element target. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements IPropertyBinding
@@ -26,6 +29,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IPropertyBinding"> representation of
 '''             this <see cref="CaptionPropertyBinding"/> object. </summary>
+''' <returns>   [<see cref="IPropertyBinding"/>]. </returns>
 Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBindingPath, _
         ByVal a_target As MSForms.CheckBox, _
         Optional ByVal a_targetProperty As Variant, _
@@ -44,14 +48,9 @@ Public Function Initialize(ByVal a_context As IAppContext, ByVal a_source As IBi
     End If
     
     Dim p_bindingBase As PropertyBindingBase
-    Set p_bindingBase = Factory.CreatePropertyBindingBase(a_context, a_source, a_target, _
-            p_localTargetProperty, _
-            a_mode, _
-            a_updateSource, _
-            a_converter, _
-            a_stringFormatter, _
-            a_validator, _
-            a_validationAdorner)
+    Set p_bindingBase = Factory.NewPropertyBindingBase().Initialize(a_context, a_source, a_target, _
+            p_localTargetProperty, a_mode, a_updateSource, a_converter, a_stringFormatter, _
+            a_validator, a_validationAdorner)
     
     If Not a_validator Is Nothing Then
         p_bindingBase.AsINotifyValidationError.RegisterHandler Factory.ValidationManager
@@ -74,11 +73,11 @@ Public Function InferTargetPropertyFromSource(ByVal a_source As IBindingPath) As
         
             Case VBA.VbVarType.vbBoolean
                 
-                p_result = "Value"
+                p_result = BindingDefaults.CheckBoxDefaultProperty ' "Value"
             
             Case VBA.VbVarType.vbString
                 
-                p_result = "Caption"
+                p_result = BindingDefaults.CaptionDefaultProperty ' "Caption"
             
             Case Else
                 Debug.Print VBA.Information.TypeName(Me) & ": binding source [" & a_source.ToString() & "] involves implicit value conversion."

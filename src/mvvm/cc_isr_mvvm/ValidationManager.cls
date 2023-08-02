@@ -23,6 +23,7 @@ End Type
 Private This As TState
 
 ''' <summary>   Initializes and returns this <see cref=ValidationManager"/> object. </summary>
+''' <returns>   [<see cref="ValidationManager"/>]. </returns>
 Public Function Initialize(Optional ByVal a_errorAdornerFactory As IDynamicAdornerFactory) As ValidationManager
     
     Me.InitAdornerFactory a_errorAdornerFactory
@@ -123,7 +124,7 @@ Private Sub OnValidationError(ByVal a_context As Object, ByVal a_validationError
     If This.ValidationErrors.Exists(ContextKey) Then
         Set Errors = This.ValidationErrors.Item(ContextKey)
     Else
-        Set Errors = Factory.CreateValidationErrors(a_context)
+        Set Errors = Factory.NewValidationErrors().Initialize(a_context)
     End If
     
     Errors.Add a_validationError

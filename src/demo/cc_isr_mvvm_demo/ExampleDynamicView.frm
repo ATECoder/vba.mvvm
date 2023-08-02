@@ -72,27 +72,27 @@ Private Sub InitializeView()
     Set This.Factory = cc_isr_MVVM.Factory
     
     Dim p_layout As IContainerLayout
-    Set p_layout = cc_isr_MVVM.Factory.CreateContainerLayout(Me.Controls, cc_isr_MVVM.LayoutDirection.TopToBottom)
+    Set p_layout = cc_isr_MVVM.Factory.NewContainerLayout().Initialize(Me.Controls, cc_isr_MVVM.LayoutDirection.TopToBottom)
     
-    With This.Factory.CreateDynamicControls(This.Context, p_layout)
+    With This.Factory.NewDynamicControls().Initialize(This.Context, p_layout)
         
         With .LabelFor("All controls on this form are created at run-time.")
             .Font.Bold = True
             .Name = "LabelIndex1"
         End With
         
-        With .LabelFor(This.Factory.CreateBindingPath(This.ViewModel, "Instructions"))
+        With .LabelFor(This.Factory.NewBindingPath().Initialize(This.ViewModel, "Instructions"))
             .Name = "LabelIndex2"
         End With
         
         'VF: refactor free string to some enum PropertyName ("StringProperty", "CurrencyProperty") throughout (?) [when I frame a question mark in parentheses is not really a question but a rhetorical question, meaning I am pretty sure of the correct answer]
-        With .TextBoxFor(This.Factory.CreateBindingPath(This.ViewModel, "StringProperty"), _
+        With .TextBoxFor(This.Factory.NewBindingPath().Initialize(This.ViewModel, "StringProperty"), _
                     a_validator:=This.Factory.NewRequiredStringValidator, _
                     a_titleSource:="Some String:")
                 .Name = "TextBoxIndex1"
         End With
         
-        With .TextBoxFor(This.Factory.CreateBindingPath(This.ViewModel, "CurrencyProperty"), _
+        With .TextBoxFor(This.Factory.NewBindingPath().Initialize(This.ViewModel, "CurrencyProperty"), _
                     a_formatString:="{0:C2}", _
                     a_validator:=This.Factory.NewDecimalKeyValidator, _
                     a_titleSource:="Some Amount:")
@@ -102,7 +102,8 @@ Private Sub InitializeView()
         ' ToDo: 'VF: needs validation .CanExecute(This.Context) before .Show
         ' (as textbox1 has focus and is empty and when moving to this close button,
         ' tb1 is validated and OnClick is disabled leaving the user out in the rain)
-        With .CommandButtonFor(This.Factory.CreateAcceptCommand(Me, This.Context.Validation), This.ViewModel, "Close")
+        With .CommandButtonFor(This.Factory.NewAcceptCommand().Initialize(Me, This.Context.Validation), _
+                This.ViewModel, "Close")
             .Name = "CommandButtonIndex1"
         End With
         
@@ -115,7 +116,7 @@ End Sub
 Private Sub BindViewControls()
     
     Dim p_layout As ILayout
-    Set p_layout = This.Factory.CreateLayout(Me, 25, 20)
+    Set p_layout = This.Factory.NewLayout().Initialize(Me, 25, 20)
     With p_layout
         .BindControlLayout Me, Me.Controls("LabelIndex1"), AnchorEdges.LeftAnchor + AnchorEdges.RightAnchor
         .BindControlLayout Me, Me.Controls("LabelIndex2"), AnchorEdges.LeftAnchor + AnchorEdges.RightAnchor

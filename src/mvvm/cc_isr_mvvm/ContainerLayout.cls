@@ -28,6 +28,7 @@ Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IContainerLayout"/> representation of
 '''             this <see cref="ContainerLayout"/> object. </summary>
+''' <returns>   [<see cref="IContainerLayout"/>]. </returns>
 Public Function Initialize(ByVal a_parent As MSForms.Controls, Optional ByVal a_direction As LayoutDirection, _
         Optional ByVal a_top As Long = 0, _
         Optional ByVal a_left As Long = 0, _

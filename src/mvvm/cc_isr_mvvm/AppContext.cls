@@ -27,6 +27,7 @@ End Type
 Private This As TState
 
 ''' <summary>   Initializes and returns this <see cref="AppContext"/> object. </summary>
+''' <returns>   [<see cref="AppContext"/>]. </returns>
 Public Function Initialize(Optional ByVal a_bindings As cc_isr_MVVM.IBindingManager, _
         Optional ByVal a_commands As cc_isr_MVVM.ICommandManager, _
         Optional ByVal a_validation As cc_isr_MVVM.IValidationManager, _
@@ -87,8 +88,8 @@ Friend Sub InitBindingManager(ByVal a_binding As cc_isr_MVVM.IBindingManager)
     If a_binding Is Nothing Then
     
         Dim a_concreteManager As cc_isr_MVVM.BindingManager
-        Set a_concreteManager = Factory.CreateBindingManager(Me, Me.StringFormatterFactory, _
-                                                               a_debugOutput:=Me.DebugOutput)
+        Set a_concreteManager = Factory.NewBindingManager().Initialize(Me, Me.StringFormatterFactory, _
+                                                                       a_debugOutput:=Me.DebugOutput)
         Set p_manager = a_concreteManager
         
     Else
@@ -107,7 +108,7 @@ Friend Sub InitValidationManager(ByVal a_validation As cc_isr_MVVM.IValidationMa
     
     If a_validation Is Nothing Then
         Dim a_concreteManager As cc_isr_MVVM.ValidationManager
-        Set a_concreteManager = Factory.CreateValidationManager(a_adornerFactory)
+        Set a_concreteManager = Factory.NewValidationManager().Initialize(a_adornerFactory)
         Set p_manager = a_concreteManager
     Else
         'use injected instance (could be a test stub):

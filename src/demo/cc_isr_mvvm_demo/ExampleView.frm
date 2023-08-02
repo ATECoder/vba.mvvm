@@ -92,10 +92,10 @@ End Property
 Private Sub BindViewModelCommands()
     
     Me.Context.Commands.BindCommand Me.ViewModel, Me.OkButton, _
-            cc_isr_MVVM.Factory.CreateAcceptCommand(Me, This.Context.Validation)
+            cc_isr_MVVM.Factory.NewAcceptCommand().Initialize(Me, This.Context.Validation)
             
     Me.Context.Commands.BindCommand Me.ViewModel, Me.CancelButton, _
-            cc_isr_MVVM.Factory.CreateCancelCommand(Me)
+            cc_isr_MVVM.Factory.NewCancelCommand().Initialize(Me)
     
     Me.Context.Commands.BindCommand Me.ViewModel, Me.BrowseButton, ViewModel.SomeCommand
     '...
@@ -133,8 +133,8 @@ Private Sub BindViewModelProperties()
         a_formatString:="{0:MMMM dd, yyyy}", _
         a_converter:=StringToDateConverter.Default, _
         a_validator:=cc_isr_MVVM.Factory.NewRequiredStringValidator, _
-        a_validationAdorner:=cc_isr_MVVM.Factory.CreateValidationErrorAdorner( _
-            a_target:=Me.TextBox1, _
+        a_validationAdorner:=cc_isr_MVVM.Factory.NewValidationErrorAdorner().Initialize( _
+             a_target:=Me.TextBox1, _
             a_targetFormatter:=cc_isr_MVVM.Factory.NewValidationErrorFormatter.WithErrorBorderColor.WithErrorBackgroundColor)
     
     ' OptionButton controls automatically bind their value to a Boolean property:
@@ -174,7 +174,7 @@ End Sub
 Private Sub BindViewControls()
     
     Dim p_LayoutView As ILayout
-    Set p_LayoutView = cc_isr_MVVM.Factory.CreateLayout(Me, 15, 30)
+    Set p_LayoutView = cc_isr_MVVM.Factory.NewLayout().Initialize(Me, 15, 30)
     With p_LayoutView
         .BindControlLayout Me, Me.InstructionsLabel, LeftAnchor + RightAnchor
         .BindControlLayout Me, Me.AmountBox, LeftAnchor

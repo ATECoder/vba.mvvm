@@ -30,6 +30,7 @@ End Type
 Private This As TState
 
 ''' <summary>   Initializes and returns this <see cref="Layout"/> object. </summary>
+''' <returns>   [<see cref="Layout"/>]. </returns>
 Public Function Initialize(ByVal a_object As Object, Optional ByVal a_newWidthPercent As Long = 50, _
         Optional ByVal a_newHeightPercent As Long = 50) As Layout
     
