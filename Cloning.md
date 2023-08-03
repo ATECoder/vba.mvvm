@@ -11,14 +11,19 @@ Clone the repository along with its requisite repositories to their respective r
 ### Repositories
 The repositories listed in [external repositories] are required:
 
+[Core repository]
+
 ```
+git clone https://github.com/ATECoder/vba.core.git
 git clone https://github.com/ATECoder/vba.mvvm.git
 ```
 
 Clone the repositories into the following folders (parents of the .git folder):
 ```
+%vba%\core\core
 %vba%\core\mvvm
 ```
 where %vba% is the root folder of the VBA libraries, e.g., %my%\lib\vba, and %my%, e.g., c:\my is the overall root folder.
 
 [external repositories]: ExternalReposCommits.csv
+[Core repository]: https://github.com/ATECoder/vba.core.git

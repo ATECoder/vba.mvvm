@@ -25,9 +25,16 @@ The [cc.isr.mvvm.demo] workbook includes the following example forms:
 
 Testing information is included in the [Testing] document.
 
+## Scripts
+
+* [Deploy]: copies the main workbook and its referenced workbooks to the deploy folder.
+* [Localize]: sets the folders of the referenced workbook of each workbook to the same folder as the  referencing workbook.
+
 [cc.isr.mvvm]: https://github.com/ATECoder/vba.mvvm
 [cc.isr.mvvm.demo]: https://github.com/ATECoder/vba.mvvm/src/demo
 [Testing]: ./cc.isr.mvvm.demo.testing.md
+[Deploy]: ./deploy.ps
+[Localize]: ./localize.ps
 
 [ISR]: https://www.integratedscientificresources.com
 
