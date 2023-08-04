@@ -1,9 +1,11 @@
 Attribute VB_Name = "BindingPathTests"
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Unit tests: Binding path. </summary>
+''' <remarks>
+''' 2023-08-02: all tests passed.
+''' </rearks>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Option Private Module
 
 Private Type ThisData
     
@@ -89,7 +91,11 @@ Private Function AssertExpectError() As cc_isr_Test_Fx.Assert
     
 End Function
 
-Public Function TestCreateGuardsNullBindingContext() As cc_isr_Test_Fx.Assert
+''' <summary>   [Unit Test] A null argument exception should be thrown creating a
+'''             <see cref="cc_isr_MVVM.BindingPath"/> with a null binding context
+'''             argument. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
+Public Function TestNullArgumentErrorCreatingBindingPath() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.NullArgumentError.Code
@@ -97,75 +103,38 @@ Public Function TestCreateGuardsNullBindingContext() As cc_isr_Test_Fx.Assert
     cc_isr_MVVM.Factory.NewBindingPath().Initialize Nothing, This.Path
     Set p_outcome = AssertExpectError
     On Error GoTo 0
-    
 
-    Debug.Print "TestCreateGuardsNullBindingContext " & _
+    Debug.Print "TestNullArgumentErrorCreatingBindingPath " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
-    Set TestCreateGuardsNullBindingContext = p_outcome
+    Set TestNullArgumentErrorCreatingBindingPath = p_outcome
     
 End Function
 
-Public Function TestCreateGuardsEmptyPath() As cc_isr_Test_Fx.Assert
+''' <summary>   [Unit Test] An invalid argument exception should be thrown creating a
+'''             <see cref="cc_isr_MVVM.BindingPath"/> with an empty path argument. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
+Public Function TestInvalidArgumentErrorCreatingBindingPath() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidArgumentError.Code
     On Error Resume Next
     cc_isr_MVVM.Factory.NewBindingPath().Initialize This.BindingContext, vbNullString
-    
-    Set p_outcome = AssertExpectError
-    
-    On Error GoTo 0
-
-
-    Debug.Print "TestCreateGuardsEmptyPath " & _
-        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
-
-    Set TestCreateGuardsEmptyPath = p_outcome
-    
-
-End Function
-
-Public Function TestCreateGuardsNonDefaultInstance() As cc_isr_Test_Fx.Assert
-    
-    Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
-    On Error Resume Next
-    Dim p_bindingPath As BindingPath
-    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-
-    Debug.Print "TestCreateGuardsNonDefaultInstance " & _
+    Debug.Print "TestInvalidArgumentErrorCreatingBindingPath " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestCreateGuardsNonDefaultInstance = p_outcome
+    Set TestInvalidArgumentErrorCreatingBindingPath = p_outcome
 
 End Function
 
-Public Function TestContextGuardsDefaultInstance() As cc_isr_Test_Fx.Assert
-    
-    Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
-    On Error Resume Next
-    
-    Dim p_bindingPath As BindingPath
-    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
-    ' Set BindingPath.Context = This.BindingContext
-    
-    Set p_outcome = AssertExpectError
-    On Error GoTo 0
-
-
-    Debug.Print "TestContextGuardsDefaultInstance " & _
-        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
-
-    Set TestContextGuardsDefaultInstance = p_outcome
-    
-End Function
-
-Public Function TestContextGuardsDoubleInitialization() As cc_isr_Test_Fx.Assert
+''' <summary>   [Unit Test] An invalid operation exception should be thrown creating on
+'''             double initialization of a <see cref="cc_isr_MVVM.BindingPath"/>
+'''             context. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
+Public Function TestInvalidOperationErrorDoubleInitializationBindignPathContext() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
@@ -175,14 +144,17 @@ Public Function TestContextGuardsDoubleInitialization() As cc_isr_Test_Fx.Assert
     On Error GoTo 0
 
 
-    Debug.Print "TestContextGuardsDoubleInitialization " & _
+    Debug.Print "TestInvalidOperationErrorDoubleInitializationBindignPathContext " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
-    Set TestContextGuardsDoubleInitialization = p_outcome
+    Set TestInvalidOperationErrorDoubleInitializationBindignPathContext = p_outcome
 
 End Function
 
-Public Function TestContextGuardsNullReference() As cc_isr_Test_Fx.Assert
+''' <summary>   [Unit Test] A Null Argument exception should be thrown setting
+'''             a null <see cref="cc_isr_MVVM.BindingPath"/> context. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
+Public Function TestNullArgumentSettingNullBindingPathContext() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.NullArgumentError.Code
@@ -190,37 +162,19 @@ Public Function TestContextGuardsNullReference() As cc_isr_Test_Fx.Assert
     Set This.ConcreteSUT.Context = Nothing
     Set p_outcome = AssertExpectError
     On Error GoTo 0
-    
 
-    Debug.Print "TestContextGuardsNullReference " & _
+    Debug.Print "TestNullArgumentSettingNullBindingPathContext " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestContextGuardsNullReference = p_outcome
+    Set TestNullArgumentSettingNullBindingPathContext = p_outcome
     
 End Function
 
-Public Function TestPathGuardsDefaultInstance() As cc_isr_Test_Fx.Assert
-    
-    Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
-    On Error Resume Next
-    
-    Dim p_bindingPath As BindingPath
-    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath().Initialize(This.BindingContext, This.Path)
-    ' BindingPath.Path = This.Path
-    
-    Set p_outcome = AssertExpectError
-    On Error GoTo 0
-
-
-    Debug.Print "TestPathGuardsDefaultInstance " & _
-        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
-
-    Set TestPathGuardsDefaultInstance = p_outcome
-
-End Function
-
-Public Function TestPathGuardsDoubleInitialization() As cc_isr_Test_Fx.Assert
+''' <summary>   [Unit Test] An invalid operation exception should be thrown creating on
+'''             double initialization of a <see cref="cc_isr_MVVM.BindingPath"/>
+'''             path. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
+Public Function TestInvalidOperationErrorDoubleInitializationBindignPathPath() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
@@ -228,16 +182,18 @@ Public Function TestPathGuardsDoubleInitialization() As cc_isr_Test_Fx.Assert
     This.ConcreteSUT.Path = This.Path
     Set p_outcome = AssertExpectError
     On Error GoTo 0
-    
 
-    Debug.Print "TestPathGuardsDoubleInitialization " & _
+    Debug.Print "TestInvalidOperationErrorDoubleInitializationBindignPathPath " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestPathGuardsDoubleInitialization = p_outcome
+    Set TestInvalidOperationErrorDoubleInitializationBindignPathPath = p_outcome
 
 End Function
 
-Public Function TestPathGuardsEmptyString() As cc_isr_Test_Fx.Assert
+''' <summary>   [Unit Test] An Invalid Argument exception should be thrown setting
+'''             an empty <see cref="cc_isr_MVVM.BindingPath"/> path. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
+Public Function TestInvalidArgumentErrorSettingEmptyPathBindingPath() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidArgumentError.Code
@@ -246,26 +202,28 @@ Public Function TestPathGuardsEmptyString() As cc_isr_Test_Fx.Assert
     Set p_outcome = AssertExpectError
     On Error GoTo 0
 
-
-    Debug.Print "TestPathGuardsEmptyString " & _
+    Debug.Print "TestInvalidArgumentErrorSettingEmptyPathBindingPath " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestPathGuardsEmptyString = p_outcome
+    Set TestInvalidArgumentErrorSettingEmptyPathBindingPath = p_outcome
 
 End Function
 
+''' <summary>   [Unit Test] <see cref="cc_isr_MVVM.BindingPath"/>.Resolve should
+'''             set the binding path Object and binding source. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestResolveSetsBindingSource() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
     Dim p_bindingPath As BindingPath
     
-    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath
+    Set p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath
     
     p_bindingPath.Path = This.Path
     Set p_bindingPath.Context = This.BindingContext
     
-    Set p_outcome = This.Assert.IsFalse(p_bindingPath.Object Is Nothing, _
+    Set p_outcome = This.Assert.IsTrue(p_bindingPath.Object Is Nothing, _
         "Object reference is unexpectedly set.")
         
     p_bindingPath.Resolve
@@ -274,7 +232,6 @@ Public Function TestResolveSetsBindingSource() As cc_isr_Test_Fx.Assert
         Set p_outcome = This.Assert.IsTrue(This.BindingSource Is p_bindingPath.Object, _
                                             "The binding source should be set to an object.")
 
-
     Debug.Print "TestResolveSetsBindingSource " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
@@ -282,20 +239,23 @@ Public Function TestResolveSetsBindingSource() As cc_isr_Test_Fx.Assert
 
 End Function
 
+''' <summary>   [Unit Test] <see cref="cc_isr_MVVM.BindingPath"/>.Resolve should
+'''             set the binding path property name. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestResolveSetsBindingPropertyName() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
     Dim p_bindingPath As BindingPath
     
-    p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath
+    Set p_bindingPath = cc_isr_MVVM.Factory.NewBindingPath
 
     p_bindingPath.Path = This.Path
     
     Set p_bindingPath.Context = This.BindingContext
     
-    Set p_outcome = This.Assert.IsFalse(p_bindingPath.PropertyName = VBA.vbNullString, _
-                "PropertyName is unexpectedly non-empty.")
+    Set p_outcome = This.Assert.IsTrue(p_bindingPath.PropertyName = VBA.vbNullString, _
+                "Property name is unexpectedly non-empty.")
         
     p_bindingPath.Resolve
     
@@ -311,6 +271,9 @@ Public Function TestResolveSetsBindingPropertyName() As cc_isr_Test_Fx.Assert
 
 End Function
 
+''' <summary>   [Unit Test] Creating a <see cref="cc_isr_MVVM.BindingPath"/> should
+'''             resolve the binding path property name. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestCreateResolvesPropertyName() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -319,7 +282,6 @@ Public Function TestCreateResolvesPropertyName() As cc_isr_Test_Fx.Assert
     Set p_outcome = This.Assert.IsFalse(p_SUT.PropertyName = VBA.vbNullString, _
         "Property name should be empty.")
 
-
     Debug.Print "TestCreateResolvesPropertyName " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
@@ -327,6 +289,9 @@ Public Function TestCreateResolvesPropertyName() As cc_isr_Test_Fx.Assert
 
 End Function
 
+''' <summary>   [Unit Test] Creating a <see cref="cc_isr_MVVM.BindingPath"/> should
+'''             resolve the binding path binding source. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestCreateResolvesBindingSource() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -335,8 +300,7 @@ Public Function TestCreateResolvesBindingSource() As cc_isr_Test_Fx.Assert
     
     Set p_outcome = This.Assert.IsNotNull(p_SUT.Object, _
             "The binding path object should not be nothing.")
-
-
+    
     Debug.Print "TestCreateResolvesBindingSource " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 

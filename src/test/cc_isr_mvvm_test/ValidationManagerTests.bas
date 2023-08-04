@@ -1,9 +1,11 @@
 Attribute VB_Name = "ValidationManagerTests"
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Unit tests: Validation manager. </summary>
+''' <remarks>
+''' 2023-08-02: fails to create 'This'.
+''' </rearks>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-Option Private Module
 
 Private Type ThisData
     
@@ -51,7 +53,7 @@ Public Sub BeforeEach()
     
     Dim p_bindingSource As New TestBindingObject
     
-    Set This.ConcreteSUT = cc_isr_MVVM.Factory.NewValidationManager().Initialize(New TestNotifierFactory)
+    Set This.ConcreteSUT = cc_isr_MVVM.Factory.NewValidationManager().Initialize()
     Set This.NotifyValidationErrorSUT = This.ConcreteSUT
     Set This.HandleValidationErrorSUT = This.ConcreteSUT
     Set This.BindingSource = New TestBindingObject ' TestBindingObject.Create(This.ConcreteSUT)

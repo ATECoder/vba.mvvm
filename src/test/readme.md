@@ -24,13 +24,13 @@ The following object libraries are used as references:
 
 ## [Testing]
 
-Testing information is included in the [Testing] document.
+Unit testing is executed using the [Testing shortcut].
 
 [cc.isr.mvvm]: https://github.com/ATECoder/vba.mvvm
-[cc.isr.mvvm.demo]: https://github.com/ATECoder/vba.mvvm/src/demo
-[Testing]: ./cc.isr.mvvm.demo.testing.md
+[cc.isr.mvvm.test]: https://github.com/ATECoder/vba.mvvm/src/test
 [cc.isr.core]: https://github.com/ATECoder/vba.core/src/test
 [cc.isr.core.testfx]: https://github.com/ATECoder/vba.core/src/testfx
+[Testing shortcut]: ./cc.isr.mvvm.test.unit.test.lnk
 
 [ISR]: https://www.integratedscientificresources.com
-[Rubber Duck]: https://www.rubberduckvba.com
+

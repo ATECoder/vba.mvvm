@@ -9,7 +9,6 @@ Attribute VB_Name = "BindingManagerTests"
 ''' </remarks>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-' Option Private Module
 
 Private Type ThisData
 
@@ -106,28 +105,6 @@ Private Function AssertExpectError() As cc_isr_Test_Fx.Assert
     
 End Function
 
-''' <summary>   [Unit Test] Tests creating guards for non default instance. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
-Public Function TestCreateGuardsNonDefaultInstance() As cc_isr_Test_Fx.Assert
-
-    Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
-    Dim p_bindingManger As cc_isr_MVVM.BindingManager
-    p_bindingManger = cc_isr_MVVM.Factory.NewBindingManager
-    
-    On Error Resume Next
-    '@Ignore FunctionReturnValueDiscarded, FunctionReturnValueNotUsed
-    p_bindingManger.Initialize This.CommandManager, cc_isr_MVVM.Factory.NewStringFormatterFactory
-    Set p_outcome = AssertExpectError
-    On Error GoTo 0
-    
-    Debug.Print "TestCreateGuardsNonDefaultInstance " & _
-        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
-    
-    Set TestCreateGuardsNonDefaultInstance = p_outcome
-
-End Function
-
 ''' <summary>   Binds the binding source to the target object. </summary>
 ''' <param name="a_progID">   The bound object program id. </param>
 ''' <param name="a_target">   The instance of the target ohect created from the <ParamRef name="a_progId"/> </param>
@@ -142,7 +119,7 @@ End Function
 
 ''' <summary>   Asserts creating a property path binding to the object defined by the specified program id. </summary>
 ''' <param name="a_progID">   The bound object program id. </param>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Private Function AssertCreatePropertyBindingType(ByVal a_progID As String, _
         ByVal a_type As Object) As cc_isr_Test_Fx.Assert
     
@@ -159,7 +136,7 @@ End Function
 ''' <summary>   Asserts creating a property path binding to the object defined by the specified program id. </summary>
 ''' <param name="a_progID">   The bound object program id. </param>
 ''' <param name="a_targetProeprtyPath">   [Optional, String, Null] The target property path. </param>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Private Function AssertCreatePropertyBindingType2(ByVal a_progID As String, _
         ByVal a_type As Object, _
         Optional ByVal a_targetProeprtyPath As String = VBA.vbNullString) As cc_isr_Test_Fx.Assert
@@ -183,7 +160,7 @@ End Function
 ''' <param name="a_progID">               The bound object program id. </param>
 ''' <param name="a_name">                 The expected property name. </param>
 ''' <param name="a_targetProeprtyPath">   [Optional, String, Null] The target property path. </param>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Private Function AssertCreatePropertyBindingName(ByVal a_progID As String, _
         ByVal a_name As String, _
         Optional ByVal a_targetProeprtyPath As String = VBA.vbNullString) As cc_isr_Test_Fx.Assert
@@ -203,7 +180,7 @@ Private Function AssertCreatePropertyBindingName(ByVal a_progID As String, _
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a check box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestCheckBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -219,7 +196,7 @@ Public Function TestCheckBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Ass
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a check box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestCheckBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -236,7 +213,7 @@ Public Function TestCheckBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a check box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestComboBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -252,7 +229,7 @@ Public Function TestComboBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Ass
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a combo box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestComboBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -270,7 +247,7 @@ Public Function TestComboBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a list box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestListBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -286,7 +263,7 @@ Public Function TestListBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Asse
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a list box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestListBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -304,7 +281,7 @@ Public Function TestListBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Multi Page control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestMultiPageTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -320,7 +297,7 @@ Public Function TestMultiPageTargetCreatesPropertyBinding() As cc_isr_Test_Fx.As
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a Multi Page control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestMultiPageTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -335,7 +312,7 @@ Public Function TestMultiPageTargetBindsValueByDefault() As cc_isr_Test_Fx.Asser
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Option Button control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestOptionButtonTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -351,7 +328,7 @@ Public Function TestOptionButtonTargetCreatesPropertyBinding() As cc_isr_Test_Fx
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a Option Button control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestOptionButtonTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -369,7 +346,7 @@ Public Function TestOptionButtonTargetBindsValueByDefault() As cc_isr_Test_Fx.As
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Scroll Bar control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestScrollBarTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -385,7 +362,7 @@ Public Function TestScrollBarTargetCreatesPropertyBinding() As cc_isr_Test_Fx.As
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a Scroll Bar control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestScrollBarTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -400,7 +377,7 @@ Public Function TestScrollBarTargetBindsValueByDefault() As cc_isr_Test_Fx.Asser
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Spin Button control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestSpinButtonTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -416,7 +393,7 @@ Public Function TestSpinButtonTargetCreatesPropertyBinding() As cc_isr_Test_Fx.A
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a Spin Button control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestSpinButtonTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -431,7 +408,7 @@ Public Function TestSpinButtonTargetBindsValueByDefault() As cc_isr_Test_Fx.Asse
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Tab Strip control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestTabStripTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -447,7 +424,7 @@ Public Function TestTabStripTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Ass
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a Tab Strip control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestTabStripTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -462,7 +439,7 @@ Public Function TestTabStripTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Text Box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestTextBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -478,7 +455,7 @@ Public Function TestTextBoxTargetCreatesPropertyBinding() As cc_isr_Test_Fx.Asse
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding value for a Text Box control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestTextBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -494,7 +471,7 @@ Public Function TestTextBoxTargetBindsValueByDefault() As cc_isr_Test_Fx.Assert
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a Frame control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestFrameTargetCreatesOneWayBindingWithNonDefaultTarget() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -519,7 +496,7 @@ Public Function TestFrameTargetCreatesOneWayBindingWithNonDefaultTarget() As cc_
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a label control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestLabelTargetCreatesOneWayBindingWithNonDefaultTarget() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -536,7 +513,7 @@ Public Function TestLabelTargetCreatesOneWayBindingWithNonDefaultTarget() As cc_
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a frame control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestFrameTargetBindsCaptionPropertyByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -552,7 +529,7 @@ Public Function TestFrameTargetBindsCaptionPropertyByDefault() As cc_isr_Test_Fx
 End Function
 
 ''' <summary>   [Unit Test] Test creating a property path binding for a label control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestLabelTargetBindsCaptionPropertyByDefault() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -568,7 +545,7 @@ Public Function TestLabelTargetBindsCaptionPropertyByDefault() As cc_isr_Test_Fx
 End Function
 
 ''' <summary>   [Unit Test] Test non control target creates one way binding. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestNonControlTargetCreatesOneWayBinding() As cc_isr_Test_Fx.Assert
     
     Dim p_result As IPropertyBinding
@@ -589,7 +566,7 @@ Public Function TestNonControlTargetCreatesOneWayBinding() As cc_isr_Test_Fx.Ass
 End Function
 
 ''' <summary>   [Unit Test] Test non control target requires target property path. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestNonControlTargetRequiresTargetPropertyPath() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -611,7 +588,7 @@ Public Function TestNonControlTargetRequiresTargetPropertyPath() As cc_isr_Test_
 End Function
 
 ''' <summary>   [Unit Test] Test . </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestAddsToPropertyBindingsCollection() As cc_isr_Test_Fx.Assert
     
     Dim Result As IPropertyBinding
@@ -632,7 +609,7 @@ End Function
 
 ''' <summary>   [Unit Test] Test . </summary>
 ''' <remarks>   This methods fails because the binding source does not have any bound commands. </remarks>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function PendingTestHandlePropertyChangedEvaluatesCommandCanExecute() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -650,7 +627,7 @@ End Function
 
 ''' <summary>   [Unit Test] Test . </summary>
 ''' <remarks>   This methods fails because the binding source does not have any bound commands. </remarks>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function PendingTestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert

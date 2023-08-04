@@ -1,9 +1,11 @@
 Attribute VB_Name = "CommandManagerTests"
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>   Unit tests: Command manager. </summary>
+''' <remarks>
+''' 2023-08-02: all tests passed.
+''' </rearks>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
-' Option Private Module
 
 Private Type ThisData
 
@@ -87,40 +89,35 @@ End Function
 
 ''' <summary>   Asserts binding a command to the object defined by the specified program id. </summary>
 ''' <param name="a_progID">   The bound object program id. </param>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Private Function AssertBindCommandBindsItem(ByVal a_progID As String) As cc_isr_Test_Fx.Assert
     
     Dim p_target As Object
     Dim p_commandBinding As ICommandBinding
-    p_commandBinding = DefaultTargetCommandBindingFor(a_progID, p_target)
+    Set p_commandBinding = DefaultTargetCommandBindingFor(a_progID, p_target)
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    p_outcome = This.Assert.IsTrue(p_commandBinding.Command Is This.Command, _
+    Set p_outcome = This.Assert.IsTrue(p_commandBinding.Command Is This.Command, _
             "The bound command should be the same as the expected command.")
             
     If p_outcome.AssertSuccessful Then
     
-        p_outcome = This.Assert.IsTrue(p_commandBinding.Target Is p_target, _
-                "The bound object should be the same as the expected object.")
+        Set p_outcome = This.Assert.IsTrue(p_commandBinding.Target Is p_target, _
+                            "The bound object should be the same as the expected object.")
     
     End If
-    
-
-    Debug.Print "AssertBindCommandBindsItem " & _
-        IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
     Set AssertBindCommandBindsItem = p_outcome
 
 End Function
 
 ''' <summary>   [Unit Test] Tests binding a command to a command button control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestBindCommandBindsCommandButton() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.CommandButtonProgId)
-
 
     Debug.Print "TestBindCommandBindsCommandButton " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
@@ -130,49 +127,47 @@ Public Function TestBindCommandBindsCommandButton() As cc_isr_Test_Fx.Assert
 End Function
 
 ''' <summary>   [Unit Test] Tests binding a command to a check box control. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestBindCommandBindsCheckBox() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.CheckBoxProgId)
 
-
     Debug.Print "TestBindCommandBindsCommandButton " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestBindCommandBindsCommandButton = p_outcome
+    Set TestBindCommandBindsCheckBox = p_outcome
     
 End Function
 
 ''' <summary>   [Unit Test] Tests binding a command to an image control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestBindCommandBindsImage() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
     
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.ImageProgId)
 
-
     Debug.Print "TestBindCommandBindsCommandButton " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestBindCommandBindsCommandButton = p_outcome
+    Set TestBindCommandBindsImage = p_outcome
     
 End Function
 
 ''' <summary>   [Unit Test] Tests binding a command to a label control. </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestBindCommandBindsLabel() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
 
     Set p_outcome = AssertBindCommandBindsItem(cc_isr_MVVM.BindingDefaults.LabelProgId)
 
-
     Debug.Print "TestBindCommandBindsCommandButton " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
-    Set TestBindCommandBindsCommandButton = p_outcome
+    Set TestBindCommandBindsLabel = p_outcome
 
 End Function
 

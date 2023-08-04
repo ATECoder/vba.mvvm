@@ -9,6 +9,7 @@ Option Explicit
 
 Private Type ThisData
     Assert As cc_isr_Test_Fx.Assert
+    TestView As TestView
 End Type
 
 Private This As ThisData
@@ -24,21 +25,17 @@ End Sub
 ''' <summary>   Runs before each test. </summary>
 Public Sub BeforeEach()
     Set This.Assert = cc_isr_Test_Fx.Assert
+    Set This.TestView = New TestView
 End Sub
 
 ''' <summary>   Runs after each test. </summary>
 Public Sub AfterEach()
     Set This.Assert = Nothing
+    Set This.TestView = Nothing
 End Sub
 
-Public Function RunTest()
-    BeforeEach
-    TestAcceptCommandShouldConstruct
-    AfterEach
-End Function
-
-''' <summary>   [Unit Test] Test constructing <see cref=""/> . </summary>
-''' <returns>   <see cref="cc_isr_Test_Fx.Assert"/>. </returns>
+''' <summary>   [Unit Test] Test constructing a <see cref="cc_isr_MVVM.AcceptCommand"/> object. </summary>
+''' <returns>   [<see cref="cc_isr_Test_Fx.Assert"/>]. </returns>
 Public Function TestAcceptCommandShouldConstruct() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
@@ -47,20 +44,20 @@ Public Function TestAcceptCommandShouldConstruct() As cc_isr_Test_Fx.Assert
 
     Dim p_result As cc_isr_MVVM.AcceptCommand
     
-    Set p_result = cc_isr_MVVM.Factory.NewAcceptCommand()
+    Set p_result = cc_isr_MVVM.Factory.NewAcceptCommand().Initialize(This.TestView, cc_isr_MVVM.Factory.NewValidationManager)
     
     Set p_outcome = This.Assert.AreEqual(0, Err.Number, "Error number " & CStr(Err.Number) & " should be 0.")
     
     If p_outcome.AssertSuccessful Then _
         Set p_outcome = This.Assert.IsNotNull(p_result, TypeName(p_result) & " should not be null.")
     
+    On Error GoTo 0
 
     Debug.Print "TestAcceptCommandShouldConstruct " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
 
     Set TestAcceptCommandShouldConstruct = p_outcome
     
-    On Error GoTo 0
     
 End Function
 
