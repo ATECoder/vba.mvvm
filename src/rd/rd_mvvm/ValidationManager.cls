@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "Holds the validation errors state for a ViewModel."
-'@Folder MVVM.Infrastructure.Validation
+'@Folder rd_MVVM.Infrastructure.Validation
 '@ModuleDescription "Holds the validation errors state for a ViewModel."
 '@PredeclaredId
 '@Exposed
@@ -30,11 +30,11 @@ Public Function Create(Optional ByVal ErrorAdornerFactory As IDynamicAdornerFact
     Set Create = result
 End Function
 
-Private Sub InitAdornerFactory(ByVal Manager As MVVM.ValidationManager, ByVal AdornerFactory As MVVM.IDynamicAdornerFactory)
-    Dim Factory As MVVM.IDynamicAdornerFactory
+Private Sub InitAdornerFactory(ByVal Manager As rd_MVVM.ValidationManager, ByVal AdornerFactory As rd_MVVM.IDynamicAdornerFactory)
+    Dim Factory As rd_MVVM.IDynamicAdornerFactory
     
     If AdornerFactory Is Nothing Then
-        Dim DefaultFactory As MVVM.IDynamicAdornerFactory
+        Dim DefaultFactory As rd_MVVM.IDynamicAdornerFactory
         Set DefaultFactory = New DefaultErrorAdornerFactory
         Set Factory = DefaultFactory
     Else

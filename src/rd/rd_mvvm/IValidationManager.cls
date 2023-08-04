@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "Represents an object responsible for managing the validation errors in a ViewModel."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "Represents an object responsible for managing the validation errors in a ViewModel."
 '@Interface
 '@Exposed

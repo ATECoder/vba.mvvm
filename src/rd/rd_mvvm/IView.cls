@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "Describes a View."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "Describes a View."
 '@Interface
 '@Exposed

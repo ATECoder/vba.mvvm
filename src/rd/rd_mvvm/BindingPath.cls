@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Attribute VB_Description = "An object that can resolve a string property path to a value."
-'@Folder MVVM.Infrastructure.Bindings
+'@Folder rd_MVVM.Infrastructure.Bindings
 '@ModuleDescription "An object that can resolve a string property path to a value."
 '@PredeclaredId
 Option Explicit

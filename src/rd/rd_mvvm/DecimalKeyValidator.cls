@@ -8,14 +8,14 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "A key validator that allows numeric and decimal separator inputs."
-'@Folder MVVM.Common.Validators
+'@Folder rd_MVVM.Common.Validators
 '@ModuleDescription "A key validator that allows numeric and decimal separator inputs."
 '@Exposed
 Option Explicit
 Implements IValueValidator
 
 Private SeparatorChar As String
-Private UpdtSourceTrigger As MVVM.BindingUpdateSourceTrigger 'avoid being called twice
+Private UpdtSourceTrigger As rd_MVVM.BindingUpdateSourceTrigger 'avoid being called twice
 
 Private Sub Class_Initialize()
     SeparatorChar = VBA.Strings.Format$(0, ".")

@@ -4,12 +4,7 @@ Attribute VB_Name = "BindingManagerTests"
 Option Explicit
 Option Private Module
 
-#Const LateBind = LateBindTests
-#If LateBind Then
-Private Assert As Object
-#Else
-Private Assert As Rubberduck.AssertClass
-#End If
+Private Assert As cc_isr_Test_Fx.Assert
 
 Private Type TState
     ExpectedErrNumber As Long
@@ -40,13 +35,7 @@ Private Test As TState
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
-#If LateBind Then
-    'requires HKCU registration of the Rubberduck COM library.
-    Set Assert = CreateObject("Rubberduck.PermissiveAssertClass")
-#Else
-    'requires project reference to the Rubberduck COM library.
-    Set Assert = New Rubberduck.PermissiveAssertClass
-#End If
+    Set Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 '@ModuleCleanup
@@ -58,7 +47,10 @@ End Sub
 Private Sub TestInitialize()
     Set Test.CommandManager = New TestCommandManager
     Set Test.CommandManagerStub = Test.CommandManager
-    Set Test.ConcreteSUT = BindingManager.Create(Test.CommandManager, New StringFormatterNetFactory)
+    
+    Set Test.ConcreteSUT = BindingManager.Create(AppContext.Create(DebugOutput:=True), New StringFormatterNetFactory)
+    ' Set Test.ConcreteSUT = BindingManager.Create(Test.CommandManager, New StringFormatterNetFactory)
+    
     Set Test.AbstractSUT = Test.ConcreteSUT
     Set Test.HandlePropertyChangedSUT = Test.ConcreteSUT
     Set Test.BindingSource = New TestBindingObject
@@ -125,7 +117,7 @@ Private Sub BindPropertyPath_CheckBoxTargetCreatesCheckBoxPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.CheckBoxProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is CheckBoxPropertyBinding
+    Assert.IsTrue TypeOf result Is CheckBoxPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -134,7 +126,7 @@ Private Sub BindPropertyPath_CheckBoxTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.CheckBoxProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -142,7 +134,7 @@ Private Sub BindPropertyPath_ComboBoxTargetCreatesComboBoxPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.ComboBoxProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is ComboBoxPropertyBinding
+    Assert.IsTrue TypeOf result Is ComboBoxPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -151,7 +143,7 @@ Private Sub BindPropertyPath_ComboBoxTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.ComboBoxProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -159,7 +151,7 @@ Private Sub BindPropertyPath_ListBoxTargetCreatesListBoxPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.ListBoxProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is ListBoxPropertyBinding
+    Assert.IsTrue TypeOf result Is ListBoxPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -168,7 +160,7 @@ Private Sub BindPropertyPath_ListBoxTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.ListBoxProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -176,7 +168,7 @@ Private Sub BindPropertyPath_MultiPageTargetCreatesMultiPagePropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.MultiPageProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is MultiPagePropertyBinding
+    Assert.IsTrue TypeOf result Is MultiPagePropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -193,7 +185,7 @@ Private Sub BindPropertyPath_OptionButtonTargetCreatesOptionButtonPropertyBindin
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.OptionButtonProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is OptionButtonPropertyBinding
+    Assert.IsTrue TypeOf result Is OptionButtonPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -202,7 +194,7 @@ Private Sub BindPropertyPath_OptionButtonTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.OptionButtonProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -210,7 +202,7 @@ Private Sub BindPropertyPath_ScrollBarTargetCreatesScrollBarPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.ScrollBarProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is ScrollBarPropertyBinding
+    Assert.IsTrue TypeOf result Is ScrollBarPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -219,7 +211,7 @@ Private Sub BindPropertyPath_ScrollBarTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.ScrollBarProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -227,7 +219,7 @@ Private Sub BindPropertyPath_SpinButtonTargetCreatesSpinButtonPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.SpinButtonProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is SpinButtonPropertyBinding
+    Assert.IsTrue TypeOf result Is SpinButtonPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -236,7 +228,7 @@ Private Sub BindPropertyPath_SpinButtonTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.SpinButtonProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -244,7 +236,7 @@ Private Sub BindPropertyPath_TabStripTargetCreatesTabStripPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.TabStripProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is TabStripPropertyBinding
+    Assert.IsTrue TypeOf result Is TabStripPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -253,7 +245,7 @@ Private Sub BindPropertyPath_TabStripTargetBindsValueByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.TabStripProgId, outTarget:=Target)
-    Assert.AreEqual "Value", result.Target.PropertyName
+    Assert.AreEqual "Value", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -261,7 +253,7 @@ Private Sub BindPropertyPath_TextBoxTargetCreatesTextBoxPropertyBinding()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.TextBoxProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is TextBoxPropertyBinding
+    Assert.IsTrue TypeOf result Is TextBoxPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -270,7 +262,7 @@ Private Sub BindPropertyPath_TextBoxTargetBindsTextPropertyByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.TextBoxProgId, outTarget:=Target)
-    Assert.AreEqual "Text", result.Target.PropertyName
+    Assert.AreEqual "Text", result.Target.PropertyName, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -288,7 +280,7 @@ Private Sub BindPropertyPath_LabelTargetCreatesOneWayBindingWithNonDefaultTarget
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.LabelProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is OneWayPropertyBinding
+    Assert.IsTrue TypeOf result Is OneWayPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -297,7 +289,7 @@ Private Sub BindPropertyPath_FrameTargetBindsCaptionPropertyByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.FrameProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is CaptionPropertyBinding
+    Assert.IsTrue TypeOf result Is CaptionPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -306,14 +298,14 @@ Private Sub BindPropertyPath_LabelTargetBindsCaptionPropertyByDefault()
     Dim Target As Object
     Dim result As IPropertyBinding
     Set result = DefaultPropertyPathBindingFor(FormsProgID.LabelProgId, outTarget:=Target)
-    Assert.IsTrue TypeOf result Is CaptionPropertyBinding
+    Assert.IsTrue TypeOf result Is CaptionPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
 Private Sub BindPropertyPath_NonControlTargetCreatesOneWayBinding()
     Dim result As IPropertyBinding
     Set result = Test.AbstractSUT.BindPropertyPath(Test.BindingSource, Test.SourcePropertyPath, Test.BindingTarget, Test.TargetPropertyPath)
-    Assert.IsTrue TypeOf result Is OneWayPropertyBinding
+    Assert.IsTrue TypeOf result Is OneWayPropertyBinding, ""
 End Sub
 
 '@TestMethod("DefaultPropertyPathBindings")
@@ -333,14 +325,25 @@ End Sub
 Private Sub BindPropertyPath_AddsToPropertyBindingsCollection()
     Dim result As IPropertyBinding
     Set result = Test.AbstractSUT.BindPropertyPath(Test.BindingSource, Test.SourcePropertyPath, Test.BindingTarget, Test.TargetPropertyPath)
-    Assert.AreEqual 1, Test.ConcreteSUT.PropertyBindings.Count
-    Assert.AreSame result, Test.ConcreteSUT.PropertyBindings.Item(1)
+    Assert.AreEqual 1, Test.ConcreteSUT.PropertyBindings.Count, ""
+    Assert.AreSame result, Test.ConcreteSUT.PropertyBindings.Item(1), ""
+End Sub
+
+
+Sub RunTests()
+    ModuleInitialize
+    TestInitialize
+    HandlePropertyChanged_EvaluatesCommandCanExecute
+    TestCleanup
+    ModuleCleanup
 End Sub
 
 '@TestMethod("CallbackPropagation")
 Private Sub HandlePropertyChanged_EvaluatesCommandCanExecute()
     Test.HandlePropertyChangedSUT.HandlePropertyChanged Test.BindingSource, Test.SourceProperty
     Test.CommandManagerStub.Verify Assert, "EvaluateCanExecute", 1
+    Debug.Print "HandlePropertyChanged_EvaluatesCommandCanExecute " & _
+        iff(Assert.AssertSuccessful, "passed.", "failed: " & Assert.AssertMessage)
 End Sub
 
 '@TestMethod("CallbackPropagation")

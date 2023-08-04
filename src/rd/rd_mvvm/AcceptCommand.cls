@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A command that closes (hides) a View, enabled when the ViewModel is valid."
-'@Folder MVVM.Common.Commands
+'@Folder rd_MVVM.Common.Commands
 '@ModuleDescription "A command that closes (hides) a View, enabled when the ViewModel is valid."
 '@PredeclaredId
 '@Exposed

@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "Represents an object that can be (or must be) explicitly terminated."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "Represents an object that can be (or must be) explicitly terminated."
 '@Interface
 '@Exposed

@@ -1,5 +1,5 @@
 Attribute VB_Name = "Example"
-'@Folder MVVM.Example
+'@Folder rd_MVVM.Example
 Option Explicit
 
 'VF: Windows 10 is having a hard time handling multiple monitors, especially if different resolutions and more so if legacy applications like the VBE

@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "Provides an event sink to relay MSForms.Control events."
 '@IgnoreModule IntegerDataType
-'@Folder MVVM.Infrastructure.Win32
+'@Folder rd_MVVM.Infrastructure.Win32
 '@ModuleDescription "Provides an event sink to relay MSForms.Control events."
 'based on https://stackoverflow.com/a/51936950
 'based on https://stackoverflow.com/a/61893857

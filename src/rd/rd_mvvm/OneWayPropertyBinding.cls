@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A property binding that binds any property of any source, one-way to any property of a UI element target."
-'@Folder MVVM.Infrastructure.Bindings.PropertyBindings
+'@Folder rd_MVVM.Infrastructure.Bindings.PropertyBindings
 '@ModuleDescription "A property binding that binds any property of any source, one-way to any property of a UI element target."
 '@PredeclaredId
 '@Exposed
@@ -34,8 +34,8 @@ Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
     Dim BindingBase As PropertyBindingBase
     Set BindingBase = PropertyBindingBase _
         .Create(Context, Source, Target.Context, Target.Path, _
-            Mode:=MVVM.BindingMode.OneWayBinding, _
-            UpdateSource:=MVVM.BindingUpdateSourceTrigger.Never, _
+            Mode:=rd_MVVM.BindingMode.OneWayBinding, _
+            UpdateSource:=rd_MVVM.BindingUpdateSourceTrigger.Never, _
             Validator:=Validator, _
             Converter:=Converter, _
             StringFormat:=StringFormat, _

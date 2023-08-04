@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "Represents the relative position and margin of a dynamic UI component."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "Represents the relative position and margin of a dynamic UI component."
 '@Interface
 '@Exposed

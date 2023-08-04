@@ -35,22 +35,11 @@ End Type
 
 Private Test As TState
 
-#Const LateBind = LateBindTests
-#If LateBind Then
-Private Assert As Object
-#Else
-Private Assert As Rubberduck.AssertClass
-#End If
+Private Assert As cc_isr_Test_Fx.Assert
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
-#If LateBind Then
-    'requires HKCU registration of the Rubberduck COM library.
-    Set Assert = CreateObject("Rubberduck.PermissiveAssertClass")
-#Else
-    'requires project reference to the Rubberduck COM library.
-    Set Assert = New Rubberduck.PermissiveAssertClass
-#End If
+    Set Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 '@ModuleCleanup

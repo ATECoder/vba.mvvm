@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object responsible for managing command bindings."
-'@Folder MVVM.Infrastructure.Bindings.CommandBindings
+'@Folder rd_MVVM.Infrastructure.Bindings.CommandBindings
 '@ModuleDescription "An object responsible for managing command bindings."
 '@Exposed
 Option Explicit

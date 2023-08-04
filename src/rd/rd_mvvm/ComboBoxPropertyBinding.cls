@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
-'@Folder MVVM.Infrastructure.Bindings.PropertyBindings
+'@Folder rd_MVVM.Infrastructure.Bindings.PropertyBindings
 '@PredeclaredId
 '@Exposed
 Option Explicit
@@ -75,7 +75,7 @@ Optional ByVal ValidationAdorner As IDynamicAdorner) As IPropertyBinding
     
 End Function
 
-Private Function InferTargetPropertyFromSource(ByVal Source As IBindingPath, ByRef outMode As MVVM.BindingMode) As String
+Private Function InferTargetPropertyFromSource(ByVal Source As IBindingPath, ByRef outMode As rd_MVVM.BindingMode) As String
     Dim result As String
     Dim SourceValue As Variant
     If Source.TryReadPropertyValue(outValue:=SourceValue) Then
@@ -86,11 +86,11 @@ Private Function InferTargetPropertyFromSource(ByVal Source As IBindingPath, ByR
                 result = "Text"
             Case IsArray(SourceValue) Or VarType(SourceValue) = VbVarType.vbArray
                 Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way."
-                outMode = MVVM.BindingMode.OneWayBinding
+                outMode = rd_MVVM.BindingMode.OneWayBinding
                 result = "List"
             Case Else
                 Debug.Print TypeName(Me) & ": binding [" & Source.ToString & "] one-way to source."
-                outMode = MVVM.BindingMode.OneWayToSource
+                outMode = rd_MVVM.BindingMode.OneWayToSource
                 result = DefaultTargetControlProperty
         End Select
     Else

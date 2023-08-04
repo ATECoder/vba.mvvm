@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A collection of IValidationError objects for a given binding context (ViewModel)."
-'@Folder MVVM.Infrastructure.Validation
+'@Folder rd_MVVM.Infrastructure.Validation
 '@ModuleDescription "A collection of IValidationError objects for a given binding context (ViewModel)."
 '@PredeclaredId
 '@Exposed

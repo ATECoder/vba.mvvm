@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object that describes how a control changes its appearance given a validation error."
 '@ModuleDescription "An object that describes how a control changes its appearance given a validation error."
-'@Folder MVVM.Infrastructure.Validation.ErrorFormatting
+'@Folder rd_MVVM.Infrastructure.Validation.ErrorFormatting
 '@ModuleDescription "An object that describes how a control changes its appearance given a validation error. Handles MSForms and Excel.Range targets." '...which means the class is doing way too many things for its own good.
 '@PredeclaredId
 '@Exposed

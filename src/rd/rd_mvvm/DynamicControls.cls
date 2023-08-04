@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "Builds dynamic MSForms UI components from a binding source."
-'@Folder "MVVM.Infrastructure.StringFormatting.View.Dynamic"
+'@Folder "rd_MVVM.Infrastructure.StringFormatting.View.Dynamic"
 '@ModuleDescription "Builds dynamic MSForms UI components from a binding source."
 '@PredeclaredId
 '@Exposed
@@ -16,13 +16,13 @@ Option Explicit
 Implements IDynamicControlBuilder
 
 Private Type TState
-    Context As MVVM.IAppContext
-    Container As MVVM.IContainerLayout
+    Context As rd_MVVM.IAppContext
+    Container As rd_MVVM.IContainerLayout
 End Type
 
 Private This As TState
 
-Public Function Create(ByVal Context As MVVM.IAppContext, ByVal Container As IContainerLayout) As IDynamicControlBuilder
+Public Function Create(ByVal Context As rd_MVVM.IAppContext, ByVal Container As IContainerLayout) As IDynamicControlBuilder
     Dim result As DynamicControls
     Set result = New DynamicControls
     Set result.Context = Context
@@ -30,19 +30,19 @@ Public Function Create(ByVal Context As MVVM.IAppContext, ByVal Container As ICo
     Set Create = result
 End Function
 
-Public Property Get Container() As MVVM.IContainerLayout
+Public Property Get Container() As rd_MVVM.IContainerLayout
     Set Container = This.Container
 End Property
 
-Friend Property Set Container(ByVal RHS As MVVM.IContainerLayout)
+Friend Property Set Container(ByVal RHS As rd_MVVM.IContainerLayout)
     Set This.Container = RHS
 End Property
 
-Public Property Get Context() As MVVM.IAppContext
+Public Property Get Context() As rd_MVVM.IAppContext
     Set Context = This.Context
 End Property
 
-Friend Property Set Context(ByVal RHS As MVVM.IAppContext)
+Friend Property Set Context(ByVal RHS As rd_MVVM.IAppContext)
     Set This.Context = RHS
 End Property
 
@@ -51,7 +51,7 @@ Private Sub BindCaptionSource(ByVal Source As Variant, ByVal Target As Object, O
         'late-bound
         Target.Caption = Source
         
-    ElseIf TypeOf Source Is MVVM.IBindingPath Then
+    ElseIf TypeOf Source Is rd_MVVM.IBindingPath Then
         Dim SourcePath As IBindingPath
         Set SourcePath = Source
         This.Context.Bindings.BindPropertyPath SourcePath.Context, SourcePath.Path, Target, _
@@ -65,7 +65,7 @@ End Sub
 
 Private Function CreateLabel(ByVal SourceCaption As Variant, Optional ByVal FormatString As String, Optional ByVal Converter As IValueConverter, Optional ByVal ApplyMargin As Boolean = True) As MSForms.Label
     Dim result As MSForms.Label
-    Set result = This.Container.Add(MVVM.FormsProgID.LabelProgId, ApplyMargin:=ApplyMargin)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.LabelProgId, ApplyMargin:=ApplyMargin)
     result.AutoSize = True
     result.WordWrap = False
     BindCaptionSource SourceCaption, result, FormatString, Converter
@@ -87,7 +87,7 @@ End Function
 Private Function IDynamicControlBuilder_CheckBoxFor(ByVal SourceValue As IBindingPath, ByVal SourceCaption As Variant) As MSForms.CheckBox
     
     Dim result As MSForms.CheckBox
-    Set result = This.Container.Add(MVVM.FormsProgID.CheckBoxProgId)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.CheckBoxProgId)
     
     BindCaptionSource SourceCaption, result
     This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.Path, result
@@ -103,7 +103,7 @@ Private Function IDynamicControlBuilder_ComboBoxFor(ByVal SourceValue As IBindin
     End If
     
     Dim result As MSForms.ComboBox
-    Set result = This.Container.Add(MVVM.FormsProgID.ComboBoxProgId)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.ComboBoxProgId)
         
     This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.Path, result, _
         StringFormat:=FormatString, _
@@ -120,7 +120,7 @@ End Function
 Private Function IDynamicControlBuilder_CommandButtonFor(ByVal Command As ICommand, ByVal BindingContext As Object, ByVal SourceCaption As Variant) As MSForms.CommandButton
     
     Dim result As MSForms.CommandButton
-    Set result = This.Container.Add(MVVM.FormsProgID.CommandButtonProgId)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.CommandButtonProgId)
     
     Dim Button As MSForms.Control
     Set Button = result
@@ -149,7 +149,7 @@ Private Function IDynamicControlBuilder_ListBoxFor(ByVal SourceValue As IBinding
     End If
     
     Dim result As MSForms.ListBox
-    Set result = This.Container.Add(MVVM.FormsProgID.ListBoxProgId)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.ListBoxProgId)
     
     This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.Path, result
     This.Context.Bindings.BindPropertyPath SourceItems.Context, SourceItems.Path, result
@@ -161,7 +161,7 @@ End Function
 Private Function IDynamicControlBuilder_OptionButtonFor(ByVal SourceValue As IBindingPath, ByVal SourceCaption As Variant) As MSForms.OptionButton
     
     Dim result As MSForms.OptionButton
-    Set result = This.Container.Add(MVVM.FormsProgID.OptionButtonProgId)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.OptionButtonProgId)
     
     BindCaptionSource SourceCaption, result
     This.Context.Bindings.BindPropertyPath SourceValue.Context, SourceValue.Path, result
@@ -194,7 +194,7 @@ Private Function IDynamicControlBuilder_TextBoxFor(ByVal SourceValue As IBinding
     End If
     
     Dim result As MSForms.TextBox
-    Set result = This.Container.Add(MVVM.FormsProgID.TextBoxProgId)
+    Set result = This.Container.Add(rd_MVVM.FormsProgID.TextBoxProgId)
     
     Dim Trigger As BindingUpdateSourceTrigger
 '    'VF: Logic error?: would always be zero and that means never // missing: if not validator is nothing then ??? trigger not picked up from validator

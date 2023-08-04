@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A value converter that inverts a Boolean value."
-'@Folder MVVM.Common.Converters
+'@Folder rd_MVVM.Common.Converters
 '@ModuleDescription "A value converter that inverts a Boolean value."
 '@PredeclaredId
 '@Exposed

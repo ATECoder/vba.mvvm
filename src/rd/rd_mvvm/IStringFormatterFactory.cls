@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "A factory that creates instances of a particular IStringFormatter implementation."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "A factory that creates instances of a particular IStringFormatter implementation."
 '@Interface
 '@Exposed

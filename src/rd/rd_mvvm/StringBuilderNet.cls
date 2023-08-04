@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "StringBuilder implementation modified from https://codereview.stackexchange.com/q/196076"
-'@Folder MVVM.Infrastructure.StringFormatting
+'@Folder rd_MVVM.Infrastructure.StringFormatting
 '@ModuleDescription "StringBuilder implementation modified from https://codereview.stackexchange.com/q/196076"
 '>> modified identifier names to better fit this project
 '>> modified to prevent a stateful default instance
@@ -22,6 +22,7 @@ Private Type TState
     Builder As Object 'NOTE: 'VF: referring to .net System.Text.StringBuilder <- must be late bound(?) so cannot be more specific? for intellisense/validation at compile time .capacity .length .MaxCapacity ?set reference and as System.Text.StringBuilder? <-dependency! without telling error handler message like .net not installed
     Index As Long
 End Type
+
 Private AppendsBuffer() As String
 Private This As TState
 

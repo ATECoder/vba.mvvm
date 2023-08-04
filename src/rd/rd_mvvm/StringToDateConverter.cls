@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A value converter that can convert a String into a Date, or a Date into a String."
-'@Folder MVVM.Common.Converters
+'@Folder rd_MVVM.Common.Converters
 '@ModuleDescription "A value converter that can convert a String into a Date, or a Date into a String."
 '@PredeclaredId
 '@Exposed

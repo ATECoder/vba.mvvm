@@ -1,5 +1,5 @@
 Attribute VB_Name = "FormsProgID"
-'@Folder MVVM.Constants
+'@Folder rd_MVVM.Constants
 Option Explicit
 
 Public Const CheckBoxProgId As String = "Forms.CheckBox.1"

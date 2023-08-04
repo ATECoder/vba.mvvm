@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "An observer that can notify registered handlers when applying a binding throws a validation error."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "An observer that can notify registered handlers when applying a binding throws a validation error."
 '@Interface
 '@Exposed

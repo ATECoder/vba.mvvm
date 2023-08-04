@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "Provides a base implementation for the INotifyPropertyChanged observer interface."
-'@Folder MVVM.Infrastructure.Bindings
+'@Folder rd_MVVM.Infrastructure.Bindings
 '@ModuleDescription "Provides a base implementation for the INotifyPropertyChanged observer interface."
 Option Explicit
 Implements INotifyPropertyChanged

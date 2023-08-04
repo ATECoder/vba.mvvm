@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
-'@Folder MVVM.Infrastructure.Bindings.PropertyBindings
+'@Folder rd_MVVM.Infrastructure.Bindings.PropertyBindings
 '@PredeclaredId
 '@Exposed
 Option Explicit
@@ -158,16 +158,16 @@ Private Property Get IPropertyBinding_Validator() As IValueValidator
 End Property
 'VF: event added to capture cut/paste and backspace/delete
 Private Sub TargetEventSource_Change()
-    If This.Base.UpdateSourceTrigger <> MVVM.BindingUpdateSourceTrigger.OnChange Then Exit Sub
+    If This.Base.UpdateSourceTrigger <> rd_MVVM.BindingUpdateSourceTrigger.OnChange Then Exit Sub
     
     Dim Cancel As Boolean
     'VF: pass in entire textbox content for verification
     Dim outText As String
     If Not This.Base.Target.TryReadPropertyValue(outText) Then 'pass invalid string for further validation
-        This.Base.OnBindingUpdateSourceOpportunity Cancel, MVVM.BindingUpdateSourceTrigger.OnChange, vbNullString
+        This.Base.OnBindingUpdateSourceOpportunity Cancel, rd_MVVM.BindingUpdateSourceTrigger.OnChange, vbNullString
     Else
         Debug.Print "TargetEventSource_Change"; outText
-        This.Base.OnBindingUpdateSourceOpportunity Cancel, MVVM.BindingUpdateSourceTrigger.OnChange, outText ', Chr$(KeyAscii.Value)
+        This.Base.OnBindingUpdateSourceOpportunity Cancel, rd_MVVM.BindingUpdateSourceTrigger.OnChange, outText ', Chr$(KeyAscii.Value)
     End If
     
     'not needed if text and if numeric textbox leave correction up to user as instructed by validation error adorner
@@ -184,7 +184,7 @@ Private Sub TargetEventSource_KeyPress(ByVal KeyAscii As MSForms.ReturnInteger)
     If This.Base.UpdateSourceTrigger <> OnKeyPress Then Exit Sub
 
     Dim Cancel As Boolean
-    This.Base.OnBindingUpdateSourceOpportunity Cancel, MVVM.BindingUpdateSourceTrigger.OnKeyPress, Chr$(KeyAscii.Value)
+    This.Base.OnBindingUpdateSourceOpportunity Cancel, rd_MVVM.BindingUpdateSourceTrigger.OnKeyPress, Chr$(KeyAscii.Value)
 
     If Cancel Then
         'swallow the invalid keypress:
@@ -194,7 +194,7 @@ Private Sub TargetEventSource_KeyPress(ByVal KeyAscii As MSForms.ReturnInteger)
         'ToDo: 'VF: refactor to have clean structure
         '   (a) logic error non-numeric key is swallowed so error no longer exists but validation error adorner sticks
         'rerun with numeric char to remove validation error adorner
-        This.Base.OnBindingUpdateSourceOpportunity Cancel, MVVM.BindingUpdateSourceTrigger.OnKeyPress, 0 'Chr$(KeyAscii.Value)
+        This.Base.OnBindingUpdateSourceOpportunity Cancel, rd_MVVM.BindingUpdateSourceTrigger.OnKeyPress, 0 'Chr$(KeyAscii.Value)
         'either add delay for user to see validation error adorner or inform by msgbox why his keystrokes don't show
         MsgBox "Only numeric entries accepted.", vbInformation, "'ToDo: 'VF: use caption of control or userform or something"
         '   (b) cut/paste and backspace/delete not captured so maybe have two triggers: KeyPress and Change or just funnel through Change and let user delete non-numeric chars?

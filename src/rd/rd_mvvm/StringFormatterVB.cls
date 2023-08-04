@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object representing a format string in a notation compatible for use with VBA.Strings.Format$()."
-'@Folder MVVM.Infrastructure.StringFormatting
+'@Folder rd_MVVM.Infrastructure.StringFormatting
 '@ModuleDescription "An object representing a format string in a notation compatible for use with VBA.Strings.Format$()."
 '@PredeclaredId
 '@Exposed

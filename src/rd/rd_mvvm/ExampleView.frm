@@ -14,14 +14,14 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Attribute VB_Description = "An example implementation of a View."
-'@Folder MVVM.Example
+'@Folder rd_MVVM.Example
 '@ModuleDescription "An example implementation of a View."
 Implements IView
 Implements ICancellable
 Option Explicit
 
 Private Type TView
-    Context As MVVM.IAppContext
+    Context As rd_MVVM.IAppContext
     
     'IView state:
     ViewModel As ExampleViewModel
@@ -67,12 +67,12 @@ Public Property Set ViewModel(ByVal RHS As ExampleViewModel)
 End Property
 
 '@Description "Gets/sets the MVVM application context."
-Public Property Get Context() As MVVM.IAppContext
+Public Property Get Context() As rd_MVVM.IAppContext
 Attribute Context.VB_Description = "Gets/sets the MVVM application context."
     Set Context = This.Context
 End Property
 
-Public Property Set Context(ByVal RHS As MVVM.IAppContext)
+Public Property Set Context(ByVal RHS As rd_MVVM.IAppContext)
     GuardClauses.GuardDefaultInstance Me, ExampleView, TypeName(Me)
     GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
     GuardClauses.GuardNullReference RHS

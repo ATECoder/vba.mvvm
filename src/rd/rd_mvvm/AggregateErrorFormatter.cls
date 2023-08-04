@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A composite error formatter implementation."
-'@Folder MVVM.Infrastructure.Validation.ErrorFormatting
+'@Folder rd_MVVM.Infrastructure.Validation.ErrorFormatting
 '@ModuleDescription "A composite error formatter implementation."
 '@PredeclaredId
 '@Exposed

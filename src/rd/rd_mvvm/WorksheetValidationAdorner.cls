@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object that dynamically decorates a target Excel.Range object."
-'@Folder MVVM.Infrastructure.Validation.ErrorFormatting
+'@Folder rd_MVVM.Infrastructure.Validation.ErrorFormatting
 '@ModuleDescription "An object that dynamically decorates a target Excel.Range object."
 '@PredeclaredId
 '@Exposed
@@ -17,12 +17,12 @@ Implements IDynamicAdorner
 
 Private Type TState
     Target As Excel.Range
-    TargetFormatter As MVVM.IValidationErrorFormatter
+    TargetFormatter As rd_MVVM.IValidationErrorFormatter
 End Type
 
 Private This As TState
 
-Public Function Create(ByVal Target As Excel.Range, ByVal Formatter As MVVM.IValidationErrorFormatter) As IDynamicAdorner
+Public Function Create(ByVal Target As Excel.Range, ByVal Formatter As rd_MVVM.IValidationErrorFormatter) As IDynamicAdorner
     Dim result As WorksheetValidationAdorner
     Set result = New WorksheetValidationAdorner
     Set result.Target = Target
@@ -30,11 +30,11 @@ Public Function Create(ByVal Target As Excel.Range, ByVal Formatter As MVVM.IVal
     Set Create = result
 End Function
 
-Friend Property Get Formatter() As MVVM.IValidationErrorFormatter
+Friend Property Get Formatter() As rd_MVVM.IValidationErrorFormatter
     Set Formatter = This.TargetFormatter
 End Property
 
-Friend Property Set Formatter(ByVal RHS As MVVM.IValidationErrorFormatter)
+Friend Property Set Formatter(ByVal RHS As rd_MVVM.IValidationErrorFormatter)
     Set This.TargetFormatter = RHS
 End Property
 

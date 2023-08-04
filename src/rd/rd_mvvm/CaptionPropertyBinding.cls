@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A property binding that binds any property of any source, one-way to any property of a UI element target."
-'@Folder MVVM.Infrastructure.Bindings.PropertyBindings
+'@Folder rd_MVVM.Infrastructure.Bindings.PropertyBindings
 '@ModuleDescription "A property binding that binds any property of any source, one-way to any property of a UI element target."
 '@PredeclaredId
 '@Exposed

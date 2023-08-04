@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "A factory that creates PropertyChangeNotifierBase instances."
-'@Folder MVVM.Infrastructure.Bindings
+'@Folder rd_MVVM.Infrastructure.Bindings
 '@ModuleDescription "A factory that creates PropertyChangeNotifierBase instances."
 Option Explicit
 Implements INotifierFactory

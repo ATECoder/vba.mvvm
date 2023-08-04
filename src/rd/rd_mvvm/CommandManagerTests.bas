@@ -4,12 +4,7 @@ Attribute VB_Name = "CommandManagerTests"
 Option Explicit
 Option Private Module
 
-#Const LateBind = LateBindTests
-#If LateBind Then
-Private Assert As Object
-#Else
-Private Assert As Rubberduck.AssertClass
-#End If
+Private Assert As cc_isr_Test_Fx.Assert
 
 Private Type TState
     ExpectedErrNumber As Long
@@ -28,13 +23,7 @@ Private Test As TState
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
-#If LateBind Then
-    'requires HKCU registration of the Rubberduck COM library.
-    Set Assert = CreateObject("Rubberduck.PermissiveAssertClass")
-#Else
-    'requires project reference to the Rubberduck COM library.
-    Set Assert = New Rubberduck.PermissiveAssertClass
-#End If
+    Set Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 '@ModuleCleanup
@@ -82,39 +71,39 @@ Private Function DefaultTargetCommandBindingFor(ByVal ProgID As String, ByRef ou
 End Function
 
 '@TestMethod("DefaultCommandTargetBindings")
-Private Sub BindCommand_BindsCommandButton()
+Private Function BindCommand_BindsCommandButton() As cc_isr_Test_Fx.Assert
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.CommandButtonProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
-        Assert.AreSame Target, .Target
+        Set BindCommand_BindsCommandButton = Assert.AreSame(Test.Command, .Command, "")
+        Set BindCommand_BindsCommandButton = Assert.AreSame(Target, .Target, "")
     End With
-End Sub
+End Function
 
 '@TestMethod("DefaultCommandTargetBindings")
-Private Sub BindCommand_BindsCheckBox()
+Private Function BindCommand_BindsCheckBox() As cc_isr_Test_Fx.Assert
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.CheckBoxProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
-        Assert.AreSame Target, .Target
+        Set BindCommand_BindsCheckBox = Assert.AreSame(Test.Command, .Command, "")
+        Set BindCommand_BindsCheckBox = Assert.AreSame(Target, .Target, "")
     End With
-End Sub
+End Function
 
 '@TestMethod("DefaultCommandTargetBindings")
-Private Sub BindCommand_BindsImage()
+Private Function BindCommand_BindsImage() As cc_isr_Test_Fx.Assert
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.ImageProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
-        Assert.AreSame Target, .Target
+        Set BindCommand_BindsImage = Assert.AreSame(Test.Command, .Command, "")
+        Set BindCommand_BindsImage = Assert.AreSame(Target, .Target, "")
     End With
-End Sub
+End Function
 
 '@TestMethod("DefaultCommandTargetBindings")
-Private Sub BindCommand_BindsLabel()
+Private Function BindCommand_BindsLabel() As cc_isr_Test_Fx.Assert
     Dim Target As Object
     With DefaultTargetCommandBindingFor(FormsProgID.LabelProgId, outTarget:=Target)
-        Assert.AreSame Test.Command, .Command
-        Assert.AreSame Target, .Target
+        Set BindCommand_BindsLabel = Assert.AreSame(Test.Command, .Command, "")
+        Set BindCommand_BindsLabel = Assert.AreSame(Target, .Target, "")
     End With
-End Sub
+End Function
 
 

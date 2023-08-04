@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "Represents the relative position and margin of a dynamic adorner component."
-'@Folder MVVM.Infrastructure.Validation.ErrorFormatting
+'@Folder rd_MVVM.Infrastructure.Validation.ErrorFormatting
 '@ModuleDescription "Represents the relative position and margin of a dynamic adorner component."
 '@PredeclaredId
 '@Exposed
@@ -16,7 +16,7 @@ Option Explicit
 Implements IDynamicPosition
 
 Private Type TState
-    Position As MVVM.RelativePosition
+    Position As rd_MVVM.RelativePosition
     LeftMargin As Double
     TopMargin As Double
     RightMargin As Double
@@ -26,10 +26,10 @@ End Type
 Private This As TState
 
 Public Function Create(ByVal Position As RelativePosition, ByVal LeftMargin As Double, Optional ByVal TopMargin As Variant, Optional ByVal RightMargin As Variant, Optional ByVal BottomMargin As Variant) As IDynamicPosition
-    GuardClauses.GuardNonDefaultInstance Me, MVVM.DynamicControlPosition
+    GuardClauses.GuardNonDefaultInstance Me, rd_MVVM.DynamicControlPosition
     
-    Dim result As MVVM.DynamicControlPosition
-    Set result = New MVVM.DynamicControlPosition
+    Dim result As rd_MVVM.DynamicControlPosition
+    Set result = New rd_MVVM.DynamicControlPosition
     result.Position = Position
     
     'if only left margin is specified, the margin applies to all sides.
@@ -90,11 +90,11 @@ Friend Property Let Margin(ByVal Side As MarginSide, ByVal RHS As Double)
     End Select
 End Property
 
-Public Property Get Position() As MVVM.RelativePosition
+Public Property Get Position() As rd_MVVM.RelativePosition
     Position = This.Position
 End Property
 
-Friend Property Let Position(ByVal RHS As MVVM.RelativePosition)
+Friend Property Let Position(ByVal RHS As rd_MVVM.RelativePosition)
     This.Position = RHS
 End Property
 

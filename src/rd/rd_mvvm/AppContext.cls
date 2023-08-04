@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object keeping command and property bindings in scope."
-'@Folder MVVM.Infrastructure
+'@Folder rd_MVVM.Infrastructure
 '@ModuleDescription "An object keeping command and property bindings in scope."
 '@PredeclaredId
 '@Exposed
@@ -22,9 +22,9 @@ Public Enum StringFormatterStrategy
 End Enum
 
 Private Type TState
-    Bindings As MVVM.IBindingManager
-    Commands As MVVM.ICommandManager
-    Validation As MVVM.IValidationManager
+    Bindings As rd_MVVM.IBindingManager
+    Commands As rd_MVVM.ICommandManager
+    Validation As rd_MVVM.IValidationManager
     
     DefaultStringFormatSyntax As StringFormatterStrategy
     StringFormatterFactory As IStringFormatterFactory
@@ -37,18 +37,18 @@ Private This As TState
 
 '@Description "Creates a new MVVM application context."
 Public Function Create( _
-Optional ByVal Bindings As MVVM.IBindingManager, _
-Optional ByVal Commands As MVVM.ICommandManager, _
-Optional ByVal Validation As MVVM.IValidationManager, _
-Optional ByVal FormatterFactory As MVVM.IStringFormatterFactory, _
-Optional ByVal AdornerFactory As MVVM.IDynamicAdornerFactory, _
-Optional ByVal DebugOutput As Boolean = False) As MVVM.AppContext
+Optional ByVal Bindings As rd_MVVM.IBindingManager, _
+Optional ByVal Commands As rd_MVVM.ICommandManager, _
+Optional ByVal Validation As rd_MVVM.IValidationManager, _
+Optional ByVal FormatterFactory As rd_MVVM.IStringFormatterFactory, _
+Optional ByVal AdornerFactory As rd_MVVM.IDynamicAdornerFactory, _
+Optional ByVal DebugOutput As Boolean = False) As rd_MVVM.AppContext
 Attribute Create.VB_Description = "Creates a new MVVM application context."
     
-    GuardClauses.GuardNonDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardNonDefaultInstance Me, rd_MVVM.AppContext
     
-    Dim result As MVVM.AppContext
-    Set result = New MVVM.AppContext
+    Dim result As rd_MVVM.AppContext
+    Set result = New rd_MVVM.AppContext
     result.DebugOutput = DebugOutput
     
     'temporal coupling: IStringFormatterVBFactory instance needs to be set before we init the binding manager.
@@ -62,16 +62,16 @@ Attribute Create.VB_Description = "Creates a new MVVM application context."
     Set Create = result
 End Function
 
-Private Sub InitStringFormatterFactory(ByVal Context As MVVM.AppContext, ByVal FormatterFactory As MVVM.IStringFormatterFactory)
-    Dim Factory As MVVM.IStringFormatterFactory
+Private Sub InitStringFormatterFactory(ByVal Context As rd_MVVM.AppContext, ByVal FormatterFactory As rd_MVVM.IStringFormatterFactory)
+    Dim Factory As rd_MVVM.IStringFormatterFactory
     If FormatterFactory Is Nothing Then
         Select Case This.DefaultStringFormatSyntax
         
             Case StringFormatterStrategy.UseDotNetStringFormatSyntax
-                Set Factory = New MVVM.StringFormatterNetFactory
+                Set Factory = New rd_MVVM.StringFormatterNetFactory
                 
             Case StringFormatterStrategy.UseVBStringFormatSyntax
-                Set Factory = New MVVM.StringFormatterVBFactory
+                Set Factory = New rd_MVVM.StringFormatterVBFactory
                 
         End Select
     Else
@@ -80,12 +80,12 @@ Private Sub InitStringFormatterFactory(ByVal Context As MVVM.AppContext, ByVal F
     Set Context.StringFormatterFactory = Factory
 End Sub
 
-Private Sub InitCommandManager(ByVal Context As MVVM.AppContext, ByVal Commands As MVVM.ICommandManager)
-    Dim Manager As MVVM.ICommandManager
+Private Sub InitCommandManager(ByVal Context As rd_MVVM.AppContext, ByVal Commands As rd_MVVM.ICommandManager)
+    Dim Manager As rd_MVVM.ICommandManager
     If Commands Is Nothing Then
         'default to concrete implementation:
-        Dim ConcreteManager As MVVM.CommandManager
-        Set ConcreteManager = New MVVM.CommandManager
+        Dim ConcreteManager As rd_MVVM.CommandManager
+        Set ConcreteManager = New rd_MVVM.CommandManager
         ConcreteManager.DebugOutput = Context.DebugOutput
         Set Manager = ConcreteManager
     Else
@@ -95,12 +95,12 @@ Private Sub InitCommandManager(ByVal Context As MVVM.AppContext, ByVal Commands 
     Set Context.Commands = Manager
 End Sub
 
-Private Sub InitBindingManager(ByVal Context As MVVM.AppContext, ByVal Bindings As MVVM.IBindingManager)
-    Dim Manager As MVVM.IBindingManager
+Private Sub InitBindingManager(ByVal Context As rd_MVVM.AppContext, ByVal Bindings As rd_MVVM.IBindingManager)
+    Dim Manager As rd_MVVM.IBindingManager
     
     If Bindings Is Nothing Then
-        Dim ConcreteManager As MVVM.BindingManager
-        Set ConcreteManager = MVVM.BindingManager.Create(Context, Context.StringFormatterFactory, DebugOutput:=Context.DebugOutput)
+        Dim ConcreteManager As rd_MVVM.BindingManager
+        Set ConcreteManager = rd_MVVM.BindingManager.Create(Context, Context.StringFormatterFactory, DebugOutput:=Context.DebugOutput)
         Set Manager = ConcreteManager
         
     Else
@@ -111,12 +111,12 @@ Private Sub InitBindingManager(ByVal Context As MVVM.AppContext, ByVal Bindings 
     Set Context.Bindings = Manager
 End Sub
 
-Private Sub InitValidationManager(ByVal Context As MVVM.AppContext, ByVal Validation As MVVM.IValidationManager, ByVal AdornerFactory As MVVM.IDynamicAdornerFactory)
-    Dim Manager As MVVM.IValidationManager
+Private Sub InitValidationManager(ByVal Context As rd_MVVM.AppContext, ByVal Validation As rd_MVVM.IValidationManager, ByVal AdornerFactory As rd_MVVM.IDynamicAdornerFactory)
+    Dim Manager As rd_MVVM.IValidationManager
     
     If Validation Is Nothing Then
-        Dim ConcreteManager As MVVM.ValidationManager
-        Set ConcreteManager = MVVM.ValidationManager.Create(AdornerFactory)
+        Dim ConcreteManager As rd_MVVM.ValidationManager
+        Set ConcreteManager = rd_MVVM.ValidationManager.Create(AdornerFactory)
         Set Manager = ConcreteManager
     Else
         'use injected instance (could be a test stub):
@@ -128,14 +128,14 @@ Private Sub InitValidationManager(ByVal Context As MVVM.AppContext, ByVal Valida
 End Sub
 
 '@Description "Gets/sets the binding manager reference."
-Public Property Get Bindings() As MVVM.IBindingManager
+Public Property Get Bindings() As rd_MVVM.IBindingManager
 Attribute Bindings.VB_Description = "Gets/sets the binding manager reference."
-    GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     Set Bindings = This.Bindings
 End Property
 
-Friend Property Set Bindings(ByVal RHS As MVVM.IBindingManager)
-    GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+Friend Property Set Bindings(ByVal RHS As rd_MVVM.IBindingManager)
+    GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     GuardClauses.GuardDoubleInitialization This.Bindings, TypeName(Me)
     GuardClauses.GuardNullReference RHS
     Set This.Bindings = RHS
@@ -144,12 +144,12 @@ End Property
 '@Description "Gets/sets the command manager reference."
 Public Property Get Commands() As ICommandManager
 Attribute Commands.VB_Description = "Gets/sets the command manager reference."
-    GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     Set Commands = This.Commands
 End Property
 
 Friend Property Set Commands(ByVal RHS As ICommandManager)
-    GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     GuardClauses.GuardDoubleInitialization This.Commands, TypeName(Me)
     GuardClauses.GuardNullReference RHS
     Set This.Commands = RHS
@@ -158,12 +158,12 @@ End Property
 '@Description "Gets/sets the validation manager reference."
 Public Property Get Validation() As IValidationManager
 Attribute Validation.VB_Description = "Gets/sets the validation manager reference."
-    GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     Set Validation = This.Validation
 End Property
 
 Friend Property Set Validation(ByVal RHS As IValidationManager)
-    GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     GuardClauses.GuardDoubleInitialization This.Validation, TypeName(Me)
     GuardClauses.GuardNullReference RHS
     Set This.Validation = RHS
@@ -172,12 +172,12 @@ End Property
 '@Description "Gets/sets the IStringFormatter factory reference."
 Public Property Get StringFormatterFactory() As IStringFormatterFactory
 Attribute StringFormatterFactory.VB_Description = "Gets/sets the IStringFormatter factory reference."
-    'GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    'GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     Set StringFormatterFactory = This.StringFormatterFactory
 End Property
 
 Friend Property Set StringFormatterFactory(ByVal RHS As IStringFormatterFactory)
-    'GuardClauses.GuardDefaultInstance Me, MVVM.AppContext
+    'GuardClauses.GuardDefaultInstance Me, rd_MVVM.AppContext
     GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, TypeName(Me)
     GuardClauses.GuardNullReference RHS
     Set This.StringFormatterFactory = RHS
@@ -186,12 +186,12 @@ End Property
 '@Description "Gets/sets a value that determines the StringFormat syntax to use when no implementation is provided."
 Public Property Get DefaultStringFormatSyntax() As StringFormatterStrategy
 Attribute DefaultStringFormatSyntax.VB_Description = "Gets/sets a value that determines the StringFormat syntax to use when no implementation is provided."
-    GuardClauses.GuardNonDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardNonDefaultInstance Me, rd_MVVM.AppContext
     DefaultStringFormatSyntax = This.DefaultStringFormatSyntax
 End Property
 
 Public Property Let DefaultStringFormatSyntax(ByVal RHS As StringFormatterStrategy)
-    GuardClauses.GuardNonDefaultInstance Me, MVVM.AppContext
+    GuardClauses.GuardNonDefaultInstance Me, rd_MVVM.AppContext
     This.DefaultStringFormatSyntax = RHS
 End Property
 

@@ -25,6 +25,6 @@ Attribute ToString.VB_Description = "Gets a string representation of the object'
 End Function
 
 '@Description "Fails a test when the member invokes for the specified member name don't match the expected count."
-Public Sub Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
+Public Sub Verify(ByVal Assert As cc_isr_Test_Fx.Assert, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
 Attribute Verify.VB_Description = "Fails a test when the member invokes for the specified member name don't match the expected count."
 End Sub

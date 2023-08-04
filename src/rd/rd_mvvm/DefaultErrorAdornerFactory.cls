@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "A factory that creates default validation error adorners."
-'@Folder MVVM.Infrastructure.View.Dynamic
+'@Folder rd_MVVM.Infrastructure.View.Dynamic
 '@ModuleDescription "A factory that creates default validation error adorners."
 '@Exposed
 Option Explicit

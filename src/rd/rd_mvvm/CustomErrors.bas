@@ -1,6 +1,6 @@
 Attribute VB_Name = "CustomErrors"
 Attribute VB_Description = "Global, general-purpose procedures involving run-time errors."
-'@Folder MVVM.CustomErrors
+'@Folder rd_MVVM.CustomErrors
 '@ModuleDescription("Global, general-purpose procedures involving run-time errors.")
 Option Explicit
 Option Private Module

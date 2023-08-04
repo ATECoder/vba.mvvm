@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object that dynamically decorates a target MSForms.Control object."
-'@Folder MVVM.Infrastructure.Validation.ErrorFormatting
+'@Folder rd_MVVM.Infrastructure.Validation.ErrorFormatting
 '@ModuleDescription "An object that dynamically decorates a target MSForms.Control object."
 '@PredeclaredId
 '@Exposed
@@ -18,14 +18,14 @@ Implements IDisposable
 
 Private Type TState
     Target As MSForms.Control
-    TargetFormatter As MVVM.IValidationErrorFormatter
+    TargetFormatter As rd_MVVM.IValidationErrorFormatter
     
     AdornerLabel As MSForms.Label
-    LabelFormatter As MVVM.IValidationErrorFormatter
+    LabelFormatter As rd_MVVM.IValidationErrorFormatter
     LabelControl As MSForms.Control
     
     AdornerIcon As MSForms.Image
-    IconFormatter As MVVM.IValidationErrorFormatter
+    IconFormatter As rd_MVVM.IValidationErrorFormatter
     IconControl As MSForms.Control
     
     LabelPosition As IDynamicPosition
@@ -40,13 +40,13 @@ End Type
 Private This As TState
 
 Public Function Create(ByVal Target As MSForms.Control, _
-Optional ByVal TargetFormatter As MVVM.IValidationErrorFormatter = Nothing, _
+Optional ByVal TargetFormatter As rd_MVVM.IValidationErrorFormatter = Nothing, _
 Optional ByVal AdornerLabel As Variant, _
-Optional ByVal LabelFormatter As MVVM.IValidationErrorFormatter = Nothing, _
-Optional ByVal LabelPosition As MVVM.IDynamicPosition = Nothing, _
+Optional ByVal LabelFormatter As rd_MVVM.IValidationErrorFormatter = Nothing, _
+Optional ByVal LabelPosition As rd_MVVM.IDynamicPosition = Nothing, _
 Optional ByVal AdornerIcon As Variant, _
-Optional ByVal IconFormatter As MVVM.IValidationErrorFormatter = Nothing, _
-Optional ByVal IconPosition As MVVM.IDynamicPosition = Nothing) As IDynamicAdorner
+Optional ByVal IconFormatter As rd_MVVM.IValidationErrorFormatter = Nothing, _
+Optional ByVal IconPosition As rd_MVVM.IDynamicPosition = Nothing) As IDynamicAdorner
     
     GuardClauses.GuardNonDefaultInstance Me, ValidationErrorAdorner
     GuardClauses.GuardNullReference Target, TypeName(Me)
@@ -94,7 +94,7 @@ Private Sub InitLabel(ByVal result As ValidationErrorAdorner, ByRef AdornerLabel
         Dim Parent As MSForms.Controls
         Set Parent = result.Target.Parent.Controls
         
-        Set AdornerLabel = Parent.Add(MVVM.FormsProgID.LabelProgId, Visible:=False)
+        Set AdornerLabel = Parent.Add(rd_MVVM.FormsProgID.LabelProgId, Visible:=False)
         
         AdornerLabel.BackStyle = fmBackStyleTransparent
         AdornerLabel.WordWrap = False
@@ -122,7 +122,7 @@ Private Sub InitIcon(ByVal result As ValidationErrorAdorner, ByRef AdornerIcon A
         Dim Parent As MSForms.Controls
         Set Parent = result.Target.Parent.Controls
         
-        Set AdornerIcon = Parent.Add(MVVM.FormsProgID.ImageProgId, Visible:=False)
+        Set AdornerIcon = Parent.Add(rd_MVVM.FormsProgID.ImageProgId, Visible:=False)
         Set AdornerIcon.Picture = Resources.ValidationErrorIcon.Picture
         
         AdornerIcon.BackStyle = fmBackStyleOpaque
@@ -146,7 +146,7 @@ Private Sub InitIcon(ByVal result As ValidationErrorAdorner, ByRef AdornerIcon A
     End If
 End Sub
 
-Private Property Get DefaultTargetFormatter() As MVVM.IValidationErrorFormatter
+Private Property Get DefaultTargetFormatter() As rd_MVVM.IValidationErrorFormatter
     Set DefaultTargetFormatter = ValidationErrorFormatter _
         .WithErrorBackgroundColor _
         .WithErrorBoldFont _
@@ -154,24 +154,24 @@ Private Property Get DefaultTargetFormatter() As MVVM.IValidationErrorFormatter
         .WithErrorForeColor
 End Property
 
-Private Property Get DefaultLabelFormatter() As MVVM.IValidationErrorFormatter
+Private Property Get DefaultLabelFormatter() As rd_MVVM.IValidationErrorFormatter
     Set DefaultLabelFormatter = ValidationErrorFormatter _
         .WithErrorBoldFont _
         .WithErrorForeColor _
         .WithTargetOnlyVisibleOnError
 End Property
 
-Private Property Get DefaultLabelPosition() As MVVM.IDynamicPosition
+Private Property Get DefaultLabelPosition() As rd_MVVM.IDynamicPosition
     Set DefaultLabelPosition = DynamicControlPosition.Create(RelativePosition.BelowRight, 3, 0)
 End Property
 
-Private Property Get DefaultIconFormatter() As MVVM.IValidationErrorFormatter
+Private Property Get DefaultIconFormatter() As rd_MVVM.IValidationErrorFormatter
     Set DefaultIconFormatter = ValidationErrorFormatter _
         .WithErrorBorderColor _
         .WithTargetOnlyVisibleOnError
 End Property
 
-Private Property Get DefaultIconPosition() As MVVM.IDynamicPosition
+Private Property Get DefaultIconPosition() As rd_MVVM.IDynamicPosition
     Set DefaultIconPosition = DynamicControlPosition.Create(RelativePosition.InsideRight, 3)
 End Property
 

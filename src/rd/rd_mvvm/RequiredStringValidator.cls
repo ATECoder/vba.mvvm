@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "A validator that requires a string value to be non-empty."
-'@Folder MVVM.Common.Validators
+'@Folder rd_MVVM.Common.Validators
 '@ModuleDescription "A validator that requires a string value to be non-empty."
 Option Explicit
 Implements IValueValidator

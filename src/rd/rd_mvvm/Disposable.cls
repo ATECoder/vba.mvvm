@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object that encapsulates the necessary casting operation to invoke IDisposable.Dispose."
-'@Folder MVVM.Infrastructure
+'@Folder rd_MVVM.Infrastructure
 '@ModuleDescription "An object that encapsulates the necessary casting operation to invoke IDisposable.Dispose."
 '@PredeclaredId
 '@Exposed

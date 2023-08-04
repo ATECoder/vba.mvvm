@@ -58,7 +58,7 @@ Attribute ToString.VB_Description = "Gets a string listing the MemberInvokes cac
     
 End Function
 
-Public Sub Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
+Public Sub Verify(ByVal Assert As cc_isr_Test_Fx.Assert, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
     Dim Invokes As Long
     Invokes = MemberInvokes(MemberName)
     Assert.AreEqual ExpectedInvokes, Invokes, "Member was invoked " & Invokes & " time(s), but test expected " & ExpectedInvokes & "."
@@ -76,7 +76,7 @@ Private Function ITestStub_ToString() As String
     ITestStub_ToString = ToString
 End Function
 
-Private Sub ITestStub_Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
+Private Sub ITestStub_Verify(ByVal Assert As cc_isr_Test_Fx.Assert, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
     Verify Assert, MemberName, ExpectedInvokes
 End Sub
 

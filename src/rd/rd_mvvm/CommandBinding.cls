@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An object responsible for binding a command to a UI element."
-'@Folder MVVM.Infrastructure.Bindings.CommandBindings
+'@Folder rd_MVVM.Infrastructure.Bindings.CommandBindings
 '@ModuleDescription "An object responsible for binding a command to a UI element."
 '@PredeclaredId
 '@Exposed

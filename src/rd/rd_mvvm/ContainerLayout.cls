@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "Encapsulates basic layout logic for dynamic MSForms controls."
-'@Folder MVVM.Infrastructure.View.Dynamic
+'@Folder rd_MVVM.Infrastructure.View.Dynamic
 '@ModuleDescription "Encapsulates basic layout logic for dynamic MSForms controls."
 '@PredeclaredId
 '@Exposed

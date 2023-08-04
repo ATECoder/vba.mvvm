@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "A strategy for creating an IPropertyBinding "
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "A strategy for creating an IPropertyBinding "
 '@Interface
 Option Explicit

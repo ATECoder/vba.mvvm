@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A validator that accepts values between set min and max values. Uses Text comparison for strings."
-'@Folder MVVM.Common.Validators
+'@Folder rd_MVVM.Common.Validators
 '@ModuleDescription "A validator that accepts values between set min and max values. Uses Text comparison for strings."
 '@PredeclaredId
 '@Exposed

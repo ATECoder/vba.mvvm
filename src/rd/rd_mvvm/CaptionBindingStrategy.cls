@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Description = "A target binding strategy that creates a CaptionPropertyBinding by default, or a OneWayPropertyBinding given a target property path."
-'@Folder MVVM.Infrastructure.Bindings.PropertyBindings.Strategies
+'@Folder rd_MVVM.Infrastructure.Bindings.PropertyBindings.Strategies
 '@ModuleDescription "A target binding strategy that creates a CaptionPropertyBinding by default, or a OneWayPropertyBinding given a target property path."
 Option Explicit
 Implements IBindingTargetStrategy

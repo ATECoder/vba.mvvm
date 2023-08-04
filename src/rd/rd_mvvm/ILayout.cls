@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Option Explicit
 
-'@Folder MVVM.Infrastructure.View.Dynamic.Layout
+'@Folder rd_MVVM.Infrastructure.View.Dynamic.Layout
 '@Exposed
 '@Interface
 

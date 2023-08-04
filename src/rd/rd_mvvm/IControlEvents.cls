@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "An observer that provides the infrastructure to relay MSForms.Control events."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "An observer that provides the infrastructure to relay MSForms.Control events."
 '@Interface
 '@Exposed

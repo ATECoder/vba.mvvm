@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "An example ViewModel implementation for some dialog."
-'@Folder MVVM.Example
+'@Folder rd_MVVM.Example
 '@ModuleDescription "An example ViewModel implementation for some dialog."
 '@PredeclaredId
 '@Exposed

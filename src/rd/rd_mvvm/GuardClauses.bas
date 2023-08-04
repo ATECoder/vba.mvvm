@@ -1,6 +1,6 @@
 Attribute VB_Name = "GuardClauses"
 Attribute VB_Description = "Global procedures for throwing custom run-time errors in guard clauses."
-'@Folder MVVM.CustomErrors
+'@Folder rd_MVVM.CustomErrors
 '@ModuleDescription("Global procedures for throwing custom run-time errors in guard clauses.")
 Option Explicit
 Option Private Module

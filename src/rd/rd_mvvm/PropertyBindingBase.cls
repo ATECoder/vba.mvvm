@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
-'@Folder MVVM.Infrastructure.Bindings
+'@Folder rd_MVVM.Infrastructure.Bindings
 '@PredeclaredId
 '@Exposed
 Option Explicit
@@ -655,10 +655,10 @@ Private Sub OnExit(ByRef Cancel As Boolean)
     Next
 End Sub
 
-Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigger As MVVM.BindingUpdateSourceTrigger, Optional ByVal TargetValidationValue As Variant)
+Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigger As rd_MVVM.BindingUpdateSourceTrigger, Optional ByVal TargetValidationValue As Variant)
     If Not CanApplyToSource Then Exit Sub
     
-    Dim result As MVVM.ApplyResult
+    Dim result As rd_MVVM.ApplyResult
     Select Case Trigger
         
         'VF: ? remove OnKeyPress here?, at least in TextBox no longer used
@@ -667,7 +667,7 @@ Public Sub OnBindingUpdateSourceOpportunity(ByRef Cancel As Boolean, ByVal Trigg
         Case BindingUpdateSourceTrigger.OnKeyPress, BindingUpdateSourceTrigger.OnChange
         
             'If This.UpdateSourceTrigger = OnKeyPress And Not IsMissing(TargetValidationValue) Then
-            If (This.UpdateSourceTrigger = OnKeyPress Or This.UpdateSourceTrigger = MVVM.BindingUpdateSourceTrigger.OnChange) _
+            If (This.UpdateSourceTrigger = OnKeyPress Or This.UpdateSourceTrigger = rd_MVVM.BindingUpdateSourceTrigger.OnChange) _
                 And Not IsMissing(TargetValidationValue) Then
                 'just validate the keypress 'VF: or string pasted
                 result = IIf(Validate(TargetValidationValue), _

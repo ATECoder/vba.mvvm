@@ -4,12 +4,7 @@ Attribute VB_Name = "BindingPathTests"
 Option Explicit
 Option Private Module
 
-#Const LateBind = LateBindTests
-#If LateBind Then
-Private Assert As Object
-#Else
-Private Assert As Rubberduck.AssertClass
-#End If
+Private Assert As cc_isr_Test_Fx.Assert
 
 Private Type TState
     ExpectedErrNumber As Long
@@ -29,13 +24,7 @@ Private Test As TState
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
-#If LateBind Then
-    'requires HKCU registration of the Rubberduck COM library.
-    Set Assert = CreateObject("Rubberduck.PermissiveAssertClass")
-#Else
-    'requires project reference to the Rubberduck COM library.
-    Set Assert = New Rubberduck.PermissiveAssertClass
-#End If
+    Set Assert = cc_isr_Test_Fx.Assert
 End Sub
 
 '@ModuleCleanup
@@ -179,10 +168,10 @@ Private Sub Resolve_SetsBindingSource()
         .Path = Test.Path
         Set .Context = Test.BindingContext
         
-        If Not .Object Is Nothing Then Assert.Inconclusive "Object reference is unexpectedly set."
+        If Not .Object Is Nothing Then Assert.Fail "Object reference is unexpectedly set."
         .Resolve
         
-        Assert.AreSame Test.BindingSource, .Object
+        Assert.AreSame Test.BindingSource, .Object, ""
     End With
 End Sub
 
@@ -192,10 +181,10 @@ Private Sub Resolve_SetsBindingPropertyName()
         .Path = Test.Path
         Set .Context = Test.BindingContext
         
-        If .PropertyName <> vbNullString Then Assert.Inconclusive "PropertyName is unexpectedly non-empty."
+        If .PropertyName <> vbNullString Then Assert.Fail "PropertyName is unexpectedly non-empty."
         .Resolve
         
-        Assert.AreEqual Test.PropertyName, .PropertyName
+        Assert.AreEqual Test.PropertyName, .PropertyName, ""
     End With
 End Sub
 
@@ -203,12 +192,12 @@ End Sub
 Private Sub Create_ResolvesPropertyName()
     Dim SUT As BindingPath
     Set SUT = BindingPath.Create(Test.BindingContext, Test.Path)
-    Assert.IsFalse SUT.PropertyName = vbNullString
+    Assert.IsFalse SUT.PropertyName = vbNullString, ""
 End Sub
 
 '@TestMethod("Bindings")
 Private Sub Create_ResolvesBindingSource()
     Dim SUT As BindingPath
     Set SUT = BindingPath.Create(Test.BindingContext, Test.Path)
-    Assert.IsNotNothing SUT.Object
+    Assert.IsNotNothing SUT.Object, ""
 End Sub

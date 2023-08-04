@@ -13,13 +13,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder MVVM.Example
+'@Folder rd_MVVM.Example
 Option Explicit
 Implements IView
 Implements ICancellable
 
 Private Type TState
-    Context As MVVM.IAppContext
+    Context As rd_MVVM.IAppContext
     ViewModel As ExampleViewModel
     IsCancelled As Boolean
 End Type
@@ -27,7 +27,7 @@ End Type
 Private This As TState
 
 '@Description "Creates a new instance of this form."
-Public Function Create(ByVal Context As MVVM.IAppContext, ByVal ViewModel As ExampleViewModel, ViewDims As TViewDims) As IView
+Public Function Create(ByVal Context As rd_MVVM.IAppContext, ByVal ViewModel As ExampleViewModel, ViewDims As TViewDims) As IView
 Attribute Create.VB_Description = "Creates a new instance of this form."
     Dim result As ExampleDynamicView
     Set result = New ExampleDynamicView
@@ -40,11 +40,11 @@ Attribute Create.VB_Description = "Creates a new instance of this form."
     Set Create = result
 End Function
 
-Public Property Get Context() As MVVM.IAppContext
+Public Property Get Context() As rd_MVVM.IAppContext
     Set Context = This.Context
 End Property
 
-Public Property Set Context(ByVal RHS As MVVM.IAppContext)
+Public Property Set Context(ByVal RHS As rd_MVVM.IAppContext)
     Set This.Context = RHS
 End Property
 

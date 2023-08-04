@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "An abstract factory that creates INotifyPropertyChanged helper objects."
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "An abstract factory that creates INotifyPropertyChanged helper objects."
 '@Interface
 '@Exposed

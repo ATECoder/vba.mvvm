@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Attribute VB_Description = "Represents a binding validation error."
-'@Folder MVVM.Infrastructure.Validation
+'@Folder rd_MVVM.Infrastructure.Validation
 '@ModuleDescription "Represents a binding validation error."
 '@PredeclaredId
 Option Explicit

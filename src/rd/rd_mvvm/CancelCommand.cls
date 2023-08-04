@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Attribute VB_Description = "A command that closes (hides) a cancellable View in a cancelled state."
-'@Folder MVVM.Common.Commands
+'@Folder rd_MVVM.Common.Commands
 '@ModuleDescription "A command that closes (hides) a cancellable View in a cancelled state."
 '@PredeclaredId
 '@Exposed

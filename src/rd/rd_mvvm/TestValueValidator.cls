@@ -62,7 +62,7 @@ Private Function ITestStub_ToString() As String
     ITestStub_ToString = This.Stub.ToString
 End Function
 
-Private Sub ITestStub_Verify(ByVal Assert As Object, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
+Private Sub ITestStub_Verify(ByVal Assert As cc_isr_Test_Fx.Assert, ByVal MemberName As String, ByVal ExpectedInvokes As Long)
     This.Stub.Verify Assert, MemberName, ExpectedInvokes
 End Sub
 

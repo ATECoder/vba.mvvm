@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "An abstract factory that creates dynamic validation error adorners."
 '@Exposed
-'@Folder MVVM.Infrastructure.Abstract
+'@Folder rd_MVVM.Infrastructure.Abstract
 '@ModuleDescription "An abstract factory that creates dynamic validation error adorners."
 '@Interface
 Option Explicit

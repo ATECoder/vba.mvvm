@@ -10,7 +10,7 @@ Attribute VB_Exposed = True
 Attribute VB_Description = "An object that encapsulates the UserForm Resizer"
 '@ModuleAttribute VB_Ext_KEY, "Rubberduck", "Predeclared Class Module"
 '@ModuleDescription "An object that encapsulates the UserForm Layout"
-'@Folder MVVM.Infrastructure.View.Dynamic.Layout
+'@Folder rd_MVVM.Infrastructure.View.Dynamic.Layout
 '@PredeclaredId
 '@Exposed
 Option Explicit
