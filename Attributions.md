@@ -8,6 +8,7 @@
 * [Funduc Search and Replace]
 * [Retail Coder] - VBA MVVM
 * [MSO-dlx] - VBA MVVM
+* [Toth Zoltan] - Layout patches for MVVM fixing form layouts.
 
 <a name="Acknowledgments"></a>
 ## Acknowledgments
@@ -17,3 +18,4 @@
 [MSO-dlx]: https://github.com/MSO-dlx
 [Stack overflow]: https://www.stackoveflow.com
 [Funduc Search and Replace]: http://www.funduc.com/search_replace.htm
+[Toth Zoltan]:https://github.com/tothzola
