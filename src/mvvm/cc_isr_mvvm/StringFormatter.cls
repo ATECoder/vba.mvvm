@@ -10,7 +10,7 @@ Attribute VB_Exposed = True
 Attribute VB_Description = "An object representing a format string in a notation compatible for use with .NET String.Format()."
 ''' - - - - - - - - - - - - - - - - - - - - -
 ''' <summary>  An object representing a format string in a notation compatible for use with
-'''            cc.isr.Core.StringExtension.FormatString syntax, which is compatibvle with the
+'''            cc.isr.Core.StringExtension.FormatString syntax, which is compatible with the
 '''            .NET notation absent in braces formatting. </summary>
 ''' <remarks> Dependencies:
 ''' cc_isr_Core.StringExtensions.cls
@@ -27,7 +27,7 @@ End Type
 
 Private This As TState
 
-''' <summary>   Initializes and returns an <see cref="IStringFormatter"/> represention of
+''' <summary>   Initializes and returns an <see cref="IStringFormatter"/> representation of
 '''             this <see cref="StringFormatter"/> object. </summary>
 ''' <returns>   [<see cref="IStringFormatter"/>]. </returns>
 Public Function Initialize(ByVal a_formatString As String) As IStringFormatter

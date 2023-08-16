@@ -66,10 +66,10 @@ Private Property Get IValueValidator_Message() As String
 End Property
 
 Private Property Get IValueValidator_Trigger() As BindingUpdateSourceTrigger
-    'VF: funnel through OnChange to capture cut/paste and backspace/delete
+    ' VF: funnel through OnChange to capture cut/paste and backspace/delete
     'avoid being called twice
     If This.UpdateSourceTriggerOption = BindingUpdateSourceTrigger.NotSetYet Then
-        Select Case MsgBox("Trigger validation of numeric textboxes 'OnChange'?" & vbCr & vbCr & "No = Trigger 'OnKeyPress' (as originally, which means not capturing cut/paste and backspace/delete in the textboxes)", vbQuestion + vbYesNo, VBA.Information.TypeName(Me))
+        Select Case MsgBox("Trigger validation of numeric text boxes 'OnChange'?" & vbCr & vbCr & "No = Trigger 'OnKeyPress' (as originally, which means not capturing cut/paste and backspace/delete in the text boxes)", vbQuestion + vbYesNo, VBA.Information.TypeName(Me))
             Case vbYes
                 'but deletes entire string ...as of now
                 'IValueValidator_Trigger = OnChange

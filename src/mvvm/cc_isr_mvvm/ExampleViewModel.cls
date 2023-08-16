@@ -224,7 +224,7 @@ Public Property Get SomeOtherOptionName() As String
 End Property
 
 Public Property Get Instructions() As String
-    Instructions = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    Instructions = "Example instructions."
 End Property
 
 Private Sub OnPropertyChanged(ByVal a_propertyName As String)

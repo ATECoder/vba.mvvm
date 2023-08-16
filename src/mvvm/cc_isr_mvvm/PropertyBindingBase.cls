@@ -593,7 +593,7 @@ CleanFail:
         End If
     End With
     ' resume execution after error-handling is finished.
-    Resume CleanExit 'NOTE: 'VF: is never reached
+    Resume CleanExit 'NOTE: ' VF: is never reached
 End Function
 
 Public Function Validate(ByVal a_targetValue As Variant, Optional ByVal a_propagate As Boolean = True) As Boolean
@@ -624,7 +624,8 @@ Public Function Validate(ByVal a_targetValue As Variant, Optional ByVal a_propag
                 a_validationError:=Factory.NewValidationError().Initialize(Me, p_message)
             
             If Not This.ValidationAdorner Is Nothing Then This.ValidationAdorner.Show p_message
-            'VF: commented out as it leads to select all, which is not desired in text and numeric textboxes even though there may be more than one eventhandler
+            ' VF: commented out as it leads to select all, which is not desired in text and numeric text
+            '    boxes even though there may be more than one event handler
             'OnEnter
         End If
     End If
@@ -682,7 +683,7 @@ Private Sub OnBeforeUpdate(ByRef a_cancel As Boolean)
         If a_cancel Then Exit For
     Next
 End Sub
-'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
+' VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
 Private Sub OnChange()
     Format
     Dim p_handler As IHandleControlEvents
@@ -714,15 +715,15 @@ Public Sub OnBindingUpdateSourceOpportunity(ByRef a_cancel As Boolean, _
     Dim p_result As cc_isr_MVVM.ApplyResult
     Select Case a_trigger
         
-        'VF: ? remove OnKeyPress here?, at least in TextBox no longer used
-        'VF: changed: required to capture Cut/Paste and Backspace/Delete in TextBox
+        ' VF: ? remove OnKeyPress here?, at least in TextBox no longer used
+        ' VF: changed: required to capture Cut/Paste and Backspace/Delete in TextBox
         'Case BindingUpdateSourceTrigger.OnKeyPress
         Case BindingUpdateSourceTrigger.OnKeyPress, BindingUpdateSourceTrigger.OnChange
         
             'If This.UpdateSourceTrigger = OnKeyPress And Not VBA.IsMissing(TargetValidationValue) Then
             If (This.UpdateSourceTrigger = OnKeyPress Or This.UpdateSourceTrigger = cc_isr_MVVM.BindingUpdateSourceTrigger.OnChange) _
                 And Not VBA.IsMissing(TargetValidationValue) Then
-                'just validate the keypress 'VF: or string pasted
+                'just validate the keypress ' VF: or string pasted
                 p_result = IIf(Validate(TargetValidationValue), _
                     ApplyResult.BindingSuccess, _
                     ApplyResult.BindingValidationError)
@@ -794,7 +795,7 @@ Private Sub IControlEvents_OnBeforeUpdate(ByVal a_cancel As MSForms.IReturnBoole
     OnBeforeUpdate p_cancel
     a_cancel.Value = p_cancel
 End Sub
-'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
+' VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
 Private Sub IControlEvents_OnChange()
     OnChange
 End Sub
@@ -838,7 +839,7 @@ End Sub
 Private Sub IHandleControlEvents_HandleBeforeUpdate(ByRef a_cancel As Boolean)
     OnBeforeUpdate a_cancel
 End Sub
-'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
+' VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
 Private Sub IHandleControlEvents_HandleChange()
     OnChange
 End Sub

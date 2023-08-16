@@ -202,7 +202,7 @@ Private Function IDynamicControlBuilder_TextAreaFor(ByVal a_sourceValue As IBind
     
     p_result.MultiLine = True
     p_result.WordWrap = True
-    p_result.ScrollBars = fmScrollBarsVertical
+    p_result.ScrollBars = MSForms.fmScrollBars.fmScrollBarsVertical
     
     Set IDynamicControlBuilder_TextAreaFor = p_result
     
@@ -220,17 +220,17 @@ Private Function IDynamicControlBuilder_TextBoxFor(ByVal a_sourceValue As IBindi
     Set p_result = This.Container.Add(BindingDefaults.TextBoxProgId)
     
     Dim p_trigger As BindingUpdateSourceTrigger
-'    'VF: Logic error?: would always be zero and that means never // missing: if not validator is nothing then ??? trigger not picked up from validator
+'    ' VF: Logic error?: would always be zero and that means never // missing: if not validator is nothing then ??? trigger not picked up from validator
 '    'is updated later. Why not set here and skip update later?
 '    If a_validator Is Nothing Then
 '        p_trigger = a_validator.Trigger '= 0 that is never
-''    '    'VF:
+''    '    ' VF:
 ''    '    Else ' set value of validator
 ''    '        p_trigger = a_validator.Trigger
 ''    '    End If
 '    End If
-    'VF: simplifies to unconditional
-    'but causes DecimalValuator::IValueValidator_Trigger() to be called twice
+    ' VF: simplifies to unconditional
+    'but causes DecimalValidator::IValueValidator_Trigger() to be called twice
     p_trigger = a_validator.Trigger
     
     

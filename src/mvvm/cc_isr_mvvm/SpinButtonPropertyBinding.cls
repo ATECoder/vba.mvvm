@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   A property binding that binds any property of any sourceto
+''' <summary>   A property binding that binds any property of any source to
 '''             properties of a SpinButton UI element target. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit

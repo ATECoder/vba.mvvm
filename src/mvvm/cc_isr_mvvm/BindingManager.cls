@@ -127,10 +127,10 @@ Attribute Terminate.VB_Description = "Releases all held property bindings, prepa
 End Sub
 
 ''' <summary>   Class initializes. </summary>
-''' <remarks>   Presently, type of MS Control is not an MS Control.  Potentuially, It might be better to
+''' <remarks>   Presently, type of MS Control is not an MS Control.  Potentially, It might be better to
 '''             enumerate the binding target strategies by the control name as
 '''             prefixing the control name with the library name is not robust.
-'''             Note, though, the type of range indeed inbcludes the Excel library name. </remarks>
+'''             Note, though, the type of range indeed includes the Excel library name. </remarks>
 Private Sub Class_Initialize()
     Set This.BindingTargetStrategies = New Dictionary
     Set This.PropertyBindings = New Collection
@@ -227,10 +227,10 @@ Private Function IBindingManager_BindPropertyPath(ByVal a_source As Object, ByVa
 End Function
 
 ''' <summary>   Get a key to the list of strategies based to the specified object type. </summary>
-''' <remarks>   Presently, type of MS Control is not an MS Control.  Potentuially, It might be better to
+''' <remarks>   Presently, type of MS Control is not an MS Control.  Potentially, It might be better to
 '''             enumerate the binding target strategies by the control name as
 '''             prefixing the control name with the library name is not robust.
-'''             Note, though, the type of range indeed inbcludes the Excel library name. </remarks>
+'''             Note, though, the type of range indeed includes the Excel library name. </remarks>
 ''' <param name="a_target">   [Object] The target object, which code be an MS Forms control or
 '''                           and Excel Range. </param>
 ''' <returns>   [String]. </returns>

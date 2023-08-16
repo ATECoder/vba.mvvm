@@ -13,7 +13,7 @@ Attribute VB_Description = "Describes an object that encapsulates 'IsCancelled' 
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 
-''' <summary>   Gets a value indicating whether the object is in a cancelled state. </summary>
+''' <summary>   Gets a value indicating whether the object is in a canceled state. </summary>
 Public Property Get IsCancelled() As Boolean
 Attribute IsCancelled.VB_Description = "Gets a value indicating whether the object is in a cancelled state."
 End Property

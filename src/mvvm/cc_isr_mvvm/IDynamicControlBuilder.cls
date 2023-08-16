@@ -13,7 +13,7 @@ Attribute VB_Description = "Builds dynamic MSForms UI components from a binding 
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 
-''' <summary>   Creates a multiline MSForms.TextBox control for the spercified String property binding path. </summary>
+''' <summary>   Creates a multiline MSForms.TextBox control for the specified String property binding path. </summary>
 Public Function TextAreaFor(ByVal a_sourceValue As IBindingPath, Optional ByVal a_converter As IValueConverter, _
         Optional ByVal a_validator As IValueValidator, Optional ByVal a_errorAdorner As IDynamicAdorner, _
         Optional ByVal a_titleSource As Variant) As MSForms.TextBox

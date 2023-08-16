@@ -24,7 +24,7 @@ End Property
 '''             with <paramref="a_values"/> similar to VB.NET String.Format but without
 '''             formatting suffixes. </summary>
 ''' <param name="a_values">   [Variant, ParamArray] The parameter values matching the
-'''                           <see cref="FromatString"/>. </param>
+'''                           <see cref="FormatString"/>. </param>
 ''' <returns>   [String]. </returns>
 Public Function Format(ParamArray a_values() As Variant) As String
 Attribute Format.VB_Description = "Formats the specified values as per the FormatString."

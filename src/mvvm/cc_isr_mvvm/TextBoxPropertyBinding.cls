@@ -71,11 +71,11 @@ End Sub
 
 Private Sub SelectAll()
     
-    ' BUG: fixed 'VF:
+    ' BUG: fixed ' VF:
     ' logical error with the validation if space bar pressed <- fixed by switch to _Change/OnChange from KeyPress
     
-    ' BUG: fixed 'VF:
-    ' bug mouse click triggered selectall but select all should not be executed on mouse events so like a user clicks in the entered string to correct a spelling error
+    ' BUG: fixed ' VF:
+    ' bug mouse click triggered SelectAll but select all should not be executed on mouse events so like a user clicks in the entered string to correct a spelling error
     
     TargetEventSource.SelStart = 0
     TargetEventSource.SelLength = TargetEventSource.TextLength
@@ -98,12 +98,12 @@ End Sub
 
 Private Sub IHandleControlEvents_HandleBeforeUpdate(ByRef a_cancel As Boolean)
 End Sub
-'VF: added as replacement for KeyPress to capture cut/paste and backspace/delete
+' VF: added as replacement for KeyPress to capture cut/paste and backspace/delete
 Private Sub IHandleControlEvents_HandleChange()
-    '? dont't create an extra Private Sub OnChange()
+    '? don't create an extra Private Sub OnChange()
     IHandlePropertyChanged_HandlePropertyChanged TargetEventSource, "StringProperty"
 End Sub
-'Note: 'VF: not sure of added value of selecting all upon enter,  probably a matter of every users' habit/preferences
+'Note: ' VF: not sure of added value of selecting all upon enter,  probably a matter of every users' habit/preferences
 Private Sub IHandleControlEvents_HandleEnter()
     SelectAll
 End Sub
@@ -154,12 +154,12 @@ End Property
 Private Property Get IPropertyBinding_Validator() As IValueValidator
     Set IPropertyBinding_Validator = This.Base.Validator
 End Property
-'VF: event added to capture cut/paste and backspace/delete
+' VF: event added to capture cut/paste and backspace/delete
 Private Sub TargetEventSource_Change()
     If This.Base.UpdateSourceTrigger <> cc_isr_MVVM.BindingUpdateSourceTrigger.OnChange Then Exit Sub
     
     Dim p_cancel As Boolean
-    'VF: pass in entire textbox content for verification
+    ' VF: pass in entire TextBox content for verification
     Dim outText As String
     If Not This.Base.Target.TryReadPropertyValue(outText) Then 'pass invalid string for further validation
         This.Base.OnBindingUpdateSourceOpportunity p_cancel, cc_isr_MVVM.BindingUpdateSourceTrigger.OnChange, VBA.vbNullString
@@ -168,16 +168,18 @@ Private Sub TargetEventSource_Change()
         This.Base.OnBindingUpdateSourceOpportunity p_cancel, cc_isr_MVVM.BindingUpdateSourceTrigger.OnChange, outText ', Chr$(KeyAscii.Value)
     End If
     
-    'not needed if text and if numeric textbox leave correction up to user as instructed by validation error adorner
+    'not needed if text and if numeric TextBox leave correction up to user as instructed by validation error adorner
 '    If p_cancel Then
-'        'VF: delete invalid text?
-'        'more testing needed with all sorts of textbox usages
+'        ' VF: delete invalid text?
+'        'more testing needed with all sorts of TextBox usages
 '        'check return value? and raise error or do something else if false?
 '        This.Base.Target.TryWritePropertyValue (VBA.vbNullString)
 '    End If
     
 End Sub
-'VF: required by numeric textbox, text textbox must use _Change
+
+' VF: required by numeric TextBox, text TextBox must use _Change
+
 Private Sub TargetEventSource_KeyPress(ByVal KeyAscii As MSForms.ReturnInteger)
     If This.Base.UpdateSourceTrigger <> OnKeyPress Then Exit Sub
 
@@ -185,25 +187,36 @@ Private Sub TargetEventSource_KeyPress(ByVal KeyAscii As MSForms.ReturnInteger)
     This.Base.OnBindingUpdateSourceOpportunity p_cancel, cc_isr_MVVM.BindingUpdateSourceTrigger.OnKeyPress, Chr$(KeyAscii.Value)
 
     If p_cancel Then
-        'swallow the invalid keypress:
+        
+        ' swallow the invalid keypress:
         KeyAscii.Value = 0
-        'VF: but don't select all, just swallow invalid keypress <- was caused be calling OnEnter, which is commented out now
-        'VF: must re-run
-        'ToDo: 'VF: refactor to have clean structure
-        '   (a) logic error non-numeric key is swallowed so error no longer exists but validation error adorner sticks
-        'rerun with numeric char to remove validation error adorner
-        This.Base.OnBindingUpdateSourceOpportunity p_cancel, cc_isr_MVVM.BindingUpdateSourceTrigger.OnKeyPress, 0 'Chr$(KeyAscii.Value)
-        'either add delay for user to see validation error adorner or inform by msgbox why his keystrokes don't show
-        MsgBox "Only numeric entries accepted.", vbInformation, "'ToDo: 'VF: use caption of control or userform or something"
-        '   (b) cut/paste and backspace/delete not captured so maybe have two triggers: KeyPress and Change or just funnel through Change and let user delete non-numeric chars?
+        
+        ' VF: but don't select all, just swallow invalid keypress <- was caused be calling OnEnter, which is commented out now
+        ' VF: must re-run
+        ' ToDo:
+        ' VF: refactor to have clean structure
+        ' (a) logic error non-numeric key is swallowed so error no longer exists but validation error adorner sticks
+        ' rerun with numeric char to remove validation error adorner
+        
+        This.Base.OnBindingUpdateSourceOpportunity p_cancel, cc_isr_MVVM.BindingUpdateSourceTrigger.OnKeyPress, 0 ' Chr$(KeyAscii.Value)
+        
+        ' either add delay for user to see validation error adorner or inform by MsgBox why his keystrokes don't show
+        
+        MsgBox "Only numeric entries accepted.", vbInformation, "'ToDo: ' VF: use caption of control or UserForm or something"
+        
+        ' (b) cut/paste and backspace/delete not captured so maybe have two triggers: KeyPress and Change or
+        '     just funnel through Change and let user delete non-numeric chars?
+    
     End If
 
 End Sub
-'VF: commented out as dysfunctional from (my) user and developer perspective: click into string in textbox to add text or to correct a spelling error must be possible and this sub would select all
-'if user wants to select all, he can do so himself
-'Private Sub TargetEventSource_MouseUp(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
-'    'https://docs.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/mousedown-mouseup-events
+
+' VF: commented out as dysfunctional from (my) user and developer perspective:
+' click into string in TextBox to add text or to correct a spelling error must be possible and this sub would select all
+' if user wants to select all, he can do so himself
+' Private Sub TargetEventSource_MouseUp(ByVal Button As Integer, ByVal Shift As Integer, ByVal X As Single, ByVal Y As Single)
+'    ' https://docs.microsoft.com/en-us/office/vba/Language/Reference/User-Interface-Help/mousedown-mouseup-events
 '    Const fmButtonLeft As Long = 1
 '    If Button = fmButtonLeft And TargetEventSource.SelLength = 0 Then SelectAll
-'End Sub
+' End Sub
 

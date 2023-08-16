@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
 Attribute VB_Description = "A factory that creates instances of a particular IStringFormatter implementation."
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   Repressnets a factory that creates instances of a particular IStringFormatter implementation.
+''' <summary>   Represents a factory that creates instances of a particular IStringFormatter implementation.
 ''' <remarks> Dependencies:
 ''' cc_isr_MVVM.IStringFormatter.cls </remarks>
 ''' - - - - - - - - - - - - - - - - - - - - -

@@ -191,7 +191,7 @@ End Sub
 Private Sub IControlEvents_OnBeforeUpdate(ByVal a_cancel As MSForms.IReturnBoolean)
     OnBeforeUpdate a_cancel
 End Sub
-'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox control, basically replacing OnKeyPress in TextBox
+' VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox control, basically replacing OnKeyPress in TextBox
 Private Sub IControlEvents_OnChange()
     OnChange
 End Sub

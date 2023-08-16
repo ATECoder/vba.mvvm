@@ -39,7 +39,7 @@ End Type
 Private This As TState
 
 ''' <summary>   Initializes and returns an <see cref="IDynamicAdorner"/> representation of
-'''             this <see cref="ValidationErrorAdornaer"/> object. </summary>
+'''             this <see cref="ValidationErrorAdorner"/> object. </summary>
 ''' <returns>   [<see cref="IDynamicAdorner"/>]. </returns>
 Public Function Initialize(ByVal a_target As MSForms.Control, _
         Optional ByVal a_targetFormatter As cc_isr_MVVM.IValidationErrorFormatter = Nothing, _

@@ -38,21 +38,21 @@ Public Property Get VerticalResInPixel() As Long
     VerticalResInPixel = GetSystemMetrics32(SM_CYSCREEN) * PointsPerPixel
 End Property
 
-''' <summary>   Get Points Per Pixel Screen resloution. </summary>
+''' <summary>   Get Points Per Pixel Screen resolution. </summary>
 Public Function PointsPerPixel() As Double
 
     #If VBA7 Then
-        Dim HandleContex As LongPtr
-        Dim DotsPerInch As LongPtr
+        Dim p_handleContext As LongPtr
+        Dim p_dotsPerInch As LongPtr
     #Else
-        Dim HandleContex As Long
-        Dim DotsPerInch As Long
+        Dim p_handleContext As Long
+        Dim p_dotsPerInch As Long
     #End If
 
-    HandleContex = GetDC(0)
-    DotsPerInch = GetDeviceCaps(HandleContex, LOGPIXELSX)
-    PointsPerPixel = POINTS_PER_INCH / DotsPerInch
-    ReleaseDC 0, HandleContex
+    p_handleContext = GetDC(0)
+    p_dotsPerInch = GetDeviceCaps(p_handleContext, LOGPIXELSX)
+    PointsPerPixel = POINTS_PER_INCH / p_dotsPerInch
+    ReleaseDC 0, p_handleContext
 
 End Function
 

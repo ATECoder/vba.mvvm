@@ -5,7 +5,7 @@ Sub RemoveElements()
     For Each p_element In ActiveWorkbook.VBProject.VBComponents
         If p_element.Name = "ExampleDynamicView" Or _
            p_element.Name = "ExampleView" Or _
-           p_element.Name = "ExploreTextboxEvents" Or _
+           p_element.Name = "ExploreTextBoxEvents" Or _
            p_element.Name = "BindingManagerTests" Or _
            p_element.Name = "BindingPathTests" Or _
            p_element.Name = "CommandManagerTests" Or _

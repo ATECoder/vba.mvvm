@@ -27,14 +27,14 @@ Public Enum BindingMode
 End Enum
 
 Public Enum BindingUpdateSourceTrigger
-    'VF: added NotSetYet  and renumbered enums
+    ' VF: added NotSetYet  and renumbered enums
     NotSetYet = 0 ''avoid being called twice, for runtime optimization
     Never = 1
     OnPropertyChanged = 2 '
     OnKeyPress = 3 '
     OnExit = 4 '
     
-    'VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
+    ' VF: added: required to capture Cut/Paste and Backspace/Delete in TextBox
     OnChange = 5
     
 End Enum
@@ -61,7 +61,7 @@ End Property
 ''' <c>OnExit</c> and <c>OnPropertyChanged</c> are still somewhat ambiguously defined,
 ''' but <c>OnExit</c> gets to keep the target control focused if there’s a validation error,
 ''' and <c>OnPropertyChanged</c> is [currently] firing for every <c>keypress</c> in a <c>TextBox</c>,
-''' after the control’s Text property udpates. Disambiguating the terms would mean breaking
+''' after the control’s Text property updates. Disambiguating the terms would mean breaking
 ''' with MSForms’ meaning of “updated”… which may actually be a good thing: <c>OnPropertyChanged</c>
 ''' would basically fire on exit but without a possible navigation-blocking validation error, and then
 ''' <c>OnKeyPress</c> mode would still need to behave like <c>OnPropertyChanged</c> as far as updating

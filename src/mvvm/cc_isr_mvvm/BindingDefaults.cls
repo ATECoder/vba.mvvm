@@ -35,7 +35,7 @@ Public Property Get LayoutDefaultHeight() As Integer
 End Property
 
 ''' <summary>   Sets the layout default height. </summary>
-''' <param naem ="a_value">   the value. </param>
+''' <param name="a_value">   the value. </param>
 Public Property Let LayoutDefaultHeight(ByVal a_value As Integer)
     This.LayoutDefaultHeight = a_value
 End Property
@@ -47,7 +47,7 @@ Public Property Get LayoutDefaultWidth() As Integer
 End Property
 
 ''' <summary>   Sets the layout default width. </summary>
-''' <param naem ="a_value">   the value. </param>
+''' <param name="a_value">   the value. </param>
 Public Property Let LayoutDefaultWidth(ByVal a_value As Integer)
     This.LayoutDefaultWidth = a_value
 End Property
@@ -59,7 +59,7 @@ Public Property Get MarginDefault() As Integer
 End Property
 
 ''' <summary>   Sets the margin default size. </summary>
-''' <param naem ="a_value">   the value. </param>
+''' <param name="a_value">   the value. </param>
 Public Property Let MarginDefault(ByVal a_value As Integer)
     This.MarginDefault = a_value
 End Property

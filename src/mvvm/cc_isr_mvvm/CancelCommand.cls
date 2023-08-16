@@ -7,9 +7,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
-Attribute VB_Description = "A command that closes (hides) a cancellable View in a cancelled state."
+Attribute VB_Description = "A command that closes (hides) a cancellable View in a canceled state."
 ''' - - - - - - - - - - - - - - - - - - - - -
-''' <summary>   A command that closes (hides) a cancellable View in a cancelled state. </summary>
+''' <summary>   A command that closes (hides) a cancellable View in a canceled state. </summary>
 ''' - - - - - - - - - - - - - - - - - - - - -
 Option Explicit
 Implements ICommand

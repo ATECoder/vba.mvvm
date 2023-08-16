@@ -47,7 +47,7 @@ Public Property Get Item(ByVal a_propertyName As String) As IValidationError
 Attribute Item.VB_Description = "Gets the IValidationError for the specified property; returns Nothing if there is no validation error."
 Attribute Item.VB_UserMemId = 0
 
-    ' QUESTION: 'VF: Can this be set via Ruberduck?   Attribute Item.VB_UserMemId = 0
+    ' QUESTION: ' VF: Can this be set via Rubberduck?   Attribute Item.VB_UserMemId = 0
     ' I thought this were a trick I would be telling you as I think you did not mention it anywhere on your blog,  well you know them all ;-)
     ' actually, this trick needs some explanations for other to understand how come this works
     Dim p_result As IValidationError
@@ -68,7 +68,7 @@ Public Property Get NewEnum() As IUnknown
 Attribute NewEnum.VB_Description = "Provides custom collection support for For Each enumeration."
 Attribute NewEnum.VB_UserMemId = -4
 
-    ' QUESTION: 'VF: Can this be set via Ruberduck?
+    ' QUESTION: ' VF: Can this be set via Rubberduck?
     ' Attribute NewEnum.VB_Description = "Provides custom collection support for For Each enumeration."
     ' Attribute NewEnum.VB_UserMemId = -4
     ' I thought this were a trick I would be telling you as I think you did not mention it anywhere on your blog,  well you know them all ;-)
