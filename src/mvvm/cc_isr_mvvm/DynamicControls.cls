@@ -67,8 +67,10 @@ Private Sub BindCaptionSource(ByVal a_source As Variant, ByVal a_target As Objec
             a_formatString:=a_formatString
         
     Else
-        cc_isr_Core.GuardClauses.GuardExpression True, VBA.Information.TypeName(Me), "Unsupported Source type.", _
-            cc_isr_Core.UserDefinedErrors.InvalidArgumentError
+        Dim p_source As String
+        p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".BindCaptionSource"
+        cc_isr_Core_IO.GuardClauses.GuardExpression True, p_source, "Unsupported Source type.", _
+            cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError
     End If
     
 End Sub

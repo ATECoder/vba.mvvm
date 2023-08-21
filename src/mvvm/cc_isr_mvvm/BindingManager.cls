@@ -61,7 +61,9 @@ End Property
 
 Public Property Set NotifierFactory(ByVal a_value As INotifierFactory)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.NotifierFactory, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".NotifierFactory"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.NotifierFactory, p_source
     Set This.NotifierFactory = a_value
 
 End Property
@@ -81,8 +83,10 @@ End Property
 
 Public Property Set Context(ByVal a_value As IAppContext)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Context, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Context"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Context, p_source
     
     Set This.Context = a_value
 End Property
@@ -101,8 +105,10 @@ End Property
 
 Public Property Set StringFormatterFactory(ByVal a_value As IStringFormatterFactory)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".StringFormatterFactory"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, p_source
     Set This.StringFormatterFactory = a_value
 
 End Property
@@ -270,7 +276,7 @@ Private Function TryGetBindingStrategyFor(ByVal a_target As Object, ByRef outStr
         ' see Binding Manager Tests TestNonControlTargetCreatesOneWayBinding
         TryGetBindingStrategyFor = False
 #If False Then
-        cc_isr_Core.UserDefinedErrors.RaiseError cc_isr_Core.UserDefinedErrors.InvalidArgumentError, _
+        cc_isr_Core_IO.UserDefinedErrors.RaiseError cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError, _
                 TypeName(Me) & "." & "TryGetBidingStrategyFor", _
                 " Invalid key  '" & p_key & "' generated for target '" & TypeName(a_target)   '"."
 #End If

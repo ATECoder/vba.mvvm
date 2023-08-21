@@ -31,9 +31,11 @@ Private This As TState
 ''' <returns>   [<see cref="IValidationErrorFormatter"/>]. </returns>
 Public Function Initialize(ParamArray a_formatters() As Variant) As IValidationErrorFormatter
 
-    cc_isr_Core.GuardClauses.GuardExpression UBound(a_formatters) < 0, VBA.Information.TypeName(Me), _
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Initialize"
+    cc_isr_Core_IO.GuardClauses.GuardExpression UBound(a_formatters) < 0, p_source, _
             "At least one formatter is required.", _
-            cc_isr_Core.UserDefinedErrors.InvalidArgumentError
+            cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError
     
     ' handle ParamArray proxy args:
     
@@ -66,12 +68,14 @@ Public Function Initialize(ParamArray a_formatters() As Variant) As IValidationE
 End Function
 
 ''' <summary>   Adds the specified formatter to this composite formatter. </summary>
-Public Sub AddFormatter(ByVal Formatter As IValidationErrorFormatter)
+Public Sub AddFormatter(ByVal a_formatter As IValidationErrorFormatter)
 Attribute AddFormatter.VB_Description = "Adds the specified formatter to this composite formatter."
     
-    cc_isr_Core.GuardClauses.GuardNullReference Formatter
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".AddFormatter"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_formatter, p_source
     
-    This.Formatters.Add Formatter
+    This.Formatters.Add a_formatter
 
 End Sub
 

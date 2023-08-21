@@ -130,8 +130,10 @@ End Property
 
 Public Property Set Bindings(ByVal a_value As cc_isr_MVVM.IBindingManager)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Bindings, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Bindings"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Bindings, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     Set This.Bindings = a_value
 
 End Property
@@ -146,8 +148,10 @@ End Property
 
 Public Property Set Commands(ByVal a_value As ICommandManager)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Commands, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Commands"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Commands, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     Set This.Commands = a_value
 
 End Property
@@ -162,8 +166,10 @@ End Property
 
 Public Property Set Validation(ByVal a_value As cc_isr_MVVM.IValidationManager)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Validation, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Validation"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Validation, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     Set This.Validation = a_value
 
 End Property
@@ -178,8 +184,10 @@ End Property
 
 Public Property Set StringFormatterFactory(ByVal a_value As IStringFormatterFactory)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".StringFormatterFactory"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.StringFormatterFactory, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     Set This.StringFormatterFactory = a_value
 
 End Property

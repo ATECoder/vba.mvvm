@@ -49,9 +49,11 @@ End Sub
 
 Private Function ICommandManager_BindCommand(ByVal a_bindingContext As Object, ByVal a_target As Object, ByVal a_command As ICommand) As ICommandBinding
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_bindingContext, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_target, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_command, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ICommandManager_BindCommand"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_bindingContext, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_target, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_command, p_source
     
     Dim p_binding As ICommandBinding
     
@@ -70,10 +72,10 @@ Private Function ICommandManager_BindCommand(ByVal a_bindingContext As Object, B
             Set p_binding = Factory.NewCommandBinding().ForCheckBox(a_target, a_command, a_bindingContext)
             
         Case Else
-            cc_isr_Core.GuardClauses.GuardExpression True, VBA.Information.TypeName(a_bindingContext), _
-                            "Target type '" & VBA.Information.TypeName(a_target) & _
-                            "' does not currently support command bindings.", _
-                            cc_isr_Core.UserDefinedErrors.InvalidOperationError
+            cc_isr_Core_IO.GuardClauses.GuardExpression True, p_source, _
+                "Target type '" & VBA.Information.TypeName(a_target) & _
+                "' does not currently support command bindings.", _
+                cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError
             
     End Select
     

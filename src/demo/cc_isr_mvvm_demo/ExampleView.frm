@@ -40,9 +40,11 @@ Private This As TView
 Public Function Create(ByVal a_context As IAppContext, ByVal a_viewModel As ExampleViewModel) As IView
 Attribute Create.VB_Description = "A factory method to create new instances of this View, already wired-up to a ViewModel."
 
-    cc_isr_Core.GuardClauses.GuardNonDefaultInstance Me, ExampleView, TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_viewModel, TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_context, TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Create"
+    cc_isr_Core_IO.GuardClauses.GuardNonDefaultInstance Me, ExampleView, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_viewModel, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_context, p_source
     
     Dim result As ExampleView
     Set result = New ExampleView
@@ -66,8 +68,10 @@ End Property
 
 Public Property Set ViewModel(ByVal a_value As ExampleViewModel)
 
-    cc_isr_Core.GuardClauses.GuardDefaultInstance Me, ExampleView, TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ViewModel"
+    cc_isr_Core_IO.GuardClauses.GuardDefaultInstance Me, ExampleView, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     
     Set This.ViewModel = a_value
     
@@ -81,9 +85,11 @@ End Property
 
 Public Property Set Context(ByVal a_value As cc_isr_MVVM.IAppContext)
 
-    cc_isr_Core.GuardClauses.GuardDefaultInstance Me, ExampleView, TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Context, TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Context"
+    cc_isr_Core_IO.GuardClauses.GuardDefaultInstance Me, ExampleView, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Context, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     
     Set This.Context = a_value
     

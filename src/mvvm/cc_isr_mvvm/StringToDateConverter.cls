@@ -34,9 +34,11 @@ End Function
 
 Private Function Convert(ByVal a_value As Variant) As Variant
     
-    cc_isr_Core.GuardClauses.GuardExpression Not VBA.IsDate(a_value), VBA.Information.TypeName(Me), _
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Convert"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Not VBA.IsDate(a_value), p_source, _
             "Value '" & a_value & "' was not recognized as a valid date.", _
-            cc_isr_Core.UserDefinedErrors.InvalidArgumentError
+            cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError
             
     If VBA.VarType(a_value) = VBA.VbVarType.vbDate Then
         Convert = VBA.CDate(a_value)

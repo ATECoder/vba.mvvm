@@ -43,8 +43,10 @@ End Property
 
 Public Property Set Target(ByVal a_value As Excel.Range)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Target, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Target"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Target, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     Set This.Target = a_value
 
 End Property

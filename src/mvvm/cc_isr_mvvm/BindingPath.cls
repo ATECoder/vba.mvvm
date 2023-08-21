@@ -31,8 +31,10 @@ Private This As TState
 Public Function Initialize(ByVal a_context As Object, ByVal a_path As String) As IBindingPath
 Attribute Initialize.VB_Description = "Initializes a new binding path from the specified property path string and binding context."
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_context, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardEmptyString a_path, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Initialize"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_context, p_source
+    cc_isr_Core_IO.GuardClauses.GuardEmptyString a_path, p_source
     
     Set Me.Context = a_context
     Me.Path = a_path
@@ -51,8 +53,10 @@ End Property
 
 Public Property Set Context(ByVal a_value As Object)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Context, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Context"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Context, p_source
     Set This.Context = a_value
 
 End Property
@@ -65,8 +69,10 @@ End Property
 
 Public Property Let Path(ByVal a_value As String)
     
-    cc_isr_Core.GuardClauses.GuardEmptyString a_value, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Path, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Path"
+    cc_isr_Core_IO.GuardClauses.GuardEmptyString a_value, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Path, p_source
     This.Path = a_value
 
 End Property

@@ -34,7 +34,9 @@ Private This As TState
 Public Function Initialize(ByVal a_object As Object, Optional ByVal a_newWidthPercent As Long = 50, _
         Optional ByVal a_newHeightPercent As Long = 50) As Layout
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_object, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Initialize"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_object, p_source
     
     This.HorizontalResInPixel = WinApi.HorizontalResInPixel
     This.VerticalResInPixel = WinApi.VerticalResInPixel
@@ -62,9 +64,11 @@ End Property
 
 Public Property Let Width(ByVal a_value As Single)
 
-    cc_isr_Core.GuardClauses.GuardExpression Sgn(a_value - 0) + Sgn(a_value - 100), _
-            "cc_isr_MVVM.Layout", "Value not between 0-100", _
-            cc_isr_Core.UserDefinedErrors.InvalidArgumentError
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Width"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Sgn(a_value - 0) + Sgn(a_value - 100), p_source, _
+        "Value not between 0-100", _
+        cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError
     
     This.Width = WinApi.HorizontalResInPixel * (a_value / 100)
     
@@ -76,9 +80,11 @@ End Property
 
 Public Property Let Height(ByVal a_value As Single)
 
-    cc_isr_Core.GuardClauses.GuardExpression Sgn(a_value - 0) + Sgn(a_value - 100), _
-            "cc_isr_MVVM.Layout", "Value not between 0-100", _
-            cc_isr_Core.UserDefinedErrors.InvalidArgumentError
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Height"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Sgn(a_value - 0) + Sgn(a_value - 100), p_source, _
+        "Value not between 0-100", _
+        cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError
             
     This.Height = WinApi.VerticalResInPixel * (a_value / 100)
 
@@ -92,7 +98,9 @@ End Property
 
 Public Property Set LayoutBindings(ByVal a_value As Collection)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".LayoutBindings"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     
     Set This.LayoutBindings = a_value
 
@@ -100,8 +108,10 @@ End Property
 
 Public Sub BindControlLayout(ByVal a_parent As Object, ByVal a_child As MSForms.Control, ByVal a_anchorEdges As AnchorEdges)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_parent
-    cc_isr_Core.GuardClauses.GuardNullReference a_child
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".BindControlLayout"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_parent, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_child, p_source
     
     Dim Layout As ControlLayout
     Set Layout = New ControlLayout

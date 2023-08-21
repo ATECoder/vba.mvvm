@@ -114,7 +114,9 @@ End Property
 
 Public Property Set Target(ByVal a_value As Object)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Target, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Target"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Target, p_source
     Set This.Target = a_value
     
     Select Case True
@@ -134,10 +136,10 @@ Public Property Set Target(ByVal a_value As Object)
             
         Case Else
         
-            cc_isr_Core.GuardClauses.GuardExpression True, VBA.Information.TypeName(Me), _
+            cc_isr_Core_IO.GuardClauses.GuardExpression True, p_source, _
                 "Type '" & VBA.Information.TypeName(a_value) & _
                 "' does not support command bindings at the moment.", _
-                cc_isr_Core.UserDefinedErrors.InvalidOperationError
+                cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError
                 
     End Select
     
@@ -148,9 +150,13 @@ Public Property Get Command() As ICommand
 End Property
 
 Public Property Set Command(ByVal a_value As ICommand)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Command, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
+    
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Command"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Command, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, p_source
     Set This.Command = a_value
+
 End Property
 
 Private Property Get AsInterface() As ICommandBinding
@@ -210,9 +216,12 @@ End Sub
 
 Private Sub CheckBoxEvents_Click()
 
-    cc_isr_Core.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.CheckBox, VBA.Information.TypeName(Me), _
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".CheckBoxEvents_Click"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.CheckBox, _
+            p_source, _
             "Invalid command binding type; must be a CheckBox", _
-            cc_isr_Core.UserDefinedErrors.InvalidOperationError
+            cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError
             
     OnExecute
 
@@ -220,27 +229,34 @@ End Sub
 
 Private Sub CommandButtonEvents_Click()
 
-    cc_isr_Core.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.CommandButton, VBA.Information.TypeName(Me), _
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".CommandButtonEvents_Click"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.CommandButton, p_source, _
             "Invalid command binding type; must be a CommandButton", _
-            cc_isr_Core.UserDefinedErrors.InvalidOperationError
+            cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError
             
     OnExecute
+
 End Sub
 
 Private Sub ImageEvents_Click()
 
-    cc_isr_Core.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.Image, VBA.Information.TypeName(Me), _
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ImageEvents_Click"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.Image, p_source, _
             "Invalid command binding type; must be an Image", _
-            cc_isr_Core.UserDefinedErrors.InvalidOperationError
+            cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError
             
     OnExecute
 End Sub
 
 Private Sub LabelEvents_Click()
 
-    cc_isr_Core.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.Label, VBA.Information.TypeName(Me), _
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".LabelEvents_Click"
+    cc_isr_Core_IO.GuardClauses.GuardExpression Not TypeOf This.Target Is MSForms.Label, p_source, _
             "Invalid command binding type; must be a Label", _
-            cc_isr_Core.UserDefinedErrors.InvalidOperationError
+            cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError
             
     OnExecute
 End Sub

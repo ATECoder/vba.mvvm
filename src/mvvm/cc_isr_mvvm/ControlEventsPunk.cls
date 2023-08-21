@@ -81,7 +81,9 @@ End Property
 Public Function Connect() As Boolean
 Attribute Connect.VB_Description = "Registers the listener."
 
-    cc_isr_Core.GuardClauses.GuardNullReference This.PunkTarget, VBA.Information.TypeName(Me), "Target is not set."
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Connect"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference This.PunkTarget, p_source, "Target is not set."
     ConnectToConnectionPoint Me, This.RefIID, True, This.PunkTarget, This.Cookie, 0&
     This.Connected = This.Cookie <> 0
     Connect = This.Connected

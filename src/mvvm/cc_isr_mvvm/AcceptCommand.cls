@@ -29,8 +29,10 @@ Private This As TState
 Public Function Initialize(ByVal a_view As cc_isr_MVVM.IView, _
         ByVal a_validationManager As cc_isr_MVVM.IValidationManager) As ICommand
 
-    cc_isr_Core.GuardClauses.GuardNullReference a_view, VBA.Information.TypeName(Me), "View cannot be Nothing."
-    cc_isr_Core.GuardClauses.GuardNullReference a_validationManager, VBA.Information.TypeName(Me), "ValidationManager cannot be Nothing."
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Initialize"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_view, p_source, "View cannot be Nothing."
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_validationManager, p_source, "ValidationManager cannot be Nothing."
     Set Me.View = a_view
     Set Me.ValidationManager = a_validationManager
     
@@ -45,7 +47,9 @@ End Property
 
 Public Property Set View(ByVal a_value As cc_isr_MVVM.IView)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.View, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".View"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.View, p_source
     Set This.View = a_value
 
 End Property
@@ -58,7 +62,9 @@ End Property
 
 Public Property Set ValidationManager(ByVal a_value As IValidationManager)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.ValidationManager, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ValidationManager"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.ValidationManager, p_source
     Set This.ValidationManager = a_value
 
 End Property

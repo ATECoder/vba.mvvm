@@ -56,8 +56,10 @@ End Property
 
 Public Property Set ErrorAdornerFactory(ByVal a_value As IDynamicAdornerFactory)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.ErrorAdornerFactory, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ErrorAdornerFactory"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.ErrorAdornerFactory, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ErrorAdornerFactory"
     Set This.ErrorAdornerFactory = a_value
 
 End Property

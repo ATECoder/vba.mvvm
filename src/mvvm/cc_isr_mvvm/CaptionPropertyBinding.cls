@@ -51,9 +51,11 @@ End Function
 
 Public Sub InjectBindingInfo(ByVal a_bindingInfo As PropertyBindingBase)
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_bindingInfo, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Base, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Handler, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".InjectBindingInfo"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_bindingInfo, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Base, p_source
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Handler, p_source
     Set This.Base = a_bindingInfo
     Set This.Handler = a_bindingInfo
 

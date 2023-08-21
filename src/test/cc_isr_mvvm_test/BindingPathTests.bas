@@ -98,7 +98,7 @@ End Function
 Public Function TestNullArgumentErrorCreatingBindingPath() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.NullArgumentError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.NullArgumentError.Code
     On Error Resume Next
     cc_isr_MVVM.Factory.NewBindingPath().Initialize Nothing, This.Path
     Set p_outcome = AssertExpectError
@@ -117,7 +117,7 @@ End Function
 Public Function TestInvalidArgumentErrorCreatingBindingPath() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidArgumentError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError.Code
     On Error Resume Next
     cc_isr_MVVM.Factory.NewBindingPath().Initialize This.BindingContext, vbNullString
     Set p_outcome = AssertExpectError
@@ -137,7 +137,7 @@ End Function
 Public Function TestInvalidOperationErrorDoubleInitializationBindignPathContext() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError.Code
     On Error Resume Next
     Set This.ConcreteSUT.Context = New TestBindingObject
     Set p_outcome = AssertExpectError
@@ -157,7 +157,7 @@ End Function
 Public Function TestNullArgumentSettingNullBindingPathContext() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.NullArgumentError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.NullArgumentError.Code
     On Error Resume Next
     Set This.ConcreteSUT.Context = Nothing
     Set p_outcome = AssertExpectError
@@ -177,7 +177,7 @@ End Function
 Public Function TestInvalidOperationErrorDoubleInitializationBindignPathPath() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidOperationError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.InvalidOperationError.Code
     On Error Resume Next
     This.ConcreteSUT.Path = This.Path
     Set p_outcome = AssertExpectError
@@ -196,7 +196,7 @@ End Function
 Public Function TestInvalidArgumentErrorSettingEmptyPathBindingPath() As cc_isr_Test_Fx.Assert
     
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidArgumentError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError.Code
     On Error Resume Next
     This.ConcreteSUT.Path = vbNullString
     Set p_outcome = AssertExpectError

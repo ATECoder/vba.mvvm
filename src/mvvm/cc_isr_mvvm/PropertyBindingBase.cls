@@ -125,8 +125,10 @@ Public Property Get Source() As IBindingPath
 End Property
 
 Public Property Set Source(ByVal a_value As IBindingPath)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Source, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Source, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Source"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Source"
     Set This.Source = a_value
 End Property
 
@@ -135,8 +137,10 @@ Public Property Get Target() As IBindingPath
 End Property
 
 Public Property Set Target(ByVal a_value As IBindingPath)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Target, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Target, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Target"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Target"
     Set This.Target = a_value
     If TypeOf This.Target.Context Is MSForms.Control Then
         On Error Resume Next
@@ -176,7 +180,8 @@ Public Property Get Converter() As IValueConverter
 End Property
 
 Public Property Set Converter(ByVal a_value As IValueConverter)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Converter, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Converter, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Converter"
     Set This.Converter = a_value
 End Property
 
@@ -185,7 +190,8 @@ Public Property Get Validator() As IValueValidator
 End Property
 
 Public Property Set Validator(ByVal a_value As IValueValidator)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Validator, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Validator, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Validator"
     Set This.Validator = a_value
     If Not This.Validator Is Nothing Then This.UpdateSourceTrigger = This.Validator.Trigger
 End Property
@@ -195,7 +201,8 @@ Public Property Get StringFormatter() As IStringFormatter
 End Property
 
 Public Property Set StringFormatter(ByVal a_value As IStringFormatter)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.StringFormatter, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.StringFormatter, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".StringFormatter"
     Set This.StringFormatter = a_value
 End Property
 
@@ -204,7 +211,8 @@ Public Property Get ValidationAdorner() As IDynamicAdorner
 End Property
 
 Public Property Set ValidationAdorner(ByVal a_value As IDynamicAdorner)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.ValidationAdorner, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.ValidationAdorner, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".ValidationAdorner"
     Set This.ValidationAdorner = a_value
 End Property
 
@@ -213,8 +221,10 @@ Public Property Get Context() As IAppContext
 End Property
 
 Public Property Set Context(ByVal a_value As IAppContext)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Context, VBA.Information.TypeName(Me)
-    cc_isr_Core.GuardClauses.GuardNullReference a_value, VBA.Information.TypeName(Me)
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Context, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Context"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_value, _
+        ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Context"
     Set This.Context = a_value
 End Property
 

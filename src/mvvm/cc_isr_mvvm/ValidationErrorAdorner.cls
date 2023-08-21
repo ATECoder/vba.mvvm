@@ -50,7 +50,9 @@ Public Function Initialize(ByVal a_target As MSForms.Control, _
         Optional ByVal a_iconFormatter As cc_isr_MVVM.IValidationErrorFormatter = Nothing, _
         Optional ByVal a_iconPosition As cc_isr_MVVM.IDynamicPosition = Nothing) As IDynamicAdorner
     
-    cc_isr_Core.GuardClauses.GuardNullReference a_target, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Initialize"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_target, p_source
     
     Me.InitTarget a_target, a_targetFormatter
     If VBA.IsMissing(a_adornerLabel) Then
@@ -194,7 +196,9 @@ End Property
 
 Public Property Set Target(ByVal a_value As Object)
     
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.Target, VBA.Information.TypeName(Me)
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Targer"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.Target, p_source
     Set This.Target = a_value
 
 End Property
@@ -334,7 +338,9 @@ Private Sub IDynamicAdorner_Hide()
     
     If Not This.Visible Then Exit Sub
     
-    cc_isr_Core.GuardClauses.GuardNullReference This.TargetFormatter, VBA.Information.TypeName(Me), "TargetFormatter is not set for this instance."
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".IDynamicAdorner"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference This.TargetFormatter, p_source
     
     This.TargetFormatter.Restore This.Target
     If Not This.IconControl Is Nothing Then This.IconFormatter.Restore This.IconControl
@@ -347,7 +353,10 @@ End Sub
 Private Sub IDynamicAdorner_Show(ByVal a_message As String)
     
     'If This.Visible Then Exit Sub '<~ what if we just wanted to update the message?
-    cc_isr_Core.GuardClauses.GuardNullReference This.TargetFormatter, VBA.Information.TypeName(Me), "TargetFormatter is not set for this instance."
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".IDynamicAdorner_Show"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference This.TargetFormatter, p_source, _
+        "TargetFormatter is not set for this instance."
     
     This.TargetFormatter.Apply This.Target, a_message
     If Not This.LabelControl Is Nothing Then ShowAdornerLabel a_message

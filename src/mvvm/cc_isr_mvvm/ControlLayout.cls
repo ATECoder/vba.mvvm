@@ -60,8 +60,11 @@ Private Sub Layout(ByVal Object As MSForms.Control)
 End Sub
 
 Public Sub Bind(ByVal a_container As Object, ByVal a_containerItem As MSForms.Control, ByVal a_anchorEdges As AnchorEdges)
-    cc_isr_Core.GuardClauses.GuardNullReference a_container
-    cc_isr_Core.GuardClauses.GuardNullReference a_containerItem
+
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".Bind"
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_container, p_source
+    cc_isr_Core_IO.GuardClauses.GuardNullReference a_containerItem, p_source
     
     Set This.ContainerSize = New ControlSize
     Set This.ContainerItemSize = New ControlSize

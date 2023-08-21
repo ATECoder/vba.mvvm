@@ -37,8 +37,12 @@ Public Property Get View() As ICancellable
 End Property
 
 Public Property Set View(ByVal a_value As ICancellable)
-    cc_isr_Core.GuardClauses.GuardDoubleInitialization This.View, VBA.Information.TypeName(Me)
+    
+    Dim p_source As String
+    p_source = ThisWorkbook.VBProject.Name & "." & VBA.Information.TypeName(Me) & ".View"
+    cc_isr_Core_IO.GuardClauses.GuardDoubleInitialization This.View, p_source
     Set This.View = a_value
+
 End Property
 
 Private Function ICommand_CanExecute(ByVal a_context As Object) As Boolean

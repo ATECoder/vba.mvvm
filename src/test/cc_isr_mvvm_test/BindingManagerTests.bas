@@ -570,7 +570,7 @@ End Function
 Public Function TestNonControlTargetRequiresTargetPropertyPath() As cc_isr_Test_Fx.Assert
 
     Dim p_outcome As cc_isr_Test_Fx.Assert
-    This.ExpectedErrNumber = cc_isr_Core.UserDefinedErrors.InvalidArgumentError.Code
+    This.ExpectedErrNumber = cc_isr_Core_IO.UserDefinedErrors.InvalidArgumentError.Code
     On Error Resume Next
     This.AbstractSUT.BindPropertyPath _
         This.BindingSource, _
@@ -621,7 +621,7 @@ Public Function PendingTestHandlePropertyChangedEvaluatesCommandCanExecute() As 
     Debug.Print "TestHandlePropertyChangedEvaluatesCommandCanExecute " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
-    Set TestHandlePropertyChangedEvaluatesCommandCanExecute = p_outcome
+    Set PendingTestHandlePropertyChangedEvaluatesCommandCanExecute = p_outcome
 
 End Function
 
@@ -642,7 +642,7 @@ Public Function PendingTestHandlePropertyChangedEvaluatesCommandCanExecuteForAny
     Debug.Print "TestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange " & _
         IIf(p_outcome.AssertSuccessful, "passed", "failed: " & p_outcome.AssertMessage)
     
-    Set TestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange = p_outcome
+    Set PendingTestHandlePropertyChangedEvaluatesCommandCanExecuteForAnyPropertyChange = p_outcome
 
 End Function
 
