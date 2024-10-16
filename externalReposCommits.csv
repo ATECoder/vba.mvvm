@@ -1,0 +1,3 @@
+CommitID,LocalRepoName,TargetDirectory
+5abb45216656187e6fc10c7e92a3ad94c54ed86f,core,lib\vba\core
+30f1e13eb7eb1a283e0329debbcf5e852d260f07,mvvm,lib\vba\core
